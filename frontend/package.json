@@ -1,0 +1,33 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "format": "prettier --write .",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxt/eslint": "^0.5.7",
+    "@nuxt/icon": "^1.5.1",
+    "@nuxt/image": "^1.7.0",
+    "@nuxt/ui": "^2.18.4",
+    "@types/node": "^18.17.5",
+    "dayjs": "^1.11.13",
+    "nuxt": "^3.12.4",
+    "nuxt-auth-utils": "^0.3.4",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.6"
+  },
+  "dependencies": {
+    "apexcharts": "^3.53.0",
+    "ky": "^1.7.1",
+    "vue-draggable-plus": "^0.5.3",
+    "vue3-apexcharts": "^1.6.0"
+  }
+}
