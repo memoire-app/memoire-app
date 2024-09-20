@@ -16,7 +16,10 @@ export default class DashboardStatsController {
   async getAll({ auth, request }: HttpContext) {
     this.loggerService.default(request, 'get_all_dashboard_stats', { userId: auth.user?.id })
     const deckList = await Deck.query()
-      .withCount('flashcards')
+      .where('is_deleted', false)
+      .withCount('flashcards', (query) => {
+        query.where('is_deleted', false)
+      })
       .preload('revisions')
       .where('userId', auth.user!.id)
 
