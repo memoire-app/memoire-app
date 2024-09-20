@@ -40,10 +40,7 @@ const copy = () => {
         </UBadge>
       </div>
 
-      <UtilsAuthor
-        :author-name="props.deck.authorName"
-        :original="props.deck.original"
-      />
+      <UtilsAuthor :deck="props.deck" :original="props.deck.original" />
       <UtilsLastUpdatedTag
         v-if="props.deck.updatedAt"
         :date="new Date(props.deck.updatedAt)"

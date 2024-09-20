@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { PublicDeckAPI } from "~/models";
+
 const props = defineProps({
-  authorName: {
-    type: String,
+  deck: {
+    type: Object as PropType<PublicDeckAPI>,
     required: true,
   },
   original: {
@@ -14,7 +16,11 @@ const props = defineProps({
 <template>
   <div>
     <UTooltip
-      :text="props.original ? 'Créateur original' : 'Créateur d\'une copie'"
+      :text="
+        props.original
+          ? `Créateur original`
+          : `Créateur original : ${props.deck.originalAuthorName}`
+      "
     >
       <div class="flex items-center gap-1">
         <UIcon
@@ -26,7 +32,7 @@ const props = defineProps({
           ]"
           size="16"
         />
-        <span class="text-sm">{{ props.authorName }}</span>
+        <span class="text-sm">{{ props.deck.authorName }}</span>
       </div>
     </UTooltip>
   </div>
