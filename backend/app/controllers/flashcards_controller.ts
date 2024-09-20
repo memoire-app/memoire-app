@@ -71,12 +71,11 @@ export default class FlashcardsController {
       userId,
     })
 
-    const result = await this.flashcardsService.deleteFlashcard(userId!, id)
-
-    if (!result.flashcard) {
+    try {
+      await this.flashcardsService.deleteFlashcard(userId!, id)
+      return response.status(200)
+    } catch (error) {
       return response.status(404).send('Flashcard not found')
     }
-
-    return response.status(200)
   }
 }

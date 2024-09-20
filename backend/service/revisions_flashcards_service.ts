@@ -27,6 +27,7 @@ export default class RevisionsFlashcardsService {
     const revision = await Revision.findOrFail(revisionId)
     const totalFlashcardsInDeckResult = await Flashcard.query()
       .where('deck_id', revision.deckId)
+      .where('is_deleted', false)
       .count('* as total')
 
     const finishedFlashcardsCountResult = await RevisionsFlashcard.query()

@@ -50,34 +50,32 @@ export default class ApiBuilderService {
   }
 
   buildFlashCardListApi(
-    deckTitle: string,
-    flashcards: Flashcard[],
-    currentRevision: boolean,
     deck: Deck,
+    currentRevision: boolean,
     nbRevision?: number,
     flashcardsNotDone?: Flashcard[]
   ): FlashCardListApi {
     if (!currentRevision) {
       return {
-        flashcards: flashcards.map((flashcard) => {
-          return this.buildFlashCardApi(deckTitle, flashcard)
+        flashcards: deck.flashcards.map((flashcard) => {
+          return this.buildFlashCardApi(deck.title, flashcard)
         }),
-        deckTitle: deckTitle,
+        deckTitle: deck.title,
         deckTags: deck.tagArray,
         nbRevisions: nbRevision!,
         deckIsPublic: deck.isPublic,
       }
     } else {
       return {
-        deckTitle: deckTitle,
-        flashcards: flashcards.map((flashcard) => {
-          return this.buildFlashCardApi(deckTitle, flashcard)
+        deckTitle: deck.title,
+        flashcards: deck.flashcards.map((flashcard) => {
+          return this.buildFlashCardApi(deck.title, flashcard)
         }),
         deckTags: deck.tagArray,
         nbRevisions: nbRevision!,
         currentRevision: {
           flashcards: flashcardsNotDone!.map((flashcard) => {
-            return this.buildFlashCardApi(deckTitle, flashcard)
+            return this.buildFlashCardApi(deck.title, flashcard)
           }),
         },
         deckIsPublic: deck.isPublic,
