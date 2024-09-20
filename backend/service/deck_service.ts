@@ -9,6 +9,7 @@ export default class DeckService {
 
   async getPublicDecks(search: string, page: number, limit: number) {
     const { searchedDecks, nbTotalSearched } = await this.queryPublicDecks(search, page, limit)
+
     const totalDecks = search
       ? Number(nbTotalSearched[0].total)
       : await this.countTotalPublicDecks()
@@ -20,15 +21,20 @@ export default class DeckService {
       .where('created_at', '>', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000))
       .count('id as total')
 
+    const decks = await Promise.all(
+      searchedDecks.all().map(async (deck) => {
+        if (deck.original) {
+          return this.apiBuilderService.buildPublicDeckApi(deck)
+        }
+        return this.apiBuilderService.buildPublicDeckApi(deck, await this.getOriginalAuthor(deck))
+      })
+    )
+
     return {
+      decks,
       nbTotalDecks: await this.countTotalPublicDecks(),
       nbWeeklyDecks: Number(nbWeeklyDecks[0].total),
       nbMatchedDecks: totalDecks,
-      decks: searchedDecks
-        .all()
-        .map((deck) =>
-          this.apiBuilderService.buildPublicDeckApi(deck, deck.user.username || 'Anonymous')
-        ),
     }
   }
 
@@ -251,5 +257,14 @@ export default class DeckService {
     }
 
     return true
+  }
+
+  async getOriginalAuthor(deck: Deck): Promise<string> {
+    const originalDeck = await Deck.query().where('code', deck.originalCode).preload('user').first()
+    if (!originalDeck) {
+      throw new Error('Original deck not found')
+    } else {
+      return originalDeck.user.username as string
+    }
   }
 }

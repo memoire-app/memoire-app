@@ -120,7 +120,7 @@ export default class ApiBuilderService {
     }
   }
 
-  buildPublicDeckApi(deck: Deck, author: string): PublicDeckAPI {
+  buildPublicDeckApi(deck: Deck, originalAuthorName?: string): PublicDeckAPI {
     return {
       id: deck.id,
       title: deck.title,
@@ -129,7 +129,8 @@ export default class ApiBuilderService {
       code: deck.code,
       createdAt: deck.createdAt.toJSDate(),
       updatedAt: deck.updatedAt ? deck.updatedAt.toJSDate() : null,
-      authorName: author,
+      authorName: deck.user.username || 'Anonymous',
+      originalAuthorName: originalAuthorName,
       flashcards: deck.flashcards.map((flashcard) => {
         return this.buildFlashCardApi(deck.title, flashcard)
       }),
