@@ -11,8 +11,11 @@ export default class FlashcardsService {
     // Find the deck based on the code and the authenticated user
     const deck = await Deck.query()
       .where('code', code)
+      .where('is_deleted', false)
       .andWhere('user_id', userId) // Filter by the logged-in user
-      .preload('flashcards') // Preload the related flashcards
+      .preload('flashcards', (query) => {
+        query.where('is_deleted', false)
+      })
       .orderBy('created_at', 'asc')
       .first()
 
@@ -38,10 +41,13 @@ export default class FlashcardsService {
     const nbRevision = revisions[0].$extras.revisions_count
 
     if (currentRevision) {
-      // Get all flashcards not done yet (the flashcards not present in revisions_flashcards for the current revision_id and flashcard_id + with retention_type != 'again')
+      // Get all flashcards not done yet =
+      // - the flashcards not present in revisions_flashcards for the current revision_id and flashcard_id
+      // - with retention_type != 'again'
       const flashcardsNotDone = await deck
         .related('flashcards')
         .query()
+        .where('is_deleted', false)
         .whereNotExists((query) => {
           query
             .from('revisions_flashcards')
@@ -50,14 +56,7 @@ export default class FlashcardsService {
             .where('retention_type', '!=', 'again')
         })
 
-      return this.apiBuilderService.buildFlashCardListApi(
-        deck.title,
-        deck.flashcards,
-        true,
-        deck,
-        nbRevision,
-        flashcardsNotDone
-      )
+      return this.apiBuilderService.buildFlashCardListApi(deck, true, nbRevision, flashcardsNotDone)
     } else {
       return {
         deckTitle: deck.title,
@@ -110,11 +109,9 @@ export default class FlashcardsService {
       })
       .first()
 
-    if (!flashcard) {
-      return { flashcard: null }
+    if (flashcard) {
+      flashcard.isDeleted = true
+      await flashcard.save()
     }
-
-    await flashcard.delete()
-    return { flashcard }
   }
 }

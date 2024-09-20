@@ -32,34 +32,44 @@ export default class DeckService {
   }
 
   private async queryPublicDecks(search: string, page: number, limit: number) {
+    const searchedDecks = await Deck.query()
+      .where('is_public', true)
+      .where('is_deleted', false)
+      .where((query) => {
+        query.where('title', 'ILIKE', `%${search}%`).orWhere('tags', 'ILIKE', `%${search}%`)
+      })
+      .preload('flashcards')
+      .preload('user')
+      .orderBy('updated_at', 'desc')
+      .paginate(page, limit)
+
+    const nbTotalSearched = await db
+      .from('decks')
+      .where('is_public', true)
+      .where((query) => {
+        query.where('title', 'ILIKE', `%${search}%`).orWhere('tags', 'ILIKE', `%${search}%`)
+      })
+      .count('id as total')
+
     return {
-      searchedDecks: await Deck.query()
-        .where('isPublic', true)
-        .where((query) => {
-          query.where('title', 'ILIKE', `%${search}%`).orWhere('tags', 'ILIKE', `%${search}%`)
-        })
-        .preload('flashcards')
-        .preload('user')
-        .orderBy('updated_at', 'desc')
-        .paginate(page, limit),
-      nbTotalSearched: await db
-        .from('decks')
-        .where('is_public', true)
-        .where((query) => {
-          query.where('title', 'ILIKE', `%${search}%`).orWhere('tags', 'ILIKE', `%${search}%`)
-        })
-        .count('id as total'),
+      searchedDecks,
+      nbTotalSearched,
     }
   }
 
   private async countTotalPublicDecks() {
-    const [{ total }] = await db.from('decks').where('is_public', true).count('id as total')
+    const [{ total }] = await db
+      .from('decks')
+      .where('is_public', true)
+      .where('is_deleted', false)
+      .count('id as total')
     return Number(total)
   }
 
   async getUserDecks(userId: number, search: string, page: number, limit: number) {
     const decksWithRevisionCount = await Deck.query()
       .where('user_id', userId)
+      .where('is_deleted', false)
       .where((query) => {
         query.where('title', 'ILIKE', `%${search}%`).orWhere('tags', 'ILIKE', `%${search}%`)
       })
@@ -75,6 +85,7 @@ export default class DeckService {
     const nbDecks = await db
       .from('decks')
       .where('user_id', userId)
+      .where('is_deleted', false)
       .where((query) => {
         query.where('title', 'ILIKE', `%${search}%`).orWhere('tags', 'ILIKE', `%${search}%`)
       })
@@ -108,12 +119,26 @@ export default class DeckService {
   }
 
   async deleteDeck(userId: number, code: string) {
-    const deck = await Deck.query().where('user_id', userId).where('code', code).first()
+    const deck = await Deck.query()
+      .where('user_id', userId)
+      .preload('flashcards')
+      .where('code', code)
+      .first()
     if (!deck) {
       return false
     }
 
-    await deck.delete()
+    // Delete all flashcards in the deck
+    await deck.related('flashcards').saveMany(
+      deck.flashcards.map((flashcard) => {
+        flashcard.isDeleted = true
+        return flashcard
+      })
+    )
+    // Delete the deck
+    deck.isDeleted = true
+    await deck.save()
+
     return true
   }
 
