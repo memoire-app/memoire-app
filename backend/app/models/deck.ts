@@ -36,6 +36,9 @@ export default class Deck extends BaseModel {
   @column()
   declare isPublic: boolean
 
+  @column()
+  declare isDeleted: boolean
+
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
 
