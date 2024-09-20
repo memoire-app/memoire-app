@@ -46,6 +46,7 @@ export type PublicDeckAPI = {
   createdAt: Date
   updatedAt: Date | null
   authorName: string
+  originalAuthorName: string | null
   flashcards: FlashcardAPI[]
 }
 
