@@ -16,6 +16,7 @@ export default class DeckService {
     const nbWeeklyDecks = await db
       .from('decks')
       .where('is_public', true)
+      .where('is_deleted', false)
       .where('created_at', '>', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000))
       .count('id as total')
 
@@ -38,7 +39,9 @@ export default class DeckService {
       .where((query) => {
         query.where('title', 'ILIKE', `%${search}%`).orWhere('tags', 'ILIKE', `%${search}%`)
       })
-      .preload('flashcards')
+      .preload('flashcards', (query) => {
+        query.where('is_deleted', false)
+      })
       .preload('user')
       .orderBy('updated_at', 'desc')
       .paginate(page, limit)
@@ -46,6 +49,7 @@ export default class DeckService {
     const nbTotalSearched = await db
       .from('decks')
       .where('is_public', true)
+      .where('is_deleted', false)
       .where((query) => {
         query.where('title', 'ILIKE', `%${search}%`).orWhere('tags', 'ILIKE', `%${search}%`)
       })
@@ -74,7 +78,9 @@ export default class DeckService {
         query.where('title', 'ILIKE', `%${search}%`).orWhere('tags', 'ILIKE', `%${search}%`)
       })
       .withCount('revisions')
-      .withCount('flashcards')
+      .withCount('flashcards', (query) => {
+        query.where('is_deleted', false)
+      })
       .orderBy('updated_at', 'desc')
       .paginate(page, limit)
 
