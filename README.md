@@ -63,11 +63,10 @@ Un [Discord](https://discord.gg/CcqzXXJfvm) est disponible pour échanger facile
 
 ## 💻 Configuration
 
-Le projet utilise `pnpm` et sa gestion des monorepo grâce à un `workspace`, ce qui permet entre autre de partager les types (`/shared`). \
-Après avoir récupéré le projet localement, vous pouvez installer les dépendances nécessaires avec par exemple :
+Après avoir récupéré le projet localement, vous pouvez installer les dépendances nécessaires avec :
 
 ```
-pnpm i
+npm i
 ```
 
 Pour créer les `containers Docker` :
@@ -84,7 +83,7 @@ Des `.env` sont nécessaires au fonctionnement de l'application (pour le `front`
 Lorsque ces différentes étapes sont finies, vous pouvez lancer le projet en exécutant (dans `/frontend` et `/backend`) la commande :
 
 ```
-pnpm run dev
+npm run dev
 ```
 
 # ⚙️ Architecture

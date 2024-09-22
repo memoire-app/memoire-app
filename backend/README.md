@@ -7,18 +7,23 @@
 - 🐘 BDD : [PostgreSQL](https://www.postgresql.org/)
 
 ## 💻 Configuration
+
 - Installer les dépendances
+
 ```
-pnpm i
+npm i
 ```
+
 - Configurer le fichier `.env` (voir le `.env.example`)
 
 - Démarrer l'application
+
 ```
-pnpm run dev
+npm run dev
 ```
 
 - Exécuter les tests
+
 ```
-pnpm run test
+npm run test
 ```
