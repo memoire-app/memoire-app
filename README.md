@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/f47c6440-37f2-493e-92fc-aad636b5837a)
+![image](https://github.com/user-attachments/assets/05b8ff42-662e-44b7-a568-9480138a9c0a)
 
 # 🚀 Fonctionnalités
 

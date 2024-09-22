@@ -12,23 +12,11 @@ export default class RevisionsFlashcardsService {
     flashcardId: number,
     retentionType: RetentionType
   ) {
-    // Check if a record with the same revisionId and flashcardId already exists
-    let revisionsFlashcard = await RevisionsFlashcard.query()
-      .where('revision_id', revisionId)
-      .andWhere('flashcard_id', flashcardId)
-      .first()
-
-    if (revisionsFlashcard) {
-      revisionsFlashcard.merge({ retentionType, updatedAt: DateTime.local() })
-      await revisionsFlashcard.save()
-    } else {
-      // Create a new row if it does not exist
-      revisionsFlashcard = await RevisionsFlashcard.create({
-        revisionId,
-        flashcardId,
-        retentionType,
-      })
-    }
+    await RevisionsFlashcard.create({
+      revisionId,
+      flashcardId,
+      retentionType,
+    })
 
     // If the retention type is 'again', no need to check if the revision is finished
     if (retentionType === 'again') {
@@ -39,6 +27,7 @@ export default class RevisionsFlashcardsService {
     const revision = await Revision.findOrFail(revisionId)
     const totalFlashcardsInDeckResult = await Flashcard.query()
       .where('deck_id', revision.deckId)
+      .where('is_deleted', false)
       .count('* as total')
 
     const finishedFlashcardsCountResult = await RevisionsFlashcard.query()

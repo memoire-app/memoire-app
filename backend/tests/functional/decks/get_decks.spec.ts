@@ -2,6 +2,8 @@ import { DeckFactory } from '#database/factories/deck_factory'
 import { UserFactory } from '#database/factories/user_factory'
 import User from '#models/user'
 import { test } from '@japa/runner'
+import DeckService from '../../../service/deck_service.js'
+import ApiBuilderService from '../../../service/api_builder_service.js'
 
 let user: User
 
@@ -68,5 +70,43 @@ test.group('Users get their decks', (group) => {
     // Make sure the deck is the same
     assert.equal(deckById?.title, deck.title)
     assert.equal(deckById?.userId, user.id)
+  })
+
+  test('Create a deck and delete it for a user', async ({ assert }) => {
+    const deck = await DeckFactory.create()
+    const deckService = new DeckService(new ApiBuilderService())
+    await user.related('decks').create(deck)
+
+    const userDeck = await user.related('decks').query().first()
+
+    if (!userDeck) {
+      return assert.fail('Deck not found')
+    }
+
+    await deckService.deleteDeck(user.id, userDeck.code)
+
+    // Make sure the deck is deleted
+    const deletedDeck = await user.related('decks').query().where('code', userDeck.code).first()
+    assert.isTrue(deletedDeck?.isDeleted)
+  })
+
+  test('The number of public decks should match the non-deleted number decks', async ({
+    assert,
+  }) => {
+    const deckService = new DeckService(new ApiBuilderService())
+    const decks = await DeckFactory.createMany(3)
+    await user.related('decks').createMany(decks)
+
+    const userDecks = await user.related('decks').query()
+
+    const publicDecksNotDeleted = userDecks.filter((deck) => deck.isPublic && !deck.isDeleted)
+
+    const res = await deckService.deleteDeck(user.id, userDecks[0].code)
+
+    assert.isTrue(res)
+
+    const publicDecks = await deckService.getPublicDecks('', 1, 25)
+
+    assert.equal(publicDecks.nbTotalDecks, publicDecksNotDeleted.length)
   })
 })

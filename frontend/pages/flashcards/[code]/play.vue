@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import type { RevisionAPI, RetentionType, FlashCardListApi } from "~/models";
+import type {
+  RevisionAPI,
+  RetentionType,
+  FlashCardListApi,
+  FlashcardAPI,
+} from "~/models";
 
 definePageMeta({
   layout: "app",
@@ -67,14 +72,16 @@ const currentFlashcard = computed(() => {
       const filteredFlashcards = flashcards.filter(
         (flashcard) => flashcard.id !== flashcardIdSent.value,
       );
-      return filteredFlashcards[
-        Math.floor(Math.random() * filteredFlashcards.length)
-      ];
+      return getRandomFlashcard(filteredFlashcards);
     }
-    return flashcards[Math.floor(Math.random() * flashcards.length)];
+    return getRandomFlashcard(flashcards);
   }
   return null;
 });
+
+const getRandomFlashcard = (flashcardList: FlashcardAPI[]) => {
+  return flashcardList[Math.floor(Math.random() * flashcardList.length)];
+};
 
 type RetentionSelected = {
   message: string;
@@ -223,16 +230,15 @@ defineShortcuts({
           </svg>
         </template>
       </FlashcardPlayerCard>
-      <FlashcardPlayerCard v-if="status === 'success'" :side="side">
+      <FlashcardPlayerCard
+        v-if="status === 'success' && currentFlashcard"
+        :side="side"
+      >
         <template #front>
-          <span class="text-2xl">
-            {{ currentFlashcard?.front }}
-          </span>
+          <span class="text-2xl">{{ currentFlashcard.front }}</span>
         </template>
         <template #back>
-          <span class="text-2xl">
-            {{ currentFlashcard?.back }}
-          </span>
+          <span class="text-2xl">{{ currentFlashcard.back }}</span>
         </template>
       </FlashcardPlayerCard>
       <UButton

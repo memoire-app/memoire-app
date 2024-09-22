@@ -50,34 +50,32 @@ export default class ApiBuilderService {
   }
 
   buildFlashCardListApi(
-    deckTitle: string,
-    flashcards: Flashcard[],
-    currentRevision: boolean,
     deck: Deck,
+    currentRevision: boolean,
     nbRevision?: number,
     flashcardsNotDone?: Flashcard[]
   ): FlashCardListApi {
     if (!currentRevision) {
       return {
-        flashcards: flashcards.map((flashcard) => {
-          return this.buildFlashCardApi(deckTitle, flashcard)
+        flashcards: deck.flashcards.map((flashcard) => {
+          return this.buildFlashCardApi(deck.title, flashcard)
         }),
-        deckTitle: deckTitle,
+        deckTitle: deck.title,
         deckTags: deck.tagArray,
         nbRevisions: nbRevision!,
         deckIsPublic: deck.isPublic,
       }
     } else {
       return {
-        deckTitle: deckTitle,
-        flashcards: flashcards.map((flashcard) => {
-          return this.buildFlashCardApi(deckTitle, flashcard)
+        deckTitle: deck.title,
+        flashcards: deck.flashcards.map((flashcard) => {
+          return this.buildFlashCardApi(deck.title, flashcard)
         }),
         deckTags: deck.tagArray,
         nbRevisions: nbRevision!,
         currentRevision: {
           flashcards: flashcardsNotDone!.map((flashcard) => {
-            return this.buildFlashCardApi(deckTitle, flashcard)
+            return this.buildFlashCardApi(deck.title, flashcard)
           }),
         },
         deckIsPublic: deck.isPublic,
@@ -122,7 +120,7 @@ export default class ApiBuilderService {
     }
   }
 
-  buildPublicDeckApi(deck: Deck, author: string): PublicDeckAPI {
+  buildPublicDeckApi(deck: Deck, originalAuthorName?: string): PublicDeckAPI {
     return {
       id: deck.id,
       title: deck.title,
@@ -131,7 +129,8 @@ export default class ApiBuilderService {
       code: deck.code,
       createdAt: deck.createdAt.toJSDate(),
       updatedAt: deck.updatedAt ? deck.updatedAt.toJSDate() : null,
-      authorName: author,
+      authorName: deck.user.username || 'Anonymous',
+      originalAuthorName: originalAuthorName,
       flashcards: deck.flashcards.map((flashcard) => {
         return this.buildFlashCardApi(deck.title, flashcard)
       }),

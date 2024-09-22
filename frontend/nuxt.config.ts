@@ -8,17 +8,13 @@ export default defineNuxtConfig({
     },
   },
 
+  ssr: false,
   icon: {
     serverBundle: "remote",
     localApiEndpoint: "/icon",
   },
 
-  modules: [
-    "@nuxt/ui",
-    "@nuxt/image",
-    "@nuxt/icon",
-    "@nuxt/eslint",
-  ],
+  modules: ["@nuxt/ui", "@nuxt/image", "@nuxt/icon", "@nuxt/eslint"],
   css: ["~/assets/css/main.css"],
 
   runtimeConfig: {
