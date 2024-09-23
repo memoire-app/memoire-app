@@ -260,11 +260,18 @@ export default class DeckService {
   }
 
   async getOriginalAuthor(deck: Deck): Promise<string> {
-    const originalDeck = await Deck.query().where('code', deck.originalCode).preload('user').first()
-    if (!originalDeck) {
-      throw new Error('Original deck not found')
+    // Recursive function to find the original author of a deck. If a deck is original, it returns the author's username
+    if (deck.original) {
+      return deck.user.username as string
     } else {
-      return originalDeck.user.username as string
+      const originalDeck = await Deck.query()
+        .where('code', deck.originalCode)
+        .preload('user')
+        .first()
+      if (!originalDeck) {
+        throw new Error('Original deck not found')
+      }
+      return this.getOriginalAuthor(originalDeck)
     }
   }
 }
