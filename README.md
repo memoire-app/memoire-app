@@ -58,7 +58,7 @@ Références :
 
 # 🤝 Contribuer
 
-Les contributions à travers du développement, des [issues](https://github.com/RemiSaurel/memoire/issues) ou des demandes de fonctionnalités sont les bienvenus. \
+Les contributions à travers du développement, des [issues](https://github.com/memoire-app/memoire-app/issues) ou des demandes de fonctionnalités sont les bienvenus. \
 Un [Discord](https://discord.gg/CcqzXXJfvm) est disponible pour échanger facilement.
 
 ## 💻 Configuration
