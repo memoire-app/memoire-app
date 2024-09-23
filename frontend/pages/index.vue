@@ -18,6 +18,10 @@ const FEATURES = [
     content: "😎 Partage tes decks avec tes amis et toute la communauté",
   },
   {
+    title: "Consulte tes statistiques",
+    content: "📊 Consulte tes statistiques pour voir ta progression",
+  },
+  {
     title: "Des nouveautés à découvrir",
     content: "✨ De belles choses vont arriver, reste connecté",
   },
@@ -106,24 +110,19 @@ const clearActive = () => {
           ?
         </span>
         <div class="flex flex-col gap-8 lg:flex-row lg:gap-12">
-          <div class="flex w-full flex-col gap-8 lg:w-3/5">
+          <div class="flex w-full flex-1 flex-col gap-8 lg:w-3/5">
             <LandingAutoplayBox
               v-for="(feature, i) in FEATURES"
               :key="feature.title"
               :title="feature.title"
               :content="feature.content"
               :index="i + 1"
-              :is-active="i === activeIndex"
               @mouseenter="setActive(i)"
               @mouseleave="clearActive"
             />
           </div>
           <div class="lg:w-2/5">
-            <img
-              src="/SCREEN.png"
-              alt="hero"
-              class="h-full w-full object-cover"
-            />
+            <img src="/demo.gif" alt="hero" class="h-full w-full" />
           </div>
         </div>
       </UContainer>
