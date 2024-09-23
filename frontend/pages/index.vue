@@ -134,7 +134,12 @@ const clearActive = () => {
         <span class="text-center text-3xl font-bold lg:text-5xl"
           >Questions fréquentes</span
         >
-        <UAccordion size="xl" multiple :items="QUESTIONS" />
+        <UAccordion
+          size="xl"
+          multiple
+          :items="QUESTIONS"
+          :ui="{ default: { truncate: false, class: 'text-left mb-1.5' } }"
+        />
       </UContainer>
 
       <UContainer
