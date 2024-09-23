@@ -67,11 +67,12 @@ const clearActive = () => {
       <UContainer
         class="flex w-full flex-col items-center justify-center gap-4 pt-24 text-center md:pt-48"
       >
-        <div
-          class="rounded-3xl border border-neutral-200 px-3 py-1 text-sm text-neutral-700 dark:text-neutral-300"
+        <ULink
+          class="rounded-3xl border border-neutral-200 px-3 py-1 text-sm text-neutral-700 transition-all hover:scale-105 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+          to="/login"
         >
           ✨ Rejoins l'aventure dès maintenant
-        </div>
+        </ULink>
 
         <h1 class="text-4xl font-bold lg:text-6xl">
           Révise efficacement grâce aux flashcards
