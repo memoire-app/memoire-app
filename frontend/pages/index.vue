@@ -18,6 +18,10 @@ const FEATURES = [
     content: "😎 Partage tes decks avec tes amis et toute la communauté",
   },
   {
+    title: "Consulte tes statistiques",
+    content: "📊 Consulte tes statistiques pour voir ta progression",
+  },
+  {
     title: "Des nouveautés à découvrir",
     content: "✨ De belles choses vont arriver, reste connecté",
   },
@@ -67,11 +71,12 @@ const clearActive = () => {
       <UContainer
         class="flex w-full flex-col items-center justify-center gap-4 pt-24 text-center md:pt-48"
       >
-        <div
-          class="rounded-3xl border border-neutral-200 px-3 py-1 text-sm text-neutral-700 dark:text-neutral-300"
+        <ULink
+          class="rounded-3xl border border-neutral-200 px-3 py-1 text-sm text-neutral-700 transition-all hover:scale-105 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+          to="/login"
         >
           ✨ Rejoins l'aventure dès maintenant
-        </div>
+        </ULink>
 
         <h1 class="text-4xl font-bold lg:text-6xl">
           Révise efficacement grâce aux flashcards
@@ -105,24 +110,19 @@ const clearActive = () => {
           ?
         </span>
         <div class="flex flex-col gap-8 lg:flex-row lg:gap-12">
-          <div class="flex w-full flex-col gap-8 lg:w-3/5">
+          <div class="flex w-full flex-1 flex-col gap-8 lg:w-3/5">
             <LandingAutoplayBox
               v-for="(feature, i) in FEATURES"
               :key="feature.title"
               :title="feature.title"
               :content="feature.content"
               :index="i + 1"
-              :is-active="i === activeIndex"
               @mouseenter="setActive(i)"
               @mouseleave="clearActive"
             />
           </div>
           <div class="lg:w-2/5">
-            <img
-              src="/SCREEN.png"
-              alt="hero"
-              class="h-full w-full object-cover"
-            />
+            <img src="/demo.gif" alt="hero" class="h-full w-full" />
           </div>
         </div>
       </UContainer>
@@ -133,7 +133,12 @@ const clearActive = () => {
         <span class="text-center text-3xl font-bold lg:text-5xl"
           >Questions fréquentes</span
         >
-        <UAccordion size="xl" multiple :items="QUESTIONS" />
+        <UAccordion
+          size="xl"
+          multiple
+          :items="QUESTIONS"
+          :ui="{ default: { truncate: false, class: 'text-left mb-1.5' } }"
+        />
       </UContainer>
 
       <UContainer

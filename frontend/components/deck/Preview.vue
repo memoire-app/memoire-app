@@ -16,10 +16,7 @@ const props = defineProps({
   >
     <div class="flex flex-col gap-2">
       <span class="text-xl font-bold">{{ props.deck.title }}</span>
-      <UtilsAuthor
-        :author-name="props.deck.authorName"
-        :original="props.deck.original"
-      />
+      <UtilsAuthor :deck="props.deck" :original="props.deck.original" />
       <div class="flex flex-wrap gap-2 pr-4">
         <UBadge
           v-for="(tag, i) in props.deck.tagArray"
