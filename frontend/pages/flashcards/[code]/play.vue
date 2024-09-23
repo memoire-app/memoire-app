@@ -30,6 +30,7 @@ const revisionId = ref<number | null>(null);
 const finished = ref(false);
 const isFinishedStateOpen = ref(false);
 const flashcardIdSent = ref();
+const isEvaluationHelpOpen = ref(false);
 
 const nbItemsCompleted = computed(() => {
   if (revisionId.value && data.value?.currentRevision) {
@@ -208,7 +209,7 @@ defineShortcuts({
 
     <div
       v-if="!finished"
-      class="mb-4 flex w-full flex-col gap-4 transition-all duration-500 lg:flex-row"
+      class="mb-4 flex w-full flex-col gap-4 transition-all duration-500"
     >
       <FlashcardPlayerCard v-if="status === 'pending'" :side="side"
         ><template #front>
@@ -244,7 +245,7 @@ defineShortcuts({
       <UButton
         :ui="{ rounded: 'rounded-none' }"
         size="sm"
-        class="flex min-h-12 flex-row items-center justify-center gap-3 lg:max-w-20 lg:flex-col"
+        class="flex min-h-12 items-center justify-center gap-3"
         color="white"
         @click="side = side === 'front' ? 'back' : 'front'"
       >
@@ -261,7 +262,17 @@ defineShortcuts({
     </div>
 
     <div v-if="!finished" class="flex flex-col gap-2">
-      <span class="text-sm text-neutral-500">Évaluation</span>
+      <div class="flex items-center gap-0.5">
+        <span class="text-sm text-neutral-500">Évaluation</span>
+        <UButton
+          icon="i-lucide-badge-info"
+          size="xs"
+          color="gray"
+          square
+          variant="ghost"
+          @click="isEvaluationHelpOpen = true"
+        />
+      </div>
       <FlashcardPlayerRetentionButtonsContainer
         @retention-selected="handleRetentionSelected"
       />
@@ -279,6 +290,61 @@ defineShortcuts({
             >Réviser de nouveau</UButton
           >
           <UButton @click="handleModalAction('back')">Retour au deck</UButton>
+        </div>
+      </div>
+    </UModal>
+
+    <!-- Modal for Evaluation Help -->
+    <UModal v-model="isEvaluationHelpOpen" prevent-close>
+      <div class="flex flex-col gap-6 p-4">
+        <div class="text-xl font-bold">🤔 Comment ça marche ?</div>
+        <div class="text-sm">
+          Si tu réponds avec
+          <UtilsHighlightedWord
+            :color-options="{
+              borderColor: 'border-yellow-300',
+              backgroundColor: 'bg-yellow-50',
+              darkBorderColor: 'dark:border-yellow-700',
+              darkBackgroundColor: 'dark:bg-yellow-600',
+            }"
+            >Difficile</UtilsHighlightedWord
+          >,
+          <UtilsHighlightedWord>Bien</UtilsHighlightedWord>
+          ou
+          <UtilsHighlightedWord
+            :color-options="{
+              borderColor: 'border-green-300',
+              backgroundColor: 'bg-green-50',
+              darkBorderColor: 'dark:border-green-950',
+              darkBackgroundColor: 'dark:bg-green-900',
+            }"
+            >Facile</UtilsHighlightedWord
+          >, la carte ne sera pas rejouée sur la même session.
+        </div>
+        <div class="text-sm">
+          Si tu réponds avec
+          <UtilsHighlightedWord
+            :color-options="{
+              borderColor: 'border-red-300',
+              backgroundColor: 'bg-red-50',
+              darkBorderColor: 'dark:border-red-950',
+              darkBackgroundColor: 'dark:bg-red-900',
+            }"
+            >À revoir</UtilsHighlightedWord
+          >, la carte sera rejouée sur la même session plus tard.
+        </div>
+        <div class="text-sm">
+          Plus d'informations sur le
+          <UButton
+            class="p-1"
+            to="https://github.com/memoire-app/memoire-app"
+            target="_blank"
+            variant="link"
+            >GitHub</UButton
+          >.
+        </div>
+        <div class="flex justify-end gap-2">
+          <UButton @click="isEvaluationHelpOpen = false">Fermer</UButton>
         </div>
       </div>
     </UModal>
