@@ -35,7 +35,7 @@ export default class UsersController {
       // Login and authenticate the user with the data provided by the provider
       const userData = await ally.use(params.provider).user()
 
-      const user = await User.firstOrCreate(
+      const user = await User.updateOrCreate(
         { email: userData.email },
         {
           email: userData.email,
