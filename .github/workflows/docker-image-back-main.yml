@@ -5,11 +5,15 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
     paths:
       - 'backend/**'
   pull_request:
     branches:
       - main
+    tags:
+      - 'v*'
     paths:
       - 'backend/**'
 
@@ -26,19 +30,30 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # Step 2: Log in to Docker Hub using Access Token
+    # Step 2; Get the tag version (Git tag)
+    - name: Get current Git tag
+      id: get_tag
+      run: echo "TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+    # Step 3: Log in to Docker Hub using Access Token
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_ACCESS_TOKEN }} 
 
-    # Step 3: Build the Backend Docker image
+    # Step 4: Build the Backend Docker image
     - name: Build backend image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/backend-app-dev:latest ./backend
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/backend-app:${{ env.TAG }} ./backend
 
-    # Step 4: Push the Backend Docker image to Docker Hub
+    # Step 5: Push the Backend Docker image to Docker Hub
     - name: Push backend image
       run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/backend-app-dev:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/backend-app:${{ env.TAG }}
+
+    # Step 6; Also push a 'latest' tag
+    - name: Push Docker image with 'latest' tag
+      run: |
+        docker tag ${{ secrets.DOCKER_USERNAME }}/backend-app:${{ env.TAG }} ${{ secrets.DOCKER_USERNAME }}/backend-app:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/backend-app:latest
