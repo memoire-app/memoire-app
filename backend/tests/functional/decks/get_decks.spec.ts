@@ -130,4 +130,45 @@ test.group('Users get their decks', (group) => {
 
     assert.equal(publicDecks.nbTotalDecks, publicDecksNotDeleted.length)
   })
+
+  test('When a deck was public and is private, it should not be found in the public decks anymore', async ({
+    assert,
+  }) => {
+    const deckService = new DeckService(new ApiBuilderService())
+    const decks = await DeckFactory.createMany(3)
+    await user.related('decks').createMany(decks)
+
+    const userDecks = await user.related('decks').query()
+
+    assert.equal(userDecks.length, 3)
+
+    // Make them public using for...of to handle async operations correctly
+    for (const deck of userDecks) {
+      await deckService.publicizeDeck(user.id, deck.code)
+    }
+
+    // Fetch the updated deck data after making them public
+    let updatedUserDecks = await user.related('decks').query()
+
+    assert.equal(updatedUserDecks.filter((deck) => deck.isPublic).length, 3)
+    assert.equal(updatedUserDecks.filter((deck) => !deck.isDeleted).length, 3)
+    assert.equal(updatedUserDecks.filter((deck) => deck.isDeleted).length, 0)
+
+    // Make the first deck private
+    const res = await deckService.privatizeDeck(user.id, updatedUserDecks[0].code)
+    assert.isTrue(res)
+
+    // Re-fetch the updated deck data after making it private
+    updatedUserDecks = await user.related('decks').query()
+
+    const publicDecksNotDeleted = updatedUserDecks.filter(
+      (deck) => deck.isPublic && !deck.isDeleted
+    )
+
+    assert.equal(publicDecksNotDeleted.length, 2)
+
+    const publicDecks = await deckService.getPublicDecks('', 1, 25)
+
+    assert.equal(publicDecks.nbTotalDecks, publicDecksNotDeleted.length)
+  })
 })
