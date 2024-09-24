@@ -99,11 +99,32 @@ test.group('Users get their decks', (group) => {
 
     const userDecks = await user.related('decks').query()
 
-    const publicDecksNotDeleted = userDecks.filter((deck) => deck.isPublic && !deck.isDeleted)
+    assert.equal(userDecks.length, 3)
 
-    const res = await deckService.deleteDeck(user.id, userDecks[0].code)
+    // Make them public using for...of to handle async operations correctly
+    for (const deck of userDecks) {
+      await deckService.publicizeDeck(user.id, deck.code)
+    }
 
+    // Fetch the updated deck data after making them public
+    let updatedUserDecks = await user.related('decks').query()
+
+    assert.equal(updatedUserDecks.filter((deck) => deck.isPublic).length, 3)
+    assert.equal(updatedUserDecks.filter((deck) => !deck.isDeleted).length, 3)
+    assert.equal(updatedUserDecks.filter((deck) => deck.isDeleted).length, 0)
+
+    // Delete the first deck
+    const res = await deckService.deleteDeck(user.id, updatedUserDecks[0].code)
     assert.isTrue(res)
+
+    // Re-fetch the updated deck data after deletion to reflect the new state
+    updatedUserDecks = await user.related('decks').query()
+
+    const publicDecksNotDeleted = updatedUserDecks.filter(
+      (deck) => deck.isPublic && !deck.isDeleted
+    )
+
+    assert.equal(publicDecksNotDeleted.length, 2)
 
     const publicDecks = await deckService.getPublicDecks('', 1, 25)
 
