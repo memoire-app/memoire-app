@@ -2,20 +2,24 @@
 
 ## 🤘 Stack
 
-- 🟩 Framework frontend : [Nuxt](https://nuxt.com/) 
+- 🟩 Framework frontend : [Nuxt](https://nuxt.com/)
 - 🍱 Librairie de composants [NuxtUI](https://ui.nuxt.com/)
 - ⛲️ CSS : [Tailwind](https://tailwindcss.com/)
 - 🛜 Wrapper HTTP : [ky](https://github.com/sindresorhus/ky)
 - 📊 Charts : [ApexCharts](https://apexcharts.com/)
 
 ## 💻 Configuration
+
 - Installer les dépendances
+
 ```
-pnpm i
+npm i
 ```
+
 - Configurer le fichier `.env` (voir le `.env.example`)
 
 - Démarrer l'application
+
 ```
-pnpm run dev
+npm run dev
 ```

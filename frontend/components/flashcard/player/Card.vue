@@ -10,7 +10,7 @@ const prettyPrintSide = computed(() => {
 
 <template>
   <div
-    class="relative h-[400px] w-full"
+    class="relative flex h-[400px] w-full flex-col overflow-auto"
     :class="
       props.side === 'front'
         ? 'bg-white text-neutral-600 dark:bg-neutral-700 dark:text-neutral-200'
@@ -18,18 +18,22 @@ const prettyPrintSide = computed(() => {
     "
   >
     <div
-      class="absolute top-3 flex items-center gap-2 text-sm transition-all"
-      :class="props.side === 'front' ? 'left-3' : 'right-3'"
+      class="relative flex min-h-12 w-full items-center gap-2 text-sm transition-all"
     >
-      <UIcon v-if="side === 'front'" name="i-lucide-circle-help" size="16" />
-      <UIcon
-        v-if="side === 'back'"
-        name="i-lucide-circle-check-big"
-        size="16"
-      />
-      {{ prettyPrintSide }}
+      <div
+        class="absolute flex items-center gap-2"
+        :class="props.side === 'front' ? 'left-3' : 'right-3'"
+      >
+        <UIcon v-if="side === 'front'" name="i-lucide-circle-help" size="16" />
+        <UIcon
+          v-if="side === 'back'"
+          name="i-lucide-circle-check-big"
+          size="16"
+        />
+        {{ prettyPrintSide }}
+      </div>
     </div>
-    <div class="flex h-full items-center justify-center">
+    <div class="flex flex-1 items-center justify-center overflow-clip px-2">
       <slot v-if="side === 'front'" name="front" />
       <slot v-if="side === 'back'" name="back" />
     </div>

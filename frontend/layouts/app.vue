@@ -204,7 +204,7 @@ const open = ref(true);
               ></UtilsHighlightedWord
             >
             Studoby qui est un serveur communautaire dédié à l'informatique,
-            l'éducation et pleins d'autres choses.
+            l'éducation et plein d'autres choses.
           </div>
         </span>
       </div>
