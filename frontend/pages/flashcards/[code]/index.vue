@@ -48,7 +48,7 @@ const flashcardsSortedByCreatedAt = computed(() => {
   );
 });
 
-const editIsOpen = ref(false);
+const createOrEditIsOpen = ref(false);
 const isCreate = ref(false);
 const editDeckIsOpen = ref(false);
 const deleteIsOpen = ref(false);
@@ -96,7 +96,7 @@ const createOrUpdateFlashcard = async () => {
 
   await refresh();
   clearInputs();
-  editIsOpen.value = false;
+  createOrEditIsOpen.value = false;
   currentFlashCardId.value = -1; // Reset current flashcard ID after edit
 };
 
@@ -218,7 +218,7 @@ defineShortcuts({
   meta_enter: {
     usingInput: true,
     handler: () => {
-      if (editIsOpen.value) {
+      if (createOrEditIsOpen.value) {
         createOrUpdateFlashcard();
       }
     },
@@ -249,6 +249,7 @@ const { metaSymbol } = useShortcuts();
         </div>
       </div>
 
+      <!-- Actions -->
       <div class="flex flex-col justify-end gap-2 md:flex-row">
         <div
           class="flex flex-row justify-end gap-1 lg:flex-col lg:justify-between"
@@ -338,7 +339,7 @@ const { metaSymbol } = useShortcuts();
     <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
       <FlashcardCreate
         @click="
-          editIsOpen = true;
+          createOrEditIsOpen = true;
           isCreate = true;
           clearInputs();
         "
@@ -356,7 +357,7 @@ const { metaSymbol } = useShortcuts();
         @edit="
           (flashcardId: number) => {
             currentFlashCardId = flashcardId;
-            editIsOpen = true;
+            createOrEditIsOpen = true;
             isCreate = false;
             flashcardSelected;
           }
@@ -396,8 +397,8 @@ const { metaSymbol } = useShortcuts();
       </div>
     </UModal>
 
-    <!-- Modal to EDIT a card -->
-    <UModal v-model="editIsOpen">
+    <!-- Modal to CREATE / EDIT a card -->
+    <UModal v-model="createOrEditIsOpen">
       <div class="flex w-full flex-col items-end gap-3 p-4">
         <div class="flex w-full flex-col items-center justify-center gap-2">
           <div class="flex w-full flex-col gap-1">
@@ -426,7 +427,11 @@ const { metaSymbol } = useShortcuts();
           </div>
         </div>
         <div class="flex w-full items-end justify-end gap-2">
-          <UButton class="w-fit" variant="ghost" @click="editIsOpen = false">
+          <UButton
+            class="w-fit"
+            variant="ghost"
+            @click="createOrEditIsOpen = false"
+          >
             Annuler
           </UButton>
           <UTooltip
