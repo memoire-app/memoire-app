@@ -49,6 +49,7 @@ const flashcardsSortedByCreatedAt = computed(() => {
 });
 
 const editIsOpen = ref(false);
+const isCreate = ref(false);
 const editDeckIsOpen = ref(false);
 const deleteIsOpen = ref(false);
 const currentFlashCardId = ref(-1);
@@ -75,6 +76,8 @@ const createOrUpdateFlashcard = async () => {
         back: answer.value,
       }),
     });
+
+    toast.add({ title: "Carte créée", icon: "i-lucide-circle-check-big" });
   } else {
     // Update existing flashcard
     await $fetch<DeckAPI>(`/flashcards/${currentFlashCardId.value}`, {
@@ -87,6 +90,8 @@ const createOrUpdateFlashcard = async () => {
         back: answer.value,
       }),
     });
+
+    toast.add({ title: "Carte modifiée", icon: "i-lucide-circle-check-big" });
   }
 
   await refresh();
@@ -208,6 +213,19 @@ const editDeck = async () => {
   refresh();
   editDeckIsOpen.value = false;
 };
+
+defineShortcuts({
+  meta_enter: {
+    usingInput: true,
+    handler: () => {
+      if (editIsOpen.value) {
+        createOrUpdateFlashcard();
+      }
+    },
+  },
+});
+
+const { metaSymbol } = useShortcuts();
 </script>
 
 <template>
@@ -321,6 +339,7 @@ const editDeck = async () => {
       <FlashcardCreate
         @click="
           editIsOpen = true;
+          isCreate = true;
           clearInputs();
         "
       />
@@ -338,6 +357,7 @@ const editDeck = async () => {
           (flashcardId: number) => {
             currentFlashCardId = flashcardId;
             editIsOpen = true;
+            isCreate = false;
             flashcardSelected;
           }
         "
@@ -405,19 +425,24 @@ const editDeck = async () => {
             />
           </div>
         </div>
-        <div class="flex items-end gap-2">
+        <div class="flex w-full items-end justify-end gap-2">
           <UButton class="w-fit" variant="ghost" @click="editIsOpen = false">
             Annuler
           </UButton>
-          <UButton
-            class="w-fit"
-            icon="i-heroicons-check-20-solid"
-            :ui="{ base: 'disabled:opacity-30' }"
-            :disabled="!question || !answer"
-            @click="createOrUpdateFlashcard()"
+          <UTooltip
+            :text="isCreate ? 'Créer la carte' : 'Modifier la carte'"
+            :shortcuts="[metaSymbol, '↵']"
           >
-            {{ currentFlashCardId === -1 ? "Créer" : "Modifier" }}
-          </UButton>
+            <UButton
+              class="text-left"
+              icon="i-heroicons-check-20-solid"
+              :ui="{ base: 'disabled:opacity-30' }"
+              :disabled="!question || !answer"
+              @click="createOrUpdateFlashcard()"
+            >
+              {{ isCreate ? "Créer" : "Modifier" }}
+            </UButton>
+          </UTooltip>
         </div>
       </div>
     </UModal>
