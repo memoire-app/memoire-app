@@ -48,7 +48,8 @@ const flashcardsSortedByCreatedAt = computed(() => {
   );
 });
 
-const editIsOpen = ref(false);
+const createOrEditIsOpen = ref(false);
+const isCreate = ref(false);
 const editDeckIsOpen = ref(false);
 const deleteIsOpen = ref(false);
 const currentFlashCardId = ref(-1);
@@ -75,6 +76,8 @@ const createOrUpdateFlashcard = async () => {
         back: answer.value,
       }),
     });
+
+    toast.add({ title: "Carte créée", icon: "i-lucide-circle-check-big" });
   } else {
     // Update existing flashcard
     await $fetch<DeckAPI>(`/flashcards/${currentFlashCardId.value}`, {
@@ -87,11 +90,13 @@ const createOrUpdateFlashcard = async () => {
         back: answer.value,
       }),
     });
+
+    toast.add({ title: "Carte modifiée", icon: "i-lucide-circle-check-big" });
   }
 
   await refresh();
   clearInputs();
-  editIsOpen.value = false;
+  createOrEditIsOpen.value = false;
   currentFlashCardId.value = -1; // Reset current flashcard ID after edit
 };
 
@@ -208,6 +213,19 @@ const editDeck = async () => {
   refresh();
   editDeckIsOpen.value = false;
 };
+
+defineShortcuts({
+  meta_enter: {
+    usingInput: true,
+    handler: () => {
+      if (createOrEditIsOpen.value) {
+        createOrUpdateFlashcard();
+      }
+    },
+  },
+});
+
+const { metaSymbol } = useShortcuts();
 </script>
 
 <template>
@@ -231,6 +249,7 @@ const editDeck = async () => {
         </div>
       </div>
 
+      <!-- Actions -->
       <div class="flex flex-col justify-end gap-2 md:flex-row">
         <div
           class="flex flex-row justify-end gap-1 lg:flex-col lg:justify-between"
@@ -320,7 +339,8 @@ const editDeck = async () => {
     <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
       <FlashcardCreate
         @click="
-          editIsOpen = true;
+          createOrEditIsOpen = true;
+          isCreate = true;
           clearInputs();
         "
       />
@@ -337,7 +357,8 @@ const editDeck = async () => {
         @edit="
           (flashcardId: number) => {
             currentFlashCardId = flashcardId;
-            editIsOpen = true;
+            createOrEditIsOpen = true;
+            isCreate = false;
             flashcardSelected;
           }
         "
@@ -376,8 +397,8 @@ const editDeck = async () => {
       </div>
     </UModal>
 
-    <!-- Modal to EDIT a card -->
-    <UModal v-model="editIsOpen">
+    <!-- Modal to CREATE / EDIT a card -->
+    <UModal v-model="createOrEditIsOpen">
       <div class="flex w-full flex-col items-end gap-3 p-4">
         <div class="flex w-full flex-col items-center justify-center gap-2">
           <div class="flex w-full flex-col gap-1">
@@ -405,19 +426,28 @@ const editDeck = async () => {
             />
           </div>
         </div>
-        <div class="flex items-end gap-2">
-          <UButton class="w-fit" variant="ghost" @click="editIsOpen = false">
-            Annuler
-          </UButton>
+        <div class="flex w-full items-end justify-end gap-2">
           <UButton
             class="w-fit"
-            icon="i-heroicons-check-20-solid"
-            :ui="{ base: 'disabled:opacity-30' }"
-            :disabled="!question || !answer"
-            @click="createOrUpdateFlashcard()"
+            variant="ghost"
+            @click="createOrEditIsOpen = false"
           >
-            {{ currentFlashCardId === -1 ? "Créer" : "Modifier" }}
+            Annuler
           </UButton>
+          <UTooltip
+            :text="isCreate ? 'Créer la carte' : 'Modifier la carte'"
+            :shortcuts="[metaSymbol, '↵']"
+          >
+            <UButton
+              class="text-left"
+              icon="i-heroicons-check-20-solid"
+              :ui="{ base: 'disabled:opacity-30' }"
+              :disabled="!question || !answer"
+              @click="createOrUpdateFlashcard()"
+            >
+              {{ isCreate ? "Créer" : "Modifier" }}
+            </UButton>
+          </UTooltip>
         </div>
       </div>
     </UModal>
