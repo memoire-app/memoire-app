@@ -5,7 +5,7 @@ import { faker } from '@faker-js/faker'
 import { DateTime } from 'luxon'
 
 export default class FlashcardSeeder extends BaseSeeder {
-  public async run() {
+  async run() {
     // Fetch all existing decks
     const decks = await Deck.query().select('id')
 

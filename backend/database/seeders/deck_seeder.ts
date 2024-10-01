@@ -5,7 +5,7 @@ import { faker } from '@faker-js/faker'
 import { DateTime } from 'luxon'
 
 export default class DeckSeeder extends BaseSeeder {
-  public async run() {
+  async run() {
     // Fetch all user IDs to associate decks with existing users
     const userIds = await User.query().select('id')
 
