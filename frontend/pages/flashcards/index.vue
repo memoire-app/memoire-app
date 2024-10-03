@@ -16,12 +16,14 @@ const { data, refresh } = await useFetch<DeckListAPI>(`/decks`, {
   baseURL: runtimeConfig.public.BACK_URL as string,
   headers,
   credentials: "include",
+  lazy: true,
 });
 
 const { data: stats } = await useFetch<DashboardStats>(`/stats`, {
   baseURL: runtimeConfig.public.BACK_URL as string,
   headers,
   credentials: "include",
+  lazy: true,
 });
 
 const toast = useToast();
