@@ -124,7 +124,7 @@ const open = ref(true);
               <div class="flex gap-1">
                 <USelectMenu v-model="languageSelected" :options="languages" />
                 <NavbarColorMode />
-                <UTooltip text="Aide">
+                <UTooltip :text="t('utils.help')">
                   <UButton
                     icon="i-lucide-badge-help"
                     variant="ghost"
