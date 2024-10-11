@@ -68,6 +68,22 @@ export default defineI18nConfig(() => ({
       utils: {
         login: "Login",
         loginWith: "Login with {provider}",
+        logout: "Logout",
+        profile: "Profile",
+        logout_confirm: "Are you sure you want to log out?",
+        logout_name: "Logout",
+        cancel: "Cancel",
+      },
+      pages: {
+        flashcards: {
+          title: "Flashcards",
+        },
+        explore: {
+          title: "Explore",
+        },
+        profile: {
+          title: "Profile",
+        },
       },
     },
     fr: {
@@ -136,6 +152,22 @@ export default defineI18nConfig(() => ({
       utils: {
         login: "Se connecter",
         loginWith: "Se connecter avec {provider}",
+        logout: "Se déconnecter",
+        profile: "Profil",
+        logout_confirm: "Êtes-vous sûr de vouloir vous déconnecter ?",
+        logout_name: "Déconnexion",
+        cancel: "Annuler",
+      },
+      pages: {
+        flashcards: {
+          title: "Flashcards",
+        },
+        explore: {
+          title: "Explorer",
+        },
+        profile: {
+          title: "Profil",
+        },
       },
     },
   },

@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
+import { ref, computed } from "vue";
 import NavLink from "~/components/navbar/NavLink.vue";
 import MobileMenu from "~/components/navbar/MobileMenu.vue";
 import ColorMode from "~/components/navbar/ColorMode.vue";
-const { setLocale, t } = useI18n();
+import { useLanguage } from "~/composables/useLanguage";
+const { t } = useI18n();
+const { languages, languageSelected } = useLanguage();
 
 const isMenuOpen = ref(false);
 const toggleMenu = () => {
@@ -17,35 +19,6 @@ const closeMenu = () => {
 const colorMode = useColorMode();
 const logo = computed(() => {
   return colorMode.value === "dark" ? "lightmemoire.svg" : "memoire.svg";
-});
-
-type LanguageType = { label: string; value: string };
-const languages = [
-  { label: "FR", value: "fr" },
-  { label: "EN", value: "en" },
-] as LanguageType[];
-
-const languageSelected = ref() as Ref<LanguageType>;
-
-onMounted(() => {
-  const savedLanguage = localStorage.getItem("selectedLanguage");
-  if (savedLanguage) {
-    const foundLanguage = languages.find(
-      (lang) => lang.value === savedLanguage,
-    );
-    if (foundLanguage) {
-      languageSelected.value = foundLanguage;
-      setLocale(foundLanguage.value);
-    }
-  } else {
-    languageSelected.value =
-      languages.find((lang) => lang.value === "en") || languages[0];
-  }
-});
-
-watch(languageSelected, (newValue: LanguageType) => {
-  localStorage.setItem("selectedLanguage", newValue.value);
-  setLocale(newValue.value);
 });
 </script>
 

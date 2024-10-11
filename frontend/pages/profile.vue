@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { UserAPI } from "~/models";
-
+const { t } = useI18n();
 definePageMeta({
   layout: "app",
   middleware: "auth",
@@ -36,20 +36,20 @@ const logout = async () => {
         color="red"
         @click="isLogoutOpen = true"
       >
-        Se déconnecter
+        {{ t("utils.logout") }}
       </UButton>
     </div>
     <UModal v-model="isLogoutOpen" class="p-4">
       <div class="flex w-full flex-col gap-3 p-4">
-        <label class="text-lg">Déconnexion</label>
-        <span class="text-sm">Êtes-vous sûr de vouloir vous déconnecter ?</span>
+        <label class="text-lg">{{ t("utils.logout_name") }}</label>
+        <span class="text-sm">{{ t("utils.logout_confirm") }}</span>
         <div class="flex justify-end gap-2">
-          <UButton color="gray" variant="ghost" @click="isLogoutOpen = false"
-            >Annuler</UButton
-          >
-          <UButton icon="i-lucide-log-out" color="red" @click="logout"
-            >Se déconnecter</UButton
-          >
+          <UButton color="gray" variant="ghost" @click="isLogoutOpen = false">{{
+            t("utils.cancel")
+          }}</UButton>
+          <UButton icon="i-lucide-log-out" color="red" @click="logout">{{
+            t("utils.logout")
+          }}</UButton>
         </div>
       </div>
     </UModal>
