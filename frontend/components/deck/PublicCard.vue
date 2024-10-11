@@ -2,7 +2,7 @@
 import type { PublicDeckAPI } from "~/models";
 import type { PropType } from "vue";
 import { copyCode } from "../../utils";
-
+const { t } = useI18n();
 const toast = useToast();
 
 const props = defineProps({
@@ -48,7 +48,7 @@ const copy = () => {
     </div>
     <div class="flex flex-col items-end justify-between gap-2">
       <div class="flex gap-2">
-        <UTooltip text="Partager le deck">
+        <UTooltip :text="t('decks.share')">
           <UButton
             icon="i-lucide-share-2"
             size="xs"
@@ -56,7 +56,7 @@ const copy = () => {
             @click.stop="copy()"
           />
         </UTooltip>
-        <UTooltip text="Importer le deck">
+        <UTooltip :text="t('decks.import')">
           <UButton
             icon="i-lucide-import"
             size="xs"

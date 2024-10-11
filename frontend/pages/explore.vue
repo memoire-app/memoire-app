@@ -17,7 +17,7 @@ const page = ref(1);
 
 const links = [
   {
-    label: "Explorer",
+    label: t("pages.explore.title"),
     icon: "i-heroicons-magnifying-glass",
     to: "/explore",
   },
@@ -173,7 +173,7 @@ watch(page, (newPage) => {
           class="hidden sm:flex"
           @click="search"
         >
-          {{ t("decks.search") }}
+          {{ t("utils.search") }}
         </UButton>
       </div>
       <span class="text-sm italic opacity-50"
