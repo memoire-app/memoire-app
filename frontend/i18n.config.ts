@@ -81,6 +81,7 @@ export default defineI18nConfig(() => ({
         create: "Create",
         or: "or",
         delete: "Delete",
+        import: "Import",
       },
       pages: {
         flashcards: {
@@ -98,7 +99,7 @@ export default defineI18nConfig(() => ({
       decks: {
         public: "Public decks",
         weekly: "Weekly decks",
-        weeklyDesc: "Weekly decks created this week",
+        weeklyDesc: "Decks created this week",
         number: "Number of total public decks",
         search: "Search for a deck",
         share: "Share this deck",
@@ -277,6 +278,7 @@ export default defineI18nConfig(() => ({
         create: "Créer",
         or: "ou",
         delete: "Supprimer",
+        import: "Importer",
       },
       pages: {
         flashcards: {
@@ -294,7 +296,7 @@ export default defineI18nConfig(() => ({
       decks: {
         public: "Decks publics",
         weekly: "Decks hebdomadaires",
-        weeklyDesc: "Decks hebdomadaires créés cette semaine",
+        weeklyDesc: "Decks créés cette semaine",
         number: "Nombre total de decks publics",
         search: "Rechercher un deck",
         share: "Partager ce deck",
