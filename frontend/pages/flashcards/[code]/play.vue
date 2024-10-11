@@ -354,7 +354,9 @@ defineShortcuts({
           >.
         </div>
         <div class="flex justify-end gap-2">
-          <UButton @click="isEvaluationHelpOpen = false">Fermer</UButton>
+          <UButton @click="isEvaluationHelpOpen = false">
+            {{ t("utils.close") }}
+          </UButton>
         </div>
       </div>
     </UModal>

@@ -271,7 +271,7 @@ export default defineI18nConfig(() => ({
         search: "Rechercher",
         lastUpdate: "Dernière mise à jour",
         edit: "Modifier",
-        finished: "terminé(es)",
+        finished: "terminée(s)",
         close: "Fermer",
         help: "Aide",
         resume: "Reprendre",

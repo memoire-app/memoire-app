@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { FlashcardAPI } from "~/models";
 import { ref } from "vue";
+const { t } = useI18n();
 const props = defineProps({
   flashcard: {
     type: Object as () => FlashcardAPI,
@@ -62,7 +63,7 @@ const deleteCard = () => {
       >
         <div class="absolute right-6 top-3 flex items-center gap-2 text-xs">
           <UIcon name="i-lucide-circle-check-big" size="16" />
-          Réponse
+          {{ t("flashcards.answer") }}
         </div>
 
         <div class="h-full overflow-auto px-4 pt-12">{{ flashcard.back }}</div>

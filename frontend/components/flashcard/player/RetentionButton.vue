@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RetentionType } from "~/models";
-
+const { t } = useI18n();
 const props = defineProps<{
   retentionType: RetentionType;
 }>();
@@ -9,12 +9,12 @@ const emit = defineEmits<{
   (e: "retention-clicked", retentionType: RetentionType): void;
 }>();
 
-const label: Record<RetentionType, string> = {
-  again: "À revoir",
-  hard: "Difficile",
-  good: "Bien",
-  easy: "Facile",
-};
+const label = computed(() => ({
+  again: t("revision.criterias.again"),
+  hard: t("revision.criterias.hard"),
+  good: t("revision.criterias.good"),
+  easy: t("revision.criterias.easy"),
+}));
 
 const retentionClasses: Record<RetentionType, string> = {
   again: "border-red-500 bg-red-100 text-red-800 hover:bg-red-200",

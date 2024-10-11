@@ -1,10 +1,11 @@
 <script setup lang="ts">
+const { t } = useI18n();
 const props = defineProps<{
   side: "front" | "back";
 }>();
 
 const prettyPrintSide = computed(() => {
-  return props.side === "front" ? "Question" : "Réponse";
+  return props.side === "front" ? "Question" : t("flashcards.answer");
 });
 </script>
 
