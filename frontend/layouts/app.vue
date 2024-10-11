@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import ColorMode from "~/components/navbar/ColorMode.vue";
+const { t } = useI18n();
+const { languages, languageSelected } = useLanguage();
+
 const router = useRouter();
 const runtimeConfig = useRuntimeConfig();
 const headers = useRequestHeaders();
@@ -41,30 +43,32 @@ const isRouteActive = (path: string) => {
   return router.currentRoute.value.path.includes(path);
 };
 
-const items = [
-  [
-    {
-      label: "Profil",
-      avatar: {
-        src: avatar.value as string,
+const items = computed(() => {
+  return [
+    [
+      {
+        label: t("pages.profile.title"),
+        avatar: {
+          src: avatar.value as string,
+        },
+        click: () => {
+          router.push("/profile");
+        },
       },
-      click: () => {
-        router.push("/profile");
+    ],
+    [
+      {
+        label: t("utils.logout"),
+        icon: "i-lucide-log-out",
+        iconClass: "dark:bg-white bg-red-500",
+        class: "text-red-500 bg-red-50 dark:bg-red-500",
+        click: () => {
+          isLogoutOpen.value = true;
+        },
       },
-    },
-  ],
-  [
-    {
-      label: "Déconnexion",
-      icon: "i-lucide-log-out",
-      iconClass: "dark:bg-white bg-red-500",
-      class: "text-red-500 bg-red-50 dark:bg-red-500",
-      click: () => {
-        isLogoutOpen.value = true;
-      },
-    },
-  ],
-];
+    ],
+  ];
+});
 
 const open = ref(true);
 </script>
@@ -95,7 +99,7 @@ const open = ref(true);
               to="/flashcards"
               variant="ghost"
               color="black"
-              >Flashcards</UButton
+              >{{ t("pages.flashcards.title") }}</UButton
             >
             <UButton
               :class="[
@@ -108,7 +112,7 @@ const open = ref(true);
               to="/explore"
               variant="ghost"
               color="black"
-              >Explorer</UButton
+              >{{ t("pages.explore.title") }}</UButton
             >
           </div>
           <div class="flex flex-col gap-3">
@@ -118,8 +122,9 @@ const open = ref(true);
               </UDropdown>
 
               <div class="flex gap-1">
-                <ColorMode />
-                <UTooltip text="Aide">
+                <USelectMenu v-model="languageSelected" :options="languages" />
+                <NavbarColorMode />
+                <UTooltip :text="t('utils.help')">
                   <UButton
                     icon="i-lucide-badge-help"
                     variant="ghost"
@@ -138,7 +143,9 @@ const open = ref(true);
           <NuxtImg :src="logo" alt="Logo" class="flex w-20 justify-center" />
         </ClientOnly>
         <div class="flex items-center gap-2">
-          <ColorMode />
+          <USelectMenu v-model="languageSelected" :options="languages" />
+
+          <NavbarColorMode />
           <UButton
             icon="i-lucide-badge-help"
             variant="ghost"
@@ -159,15 +166,15 @@ const open = ref(true);
 
     <UModal v-model="isLogoutOpen" class="p-4">
       <div class="flex w-full flex-col gap-3 p-4">
-        <label class="text-lg">Déconnexion</label>
-        <span class="text-sm">Êtes-vous sûr de vouloir vous déconnecter ?</span>
+        <label class="text-lg">{{ t("utils.logout") }}</label>
+        <span class="text-sm">{{ t("utils.logout_confirm") }} ?</span>
         <div class="flex justify-end gap-2">
-          <UButton color="gray" variant="ghost" @click="isLogoutOpen = false"
-            >Annuler</UButton
-          >
-          <UButton color="red" icon="i-lucide-log-out" @click="logout"
-            >Se déconnecter</UButton
-          >
+          <UButton color="gray" variant="ghost" @click="isLogoutOpen = false">{{
+            t("utils.cancel")
+          }}</UButton>
+          <UButton color="red" icon="i-lucide-log-out" @click="logout">
+            {{ t("utils.logout") }}
+          </UButton>
         </div>
       </div>
     </UModal>
@@ -185,28 +192,9 @@ const open = ref(true);
       />
       <div class="flex w-full flex-col gap-3 p-4">
         <label class="text-lg">Aide</label>
-        <span class="flex flex-col gap-2 text-sm">
-          <div>
-            memoire est un projet open-source, disponible sur
-            <UtilsHighlightedWord>
-              <NuxtLink to="https://github.com/memoire-app" target="_blank"
-                >GitHub</NuxtLink
-              >
-            </UtilsHighlightedWord>
-            et en libre accès.
-          </div>
-          <UDivider />
-          <div>
-            Tu peux également rejoindre le
-            <UtilsHighlightedWord
-              ><NuxtLink to="https://discord.gg/CcqzXXJfvm" target="_blank"
-                >Discord</NuxtLink
-              ></UtilsHighlightedWord
-            >
-            Studoby qui est un serveur communautaire dédié à l'informatique,
-            l'éducation et plein d'autres choses.
-          </div>
-        </span>
+        <div class="text-sm">
+          <UtilsHelp />
+        </div>
       </div>
     </USlideover>
 
@@ -229,7 +217,7 @@ const open = ref(true);
           icon="i-cbi-garbage-cardboard"
           @click="goTo('flashcards')"
         >
-          <span>Flashcards</span>
+          <span>{{ t("pages.flashcards.title") }}</span>
         </UButton>
         <UButton
           size="lg"
@@ -238,7 +226,16 @@ const open = ref(true);
           icon="i-heroicons-magnifying-glass"
           @click="goTo('explore')"
         >
-          <span>Explorer</span>
+          <span>{{ t("pages.explore.title") }}</span>
+        </UButton>
+        <UButton
+          size="lg"
+          variant="soft"
+          block
+          icon="i-heroicons-user"
+          @click="goTo('profile')"
+        >
+          <span>{{ t("pages.profile.title") }}</span>
         </UButton>
         <UButton
           class="mt-8"
@@ -249,7 +246,7 @@ const open = ref(true);
           size="lg"
           @click="isLogoutOpen = true"
         >
-          <span>Se déconnecter</span>
+          <span>{{ t("utils.logout") }}</span>
         </UButton>
       </div>
     </div>

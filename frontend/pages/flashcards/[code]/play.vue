@@ -5,7 +5,7 @@ import type {
   FlashCardListApi,
   FlashcardAPI,
 } from "~/models";
-
+const { t } = useI18n();
 definePageMeta({
   layout: "app",
   middleware: "auth",
@@ -243,7 +243,6 @@ defineShortcuts({
         </template>
       </FlashcardPlayerCard>
       <UButton
-        :ui="{ rounded: 'rounded-none' }"
         size="sm"
         class="flex min-h-12 items-center justify-center gap-3"
         color="white"
@@ -257,13 +256,19 @@ defineShortcuts({
           "
           size="20"
         />
-        {{ side === "front" ? "Voir la réponse" : "Voir la question" }}
+        {{
+          side === "front"
+            ? t("revision.seeResponse")
+            : t("revision.seeQuestion")
+        }}
       </UButton>
     </div>
 
     <div v-if="!finished" class="flex flex-col gap-2">
       <div class="flex items-center gap-0.5">
-        <span class="text-sm text-neutral-500">Évaluation</span>
+        <span class="text-sm text-neutral-500">{{
+          t("revision.evaluation")
+        }}</span>
         <UButton
           icon="i-lucide-badge-info"
           size="xs"
@@ -281,15 +286,17 @@ defineShortcuts({
     <!-- Modal for Finished State -->
     <UModal v-model="isFinishedStateOpen" prevent-close>
       <div class="flex flex-col gap-6 p-4">
-        <div class="text-xl font-bold">🥳 Bravo !</div>
+        <div class="text-xl font-bold">🥳 {{ t("revision.congrats") }} !</div>
         <div class="text-sm text-neutral-600">
-          Tu as terminé la révision de ce deck.
+          {{ t("revision.finished") }}
         </div>
         <div class="flex justify-end gap-2">
-          <UButton variant="outline" @click="handleModalAction('create')"
-            >Réviser de nouveau</UButton
-          >
-          <UButton @click="handleModalAction('back')">Retour au deck</UButton>
+          <UButton variant="outline" @click="handleModalAction('create')">
+            {{ t("revision.again") }}
+          </UButton>
+          <UButton @click="handleModalAction('back')">
+            {{ t("revision.backToDeck") }}
+          </UButton>
         </div>
       </div>
     </UModal>
@@ -297,9 +304,9 @@ defineShortcuts({
     <!-- Modal for Evaluation Help -->
     <UModal v-model="isEvaluationHelpOpen" prevent-close>
       <div class="flex flex-col gap-6 p-4">
-        <div class="text-xl font-bold">🤔 Comment ça marche ?</div>
+        <div class="text-xl font-bold">🤔 {{ t("revision.how.title") }}</div>
         <div class="text-sm">
-          Si tu réponds avec
+          {{ t("revision.how.desc") }}
           <UtilsHighlightedWord
             :color-options="{
               borderColor: 'border-yellow-300',
@@ -307,10 +314,12 @@ defineShortcuts({
               darkBorderColor: 'dark:border-yellow-700',
               darkBackgroundColor: 'dark:bg-yellow-600',
             }"
-            >Difficile</UtilsHighlightedWord
+            >{{ t("revision.criterias.hard") }}</UtilsHighlightedWord
           >,
-          <UtilsHighlightedWord>Bien</UtilsHighlightedWord>
-          ou
+          <UtilsHighlightedWord>{{
+            t("revision.criterias.good")
+          }}</UtilsHighlightedWord>
+          {{ t("utils.or") }}
           <UtilsHighlightedWord
             :color-options="{
               borderColor: 'border-green-300',
@@ -318,11 +327,11 @@ defineShortcuts({
               darkBorderColor: 'dark:border-green-950',
               darkBackgroundColor: 'dark:bg-green-900',
             }"
-            >Facile</UtilsHighlightedWord
-          >, la carte ne sera pas rejouée sur la même session.
+            >{{ t("revision.criterias.easy") }}</UtilsHighlightedWord
+          >, {{ t("revision.how.descNext") }}
         </div>
         <div class="text-sm">
-          Si tu réponds avec
+          {{ t("revision.how.desc") }}
           <UtilsHighlightedWord
             :color-options="{
               borderColor: 'border-red-300',
@@ -330,11 +339,11 @@ defineShortcuts({
               darkBorderColor: 'dark:border-red-950',
               darkBackgroundColor: 'dark:bg-red-900',
             }"
-            >À revoir</UtilsHighlightedWord
-          >, la carte sera rejouée sur la même session plus tard.
+            >{{ t("revision.criterias.again") }}</UtilsHighlightedWord
+          >, {{ t("revision.how.descAgain") }}
         </div>
         <div class="text-sm">
-          Plus d'informations sur le
+          {{ t("revision.how.moreInformation") }}
           <UButton
             class="p-1"
             to="https://github.com/memoire-app/memoire-app"
@@ -344,7 +353,9 @@ defineShortcuts({
           >.
         </div>
         <div class="flex justify-end gap-2">
-          <UButton @click="isEvaluationHelpOpen = false">Fermer</UButton>
+          <UButton @click="isEvaluationHelpOpen = false">
+            {{ t("utils.close") }}
+          </UButton>
         </div>
       </div>
     </UModal>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n();
 const emit = defineEmits(["closeMenu"]);
 
 const closeMenu = () => {
@@ -24,7 +25,7 @@ const closeMenu = () => {
         class="w-fit"
         icon="i-mdi-login"
       >
-        <span>Se connecter</span>
+        <span>{{ t("utils.login") }}</span>
       </UButton>
     </div>
   </div>

@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import NavLink from "~/components/navbar/NavLink.vue";
 import MobileMenu from "~/components/navbar/MobileMenu.vue";
 import ColorMode from "~/components/navbar/ColorMode.vue";
+import { useLanguage } from "~/composables/useLanguage";
+const { t } = useI18n();
+const { languages, languageSelected } = useLanguage();
 
 const isMenuOpen = ref(false);
 const toggleMenu = () => {
@@ -34,9 +37,10 @@ const logo = computed(() => {
         <NavLink to="/#contact" text="Contact" />
       </div>
       <div class="flex w-1/5 items-center justify-end gap-2">
+        <USelectMenu v-model="languageSelected" :options="languages" />
         <ColorMode />
         <UButton size="sm" to="/login" variant="soft" icon="i-mdi-login">
-          <span>Se connecter</span>
+          <span>{{ t("utils.login") }}</span>
         </UButton>
       </div>
     </UContainer>

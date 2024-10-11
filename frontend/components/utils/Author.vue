@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PublicDeckAPI } from "~/models";
-
+const { t } = useI18n();
 const props = defineProps({
   deck: {
     type: Object as PropType<PublicDeckAPI>,
@@ -18,8 +18,8 @@ const props = defineProps({
     <UTooltip
       :text="
         props.original
-          ? `Créateur original`
-          : `Créateur original : ${props.deck.originalAuthorName}`
+          ? t('decks.originalCreator')
+          : `${t('decks.originalCreator')} : ${props.deck.originalAuthorName}`
       "
     >
       <div class="flex items-center gap-1">
