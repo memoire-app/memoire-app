@@ -2,7 +2,7 @@
 import { ref, watch } from "vue";
 import dayjs from "dayjs";
 import type { DashboardStats } from "~/models";
-
+const { t } = useI18n();
 const props = defineProps<{
   data: DashboardStats;
 }>();
@@ -43,7 +43,7 @@ const colorMode = useColorMode();
 
 const options = ref({
   title: {
-    text: "Révisions mensuelles",
+    text: t("dashboards.monthlyRevisions.title"),
     align: "center",
     offsetY: 10,
   },

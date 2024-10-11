@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PublicDeckAPI } from "~/models";
 import type { PropType } from "vue";
-
+const { t } = useI18n();
 const props = defineProps({
   deck: {
     type: Object as PropType<PublicDeckAPI>,
@@ -40,7 +40,7 @@ const props = defineProps({
     </div>
     <div v-else class="flex items-center justify-center">
       <span class="text-lg text-neutral-500 dark:text-neutral-400">
-        Aucune carte dans ce deck
+        {{ t("decks.empty") }}
       </span>
     </div>
   </div>

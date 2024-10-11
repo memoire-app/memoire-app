@@ -2,7 +2,7 @@
 import type { DeckAPI } from "~/models";
 import type { PropType } from "vue";
 import { copyCode } from "../../utils";
-
+const { t } = useI18n();
 const router = useRouter();
 const toast = useToast();
 const headers = useRequestHeaders();
@@ -25,7 +25,7 @@ const deckIsPublic = computed(() => {
 const copy = () => {
   copyCode(props.deck.code);
   toast.add({
-    title: "Code copié : " + props.deck.code,
+    title: t("notifications.misc.copyCode") + props.deck.code,
     icon: "i-lucide-circle-check-big",
   });
 };
@@ -38,7 +38,7 @@ const deleteDeck = async () => {
     method: "DELETE",
   });
 
-  toast.add({ title: "Deck supprimé" });
+  toast.add({ title: t("notifications.decks.deletedSuccess") });
   deleteIsOpen.value = false;
 
   emit("refresh");
@@ -52,7 +52,10 @@ const privatizeDeck = async () => {
     method: "PATCH",
   });
 
-  toast.add({ title: "Deck privatisé", icon: "i-lucide-lock-keyhole" });
+  toast.add({
+    title: t("notifications.decks.privatizedSuccess"),
+    icon: "i-lucide-lock-keyhole",
+  });
   emit("refresh");
 };
 
@@ -64,7 +67,10 @@ const publicizeDeck = async () => {
     method: "PATCH",
   });
 
-  toast.add({ title: "Deck public", icon: "i-lucide-lock-keyhole-open" });
+  toast.add({
+    title: t("notifications.decks.publicizedSuccess"),
+    icon: "i-lucide-lock-keyhole-open",
+  });
   emit("refresh");
 };
 
@@ -76,23 +82,29 @@ const duplicateDeck = async () => {
     method: "POST",
   });
 
-  toast.add({ title: "Deck dupliqué", icon: "i-lucide-copy-plus" });
+  toast.add({
+    title: t("notifications.decks.duplicatedSuccess"),
+    icon: "i-lucide-copy-plus",
+  });
   emit("refresh");
 };
 </script>
 
 <template>
   <div
-    class="flex h-fit justify-between bg-white px-4 py-4 ring-neutral-300 transition-all hover:cursor-pointer hover:ring-1 dark:bg-neutral-700"
+    class="flex h-fit justify-between rounded bg-white px-4 py-4 ring-neutral-300 transition-all hover:cursor-pointer hover:ring-1 dark:bg-neutral-700"
     @click="router.push('/flashcards/' + deck.code)"
   >
     <div class="flex w-4/5 flex-col gap-1 pr-2">
       <div class="flex gap-4 text-sm text-neutral-400">
-        <UTooltip text="Nombre de cartes" class="flex items-center gap-1">
+        <UTooltip :text="t('decks.nbCards')" class="flex items-center gap-1">
           <UIcon name="i-lucide-rectangle-vertical" />
           <span>{{ deck.nbFlashcards }}</span>
         </UTooltip>
-        <UTooltip text="Nombre de révisions" class="flex items-center gap-1">
+        <UTooltip
+          :text="t('decks.nbRevisions')"
+          class="flex items-center gap-1"
+        >
           <UIcon name="i-lucide-brain" />
           <span>{{ deck.nbRevisions }}</span>
         </UTooltip>
@@ -116,7 +128,7 @@ const duplicateDeck = async () => {
     <div class="flex flex-col items-end justify-between gap-2">
       <div class="flex flex-col items-end gap-2">
         <div>
-          <UTooltip v-if="deckIsPublic" text="Rendre le deck privé">
+          <UTooltip v-if="deckIsPublic" :text="t('decks.privatize')">
             <UButton
               icon="i-lucide-lock-keyhole-open"
               size="xs"
@@ -125,7 +137,7 @@ const duplicateDeck = async () => {
               @click.stop="privatizeDeck()"
             />
           </UTooltip>
-          <UTooltip v-else text="Rendre le deck public">
+          <UTooltip v-else :text="t('decks.publicize')">
             <UButton
               icon="i-lucide-lock-keyhole"
               size="xs"
@@ -137,7 +149,7 @@ const duplicateDeck = async () => {
         </div>
 
         <div class="flex gap-1">
-          <UTooltip text="Dupliquer le deck">
+          <UTooltip :text="t('decks.duplicate')">
             <UButton
               icon="i-lucide-copy-plus"
               size="xs"
@@ -147,7 +159,7 @@ const duplicateDeck = async () => {
             />
           </UTooltip>
 
-          <UTooltip text="Partager le deck">
+          <UTooltip :text="t('decks.share')">
             <UButton
               icon="i-lucide-share-2"
               size="xs"
@@ -156,7 +168,7 @@ const duplicateDeck = async () => {
             />
           </UTooltip>
 
-          <UTooltip text="Supprimer le deck">
+          <UTooltip :text="t('decks.delete')">
             <UButton
               icon="i-lucide-trash"
               size="xs"
@@ -172,8 +184,12 @@ const duplicateDeck = async () => {
 
   <UModal v-model="deleteIsOpen">
     <div class="flex flex-col gap-4 p-4">
-      <label class="text-lg">Supprimer le deck</label>
-      <span class="text-sm">Êtes-vous sûr de vouloir supprimer ce deck ?</span>
+      <label class="text-lg">
+        {{ t("decks.delete") }}
+      </label>
+      <span class="text-sm">
+        {{ t("decks.delete_confirm") }}
+      </span>
       <div class="flex justify-end gap-2">
         <UButton
           color="gray"
@@ -182,10 +198,10 @@ const duplicateDeck = async () => {
           class="h-fit"
           @click="deleteIsOpen = false"
         >
-          Annuler
+          {{ t("utils.cancel") }}
         </UButton>
         <UButton color="red" size="sm" class="h-fit" @click="deleteDeck()">
-          Supprimer
+          {{ t("utils.delete") }}
         </UButton>
       </div>
     </div>

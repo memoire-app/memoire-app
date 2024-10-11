@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n();
 const inputValue = ref("");
 
 const tags = defineModel({
@@ -65,7 +66,8 @@ onMounted(() => {
       />
     </div>
     <span class="text-xs">
-      Appuyez sur <UKbd value="↵" /> pour ajouter un tag
+      {{ t("decks.tagsCreation1") }} <UKbd value="↵" />
+      {{ t("decks.tagsCreation2") }}
     </span>
   </div>
 </template>

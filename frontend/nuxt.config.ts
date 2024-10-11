@@ -14,7 +14,20 @@ export default defineNuxtConfig({
     localApiEndpoint: "/icon",
   },
 
-  modules: ["@nuxt/ui", "@nuxt/image", "@nuxt/icon", "@nuxt/eslint"],
+  modules: [
+    "@nuxt/ui",
+    "@nuxt/image",
+    "@nuxt/icon",
+    "@nuxt/eslint",
+    [
+      "@nuxtjs/i18n",
+      {
+        i18n: {
+          vueI18n: "./i18n.config.ts",
+        },
+      },
+    ],
+  ],
   css: ["~/assets/css/main.css"],
 
   runtimeConfig: {
