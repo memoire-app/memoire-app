@@ -11,7 +11,7 @@ const prettyPrintSide = computed(() => {
 
 <template>
   <div
-    class="relative flex h-[400px] w-full flex-col overflow-auto"
+    class="relative flex h-[400px] w-full flex-col overflow-auto rounded"
     :class="
       props.side === 'front'
         ? 'bg-white text-neutral-600 dark:bg-neutral-700 dark:text-neutral-200'

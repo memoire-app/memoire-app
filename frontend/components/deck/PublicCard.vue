@@ -25,7 +25,7 @@ const copy = () => {
 
 <template>
   <div
-    class="flex h-fit justify-between bg-white px-4 py-4 ring-neutral-300 transition-all hover:cursor-pointer hover:ring-1 dark:bg-neutral-700"
+    class="flex h-fit justify-between rounded bg-white px-4 py-4 ring-neutral-300 transition-all hover:cursor-pointer hover:ring-1 dark:bg-neutral-700"
     @click="emit('openPreview', props.deck.code)"
   >
     <div class="flex w-4/5 flex-col gap-1 pr-2">

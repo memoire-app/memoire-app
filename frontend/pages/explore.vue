@@ -113,7 +113,7 @@ watch(page, (newPage) => {
 
     <div
       v-if="data"
-      class="mt-8 flex w-full max-w-[800px] flex-wrap gap-2 overflow-auto py-2 pl-0.5"
+      class="mt-8 flex w-full max-w-[800px] flex-wrap gap-2 overflow-auto px-0.5 py-2"
     >
       <DashboardBasicStatsCard class="flex-1">
         <template #title>

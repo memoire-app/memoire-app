@@ -271,7 +271,7 @@ const { metaSymbol } = useShortcuts();
         >
           <UTooltip :text="t('decks.edit')">
             <UButton
-              :ui="{ rounded: 'rounded-none', base: 'disabled:opacity-30' }"
+              :ui="{ base: 'disabled:opacity-30' }"
               icon="i-lucide-pen"
               variant="outline"
               color="black"
@@ -281,7 +281,7 @@ const { metaSymbol } = useShortcuts();
           </UTooltip>
           <UTooltip :text="t('decks.share')">
             <UButton
-              :ui="{ rounded: 'rounded-none', base: 'disabled:opacity-30' }"
+              :ui="{ base: 'disabled:opacity-30' }"
               icon="i-lucide-share-2"
               variant="outline"
               square
@@ -290,7 +290,7 @@ const { metaSymbol } = useShortcuts();
           </UTooltip>
           <UTooltip v-if="data?.deckIsPublic" :text="t('decks.privatize')">
             <UButton
-              :ui="{ rounded: 'rounded-none', base: 'disabled:opacity-30' }"
+              :ui="{ base: 'disabled:opacity-30' }"
               icon="i-lucide-lock-keyhole-open"
               variant="outline"
               color="green"
@@ -300,7 +300,7 @@ const { metaSymbol } = useShortcuts();
           </UTooltip>
           <UTooltip v-else :text="t('decks.publicize')">
             <UButton
-              :ui="{ rounded: 'rounded-none', base: 'disabled:opacity-30' }"
+              :ui="{ base: 'disabled:opacity-30' }"
               icon="i-lucide-lock-keyhole"
               variant="outline"
               color="orange"
@@ -311,7 +311,7 @@ const { metaSymbol } = useShortcuts();
         </div>
         <UButton
           :disabled="!isCurrentRevisionAvailable"
-          :ui="{ rounded: 'rounded-none', base: 'disabled:opacity-30' }"
+          :ui="{ base: 'disabled:opacity-30' }"
           icon="i-heroicons-play-20-solid"
           size="lg"
           class="flex flex-1 justify-center lg:flex-none"
@@ -326,7 +326,7 @@ const { metaSymbol } = useShortcuts();
         </UButton>
         <UButton
           :disabled="!data?.flashcards.length"
-          :ui="{ rounded: 'rounded-none', base: 'disabled:opacity-30' }"
+          :ui="{ base: 'disabled:opacity-30' }"
           icon="i-heroicons-plus-20-solid"
           size="lg"
           class="flex flex-1 justify-center lg:flex-none"

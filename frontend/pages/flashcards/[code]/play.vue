@@ -243,7 +243,6 @@ defineShortcuts({
         </template>
       </FlashcardPlayerCard>
       <UButton
-        :ui="{ rounded: 'rounded-none' }"
         size="sm"
         class="flex min-h-12 items-center justify-center gap-3"
         color="white"

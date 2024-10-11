@@ -168,7 +168,6 @@ watch(page, (newPage) => {
         <div class="flex w-full flex-col gap-2 lg:w-fit lg:flex-row">
           <UButton
             size="lg"
-            :ui="{ rounded: 'rounded-none' }"
             icon="i-lucide-import"
             class="flex w-full justify-center lg:w-fit"
             variant="outline"
@@ -178,7 +177,6 @@ watch(page, (newPage) => {
           </UButton>
           <UButton
             size="lg"
-            :ui="{ rounded: 'rounded-none' }"
             icon="i-heroicons-plus-20-solid"
             class="flex w-full justify-center lg:w-fit"
             @click="openSlideover()"
@@ -273,7 +271,6 @@ watch(page, (newPage) => {
             <div class="flex justify-end">
               <UButton
                 class="w-fit"
-                :ui="{ rounded: 'rounded-none' }"
                 icon="i-heroicons-plus-20-solid"
                 @click="createDeck()"
                 >{{ t("utils.create") }}</UButton

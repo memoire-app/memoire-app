@@ -31,7 +31,7 @@ const deleteCard = () => {
 </script>
 
 <template>
-  <div class="relative min-h-52 overflow-auto transition-all">
+  <div class="relative min-h-52 overflow-auto rounded transition-all">
     <div
       class="transform-style-3d absolute h-full w-full cursor-default bg-white transition-transform duration-700 dark:bg-neutral-700"
       :class="[state === 'back' ? 'rotate-y-180' : '']"

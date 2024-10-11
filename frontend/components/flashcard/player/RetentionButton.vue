@@ -33,7 +33,7 @@ const handleClick = () => {
 <template>
   <button
     :class="[
-      'flex h-20 flex-1 flex-col items-center justify-center gap-2 border-2 px-4 py-2 transition-colors duration-300',
+      'flex h-20 flex-1 flex-col items-center justify-center gap-2 rounded border-2 px-4 py-2 transition-colors duration-300',
       retentionClass,
     ]"
     @click="handleClick"
