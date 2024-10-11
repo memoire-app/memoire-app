@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n();
 const router = useRouter();
 
 const runtimeConfig = useRuntimeConfig();
@@ -49,14 +50,15 @@ const bg = computed(() => {
     <Navbar />
     <UContainer class="flex w-fit flex-col justify-center gap-4 pt-24 lg:pt-40">
       <UIcon name="i-heroicons-user-circle" size="34" />
-      <span class="text-3xl font-bold">Se connecter</span>
-      <span class="text-gray-500"
-        >Connectez vous pour accéder à votre compte</span
-      >
+      <span class="text-3xl font-bold">{{ t("utils.login") }}</span>
+      <span class="text-gray-500">{{ t("login.connect") }}</span>
       <div
         class="flex w-full flex-col items-center justify-center gap-4 md:flex-row"
       >
-        <UTooltip text="Se connecter avec Discord" class="w-full">
+        <UTooltip
+          :text="t('utils.loginWith', { provider: 'Discord' })"
+          class="w-full"
+        >
           <UButton
             icon="i-simple-icons-discord"
             block
@@ -67,7 +69,10 @@ const bg = computed(() => {
           />
         </UTooltip>
 
-        <UTooltip text="Se connecter avec GitHub" class="w-full">
+        <UTooltip
+          :text="t('utils.loginWith', { provider: 'Github' })"
+          class="w-full"
+        >
           <UButton
             icon="i-simple-icons-github"
             block
@@ -79,7 +84,10 @@ const bg = computed(() => {
           />
         </UTooltip>
 
-        <UTooltip text="Se connecter avec Google" class="w-full">
+        <UTooltip
+          :text="t('utils.loginWith', { provider: 'Google' })"
+          class="w-full"
+        >
           <UButton
             icon="i-simple-icons-google"
             block

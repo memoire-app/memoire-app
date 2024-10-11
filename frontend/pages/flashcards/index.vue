@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { DashboardStats, DeckAPI, DeckListAPI } from "~/models";
-import TabsGroup from "~/components/tabs/TabsGroup.vue";
 
 definePageMeta({
   layout: "app",
