@@ -1,5 +1,3 @@
-import { connect } from "http2";
-
 export default defineI18nConfig(() => ({
   legacy: false,
   locale: "en",
