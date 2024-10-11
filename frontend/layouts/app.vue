@@ -192,28 +192,9 @@ const open = ref(true);
       />
       <div class="flex w-full flex-col gap-3 p-4">
         <label class="text-lg">Aide</label>
-        <span class="flex flex-col gap-2 text-sm">
-          <div>
-            memoire est un projet open-source, disponible sur
-            <UtilsHighlightedWord>
-              <NuxtLink to="https://github.com/memoire-app" target="_blank"
-                >GitHub</NuxtLink
-              >
-            </UtilsHighlightedWord>
-            et en libre accès.
-          </div>
-          <UDivider />
-          <div>
-            Tu peux également rejoindre le
-            <UtilsHighlightedWord
-              ><NuxtLink to="https://discord.gg/CcqzXXJfvm" target="_blank"
-                >Discord</NuxtLink
-              ></UtilsHighlightedWord
-            >
-            Studoby qui est un serveur communautaire dédié à l'informatique,
-            l'éducation et plein d'autres choses.
-          </div>
-        </span>
+        <div class="text-sm">
+          <UtilsHelp />
+        </div>
       </div>
     </USlideover>
 

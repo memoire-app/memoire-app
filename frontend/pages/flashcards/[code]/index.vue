@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DeckAPI, FlashCardListApi } from "~/models";
 import { copyCode } from "~/utils";
-
+const { t } = useI18n();
 definePageMeta({
   layout: "app",
   middleware: "auth",
@@ -77,7 +77,10 @@ const createOrUpdateFlashcard = async () => {
       }),
     });
 
-    toast.add({ title: "Carte créée", icon: "i-lucide-circle-check-big" });
+    toast.add({
+      title: t("notifications.flashcards.createdSuccess"),
+      icon: "i-lucide-circle-check-big",
+    });
   } else {
     // Update existing flashcard
     await $fetch<DeckAPI>(`/flashcards/${currentFlashCardId.value}`, {
@@ -91,7 +94,10 @@ const createOrUpdateFlashcard = async () => {
       }),
     });
 
-    toast.add({ title: "Carte modifiée", icon: "i-lucide-circle-check-big" });
+    toast.add({
+      title: t("notifications.flashcards.updatedSuccess"),
+      icon: "i-lucide-circle-check-big",
+    });
   }
 
   await refresh();
@@ -160,7 +166,7 @@ watch(flashcardSelected, (flashcard) => {
 const copy = () => {
   copyCode(code as string);
   toast.add({
-    title: "Code copié : " + route.params.code,
+    title: t("notifications.misc.copyCode") + route.params.code,
     icon: "i-lucide-circle-check-big",
   });
 };
@@ -173,7 +179,10 @@ const privatizeDeck = async () => {
     method: "PATCH",
   });
 
-  toast.add({ title: "Deck privatisé", icon: "i-lucide-lock-keyhole" });
+  toast.add({
+    title: t("notifications.decks.privatizedSuccess"),
+    icon: "i-lucide-lock-keyhole",
+  });
   refresh();
 };
 
@@ -185,7 +194,10 @@ const publicizeDeck = async () => {
     method: "PATCH",
   });
 
-  toast.add({ title: "Deck public", icon: "i-lucide-lock-keyhole-open" });
+  toast.add({
+    title: t("notifications.decks.publicizedSuccess"),
+    icon: "i-lucide-lock-keyhole-open",
+  });
   refresh();
 };
 
@@ -209,7 +221,10 @@ const editDeck = async () => {
     }),
   });
 
-  toast.add({ title: "Deck modifié", icon: "i-lucide-pen" });
+  toast.add({
+    title: t("notifications.decks.editedSuccess"),
+    icon: "i-lucide-pen",
+  });
   refresh();
   editDeckIsOpen.value = false;
 };
@@ -254,7 +269,7 @@ const { metaSymbol } = useShortcuts();
         <div
           class="flex flex-row justify-end gap-1 lg:flex-col lg:justify-between"
         >
-          <UTooltip text="Modifier le deck">
+          <UTooltip :text="t('decks.edit')">
             <UButton
               :ui="{ rounded: 'rounded-none', base: 'disabled:opacity-30' }"
               icon="i-lucide-pen"
@@ -264,7 +279,7 @@ const { metaSymbol } = useShortcuts();
               @click.stop="openEditDeck()"
             />
           </UTooltip>
-          <UTooltip text="Partager le deck">
+          <UTooltip :text="t('decks.share')">
             <UButton
               :ui="{ rounded: 'rounded-none', base: 'disabled:opacity-30' }"
               icon="i-lucide-share-2"
@@ -273,7 +288,7 @@ const { metaSymbol } = useShortcuts();
               @click.stop="copy()"
             />
           </UTooltip>
-          <UTooltip v-if="data?.deckIsPublic" text="Rendre le deck privé">
+          <UTooltip v-if="data?.deckIsPublic" :text="t('decks.privatize')">
             <UButton
               :ui="{ rounded: 'rounded-none', base: 'disabled:opacity-30' }"
               icon="i-lucide-lock-keyhole-open"
@@ -283,7 +298,7 @@ const { metaSymbol } = useShortcuts();
               @click.stop="privatizeDeck()"
             />
           </UTooltip>
-          <UTooltip v-else text="Rendre le deck public">
+          <UTooltip v-else :text="t('decks.publicize')">
             <UButton
               :ui="{ rounded: 'rounded-none', base: 'disabled:opacity-30' }"
               icon="i-lucide-lock-keyhole"
@@ -307,7 +322,7 @@ const { metaSymbol } = useShortcuts();
             })
           "
         >
-          Reprendre
+          {{ t("utils.resume") }}
         </UButton>
         <UButton
           :disabled="!data?.flashcards.length"
@@ -317,7 +332,7 @@ const { metaSymbol } = useShortcuts();
           class="flex flex-1 justify-center lg:flex-none"
           @click="createNewRevision"
         >
-          Nouvelle révision
+          {{ t("decks.newRevision") }}
         </UButton>
       </div>
     </div>
@@ -369,9 +384,12 @@ const { metaSymbol } = useShortcuts();
     <UModal v-model="editDeckIsOpen">
       <div class="flex w-full flex-col items-end gap-3 p-4">
         <div class="flex h-full w-full flex-col gap-4">
-          <label class="text-lg">Modifier le deck</label>
-          <UFormGroup label="Titre du deck">
-            <UInput v-model="title" placeholder="Mon super deck" />
+          <label class="text-lg">{{ t("decks.edit") }}</label>
+          <UFormGroup :label="t('decks.title')">
+            <UInput
+              v-model="title"
+              :placeholder="t('decks.titlePlaceholder')"
+            />
           </UFormGroup>
           <UFormGroup label="Tags">
             <DeckTagsInput v-model="bufferedTags" />
@@ -383,7 +401,7 @@ const { metaSymbol } = useShortcuts();
             variant="ghost"
             @click="editDeckIsOpen = false"
           >
-            Annuler
+            {{ t("utils.cancel") }}
           </UButton>
           <UButton
             class="w-fit"
@@ -391,7 +409,7 @@ const { metaSymbol } = useShortcuts();
             :ui="{ base: 'disabled:opacity-30' }"
             @click="editDeck()"
           >
-            Modifier
+            {{ t("utils.edit") }}
           </UButton>
         </div>
       </div>
@@ -410,13 +428,13 @@ const { metaSymbol } = useShortcuts();
               v-model="question"
               class="w-full"
               :rows="6"
-              placeholder="Quelle est la couleur du cheval blanc de Henri IV ?"
+              :placeholder="t('flashcards.placeholder')"
             />
           </div>
           <div class="flex w-full flex-col gap-1">
             <label class="flex items-center gap-2 text-sm">
               <UIcon name="i-lucide-circle-check-big" />
-              Réponse
+              {{ t("flashcards.answer") }}
             </label>
             <UTextarea
               v-model="answer"
@@ -432,10 +450,10 @@ const { metaSymbol } = useShortcuts();
             variant="ghost"
             @click="createOrEditIsOpen = false"
           >
-            Annuler
+            {{ t("utils.cancel") }}
           </UButton>
           <UTooltip
-            :text="isCreate ? 'Créer la carte' : 'Modifier la carte'"
+            :text="isCreate ? t('utils.create') : t('utils.edit')"
             :shortcuts="[metaSymbol, '↵']"
           >
             <UButton
@@ -445,7 +463,7 @@ const { metaSymbol } = useShortcuts();
               :disabled="!question || !answer"
               @click="createOrUpdateFlashcard()"
             >
-              {{ isCreate ? "Créer" : "Modifier" }}
+              {{ isCreate ? t("utils.create") : t("utils.edit") }}
             </UButton>
           </UTooltip>
         </div>
@@ -455,10 +473,8 @@ const { metaSymbol } = useShortcuts();
     <!-- Modal to DELETE a card -->
     <UModal v-model="deleteIsOpen">
       <div class="flex flex-col gap-4 p-4">
-        <label class="text-lg">Supprimer la carte</label>
-        <span class="text-sm"
-          >Êtes-vous sûr de vouloir supprimer cette carte ?</span
-        >
+        <label class="text-lg">{{ t("flashcards.delete") }}</label>
+        <span class="text-sm">{{ t("flashcards.deleteConfirm") }}</span>
         <div class="flex justify-end gap-2">
           <UButton
             color="gray"
@@ -467,10 +483,10 @@ const { metaSymbol } = useShortcuts();
             class="h-fit"
             @click="deleteIsOpen = false"
           >
-            Annuler
+            {{ t("utils.cancel") }}
           </UButton>
           <UButton color="red" size="sm" class="h-fit" @click="deleteCard()">
-            Supprimer
+            {{ t("utils.delete") }}
           </UButton>
         </div>
       </div>

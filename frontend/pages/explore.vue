@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PublicDeckListAPI, PublicDeckAPI } from "~/models";
-
+const { t } = useI18n();
 definePageMeta({
   layout: "app",
   middleware: "auth",
@@ -40,14 +40,14 @@ const importDeck = async (code: string) => {
       method: "POST",
     });
     toast.add({
-      title: "Deck importé avec succès",
+      title: t("notifications.decks.importedSuccess"),
       ui: "success",
       color: "green",
       icon: "i-heroicons-check",
     });
   } catch {
     toast.add({
-      title: "Erreur lors de l'importation du deck",
+      title: t("notifications.decks.importedError"),
       ui: "error",
       color: "red",
       icon: "i-lucide-bug",
@@ -67,7 +67,7 @@ const search = async () => {
     page.value = 1;
   } catch {
     toast.add({
-      title: "Erreur lors de la recherche",
+      title: t("notifications.misc.searchError"),
       ui: "error",
       color: "red",
       icon: "i-lucide-bug",
@@ -86,7 +86,7 @@ const navigate = async (page: number) => {
     data.value = response;
   } catch {
     toast.add({
-      title: "Erreur lors de la navigation",
+      title: t("notifications.misc.navigateError"),
       ui: "error",
       color: "red",
       icon: "i-lucide-bug",
@@ -117,7 +117,9 @@ watch(page, (newPage) => {
     >
       <DashboardBasicStatsCard class="flex-1">
         <template #title>
-          <span>Decks publics</span>
+          <span>
+            {{ t("decks.public") }}
+          </span>
         </template>
         <template #icon>
           <UIcon name="i-heroicons-magnifying-glass" />
@@ -126,13 +128,13 @@ watch(page, (newPage) => {
           <span>{{ data.nbTotalDecks }}</span>
         </template>
         <template #description>
-          <span>Nombre de decks publics au total</span>
+          <span> {{ t("decks.number") }} </span>
         </template>
       </DashboardBasicStatsCard>
 
       <DashboardBasicStatsCard class="flex-1">
         <template #title>
-          <span>Decks cette semaine</span>
+          <span>{{ t("decks.weekly") }}</span>
         </template>
         <template #icon>
           <UIcon name="i-heroicons-calendar" />
@@ -141,7 +143,7 @@ watch(page, (newPage) => {
           <span>{{ data.nbWeeklyDecks }}</span>
         </template>
         <template #description>
-          <span>Decks publics créés cette semaine</span>
+          <span>{{ t("decks.weeklyDesc") }}</span>
         </template>
       </DashboardBasicStatsCard>
     </div>
@@ -150,7 +152,7 @@ watch(page, (newPage) => {
       <div class="flex gap-2">
         <UInput
           v-model="searchQuery"
-          placeholder="Rechercher un deck"
+          :placeholder="t('decks.search') + '...'"
           icon="i-lucide-search"
           size="lg"
           class="w-full md:w-fit"
@@ -171,7 +173,7 @@ watch(page, (newPage) => {
           class="hidden sm:flex"
           @click="search"
         >
-          Rechercher
+          {{ t("decks.search") }}
         </UButton>
       </div>
       <span class="text-sm italic opacity-50"

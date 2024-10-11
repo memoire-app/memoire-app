@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { DashboardStats, DeckAPI, DeckListAPI } from "~/models";
-
+const { t } = useI18n();
 definePageMeta({
   layout: "app",
   middleware: "auth",
@@ -96,13 +96,13 @@ const importDeckWithCode = async () => {
     importModalOpen.value = false;
     importCode.value = "";
     toast.add({
-      title: "Deck importé avec succès",
+      title: t("notifications.decks.importedSuccess"),
       icon: "i-heroicons-check-circle",
       color: "green",
     });
   } catch {
     toast.add({
-      title: "Erreur lors de l'import",
+      title: t("notifications.decks.importedError"),
       icon: "i-lucide-bug",
       color: "red",
     });
@@ -121,7 +121,7 @@ const search = async () => {
     page.value = 1;
   } catch {
     toast.add({
-      title: "Erreur lors de la recherche",
+      title: t("notifications.misc.searchError"),
       ui: "error",
       color: "red",
       icon: "i-lucide-bug",
@@ -140,7 +140,7 @@ const navigate = async (page: number) => {
     data.value = response;
   } catch {
     toast.add({
-      title: "Erreur lors de la navigation",
+      title: t("notifications.misc.searchError"),
       ui: "error",
       color: "red",
       icon: "i-lucide-bug",
@@ -173,7 +173,8 @@ watch(page, (newPage) => {
             class="flex w-full justify-center lg:w-fit"
             variant="outline"
             @click="importModalOpen = true"
-            >Importer un deck
+          >
+            {{ t("decks.importVariant") }}
           </UButton>
           <UButton
             size="lg"
@@ -181,7 +182,8 @@ watch(page, (newPage) => {
             icon="i-heroicons-plus-20-solid"
             class="flex w-full justify-center lg:w-fit"
             @click="openSlideover()"
-            >Créer un deck
+          >
+            {{ t("decks.createVariant") }}
           </UButton>
         </div>
         <div class="flex flex-col gap-1">
@@ -189,7 +191,7 @@ watch(page, (newPage) => {
             <UInput
               v-model="searchQuery"
               size="lg"
-              placeholder="Rechercher un deck"
+              :placeholder="t('decks.search')"
               icon="i-lucide-search"
               class="w-full"
               @keyup.enter="search"
@@ -209,7 +211,7 @@ watch(page, (newPage) => {
               class="hidden sm:flex"
               @click="search"
             >
-              Rechercher
+              {{ t("utils.search") }}
             </UButton>
           </div>
 
@@ -251,15 +253,20 @@ watch(page, (newPage) => {
             @click="createDeckOpen = false"
           />
           <div class="flex h-full w-full flex-col gap-4 pt-8">
-            <label class="text-lg">Créer un deck</label>
-            <UFormGroup label="Titre du deck">
-              <UInput v-model="deckTitle" placeholder="Mon super deck" />
+            <label class="text-lg">
+              {{ t("decks.createVariant") }}
+            </label>
+            <UFormGroup :label="t('decks.title')">
+              <UInput
+                v-model="deckTitle"
+                :placeholder="t('decks.titlePlaceholder')"
+              />
             </UFormGroup>
             <UFormGroup label="Tags">
               <DeckTagsInput v-model="deckTags" />
             </UFormGroup>
             <UFormGroup label="Public">
-              <UTooltip text="Rend le deck accessible publiquement">
+              <UTooltip :text="t('decks.publicize')">
                 <UToggle v-model="isPublic" />
               </UTooltip>
             </UFormGroup>
@@ -269,7 +276,7 @@ watch(page, (newPage) => {
                 :ui="{ rounded: 'rounded-none' }"
                 icon="i-heroicons-plus-20-solid"
                 @click="createDeck()"
-                >Créer</UButton
+                >{{ t("utils.create") }}</UButton
               >
             </div>
           </div>
@@ -278,8 +285,8 @@ watch(page, (newPage) => {
 
       <UModal v-model="importModalOpen">
         <div class="flex flex-col gap-4 p-4">
-          <label class="text-lg">Importer un deck</label>
-          <UInput v-model="importCode" placeholder="Code du deck" />
+          <label class="text-lg">{{ t("decks.importVariant") }}</label>
+          <UInput v-model="importCode" :placeholder="t('decks.code')" />
           <div class="flex items-center justify-end gap-2">
             <UButton
               color="blue"
@@ -288,14 +295,14 @@ watch(page, (newPage) => {
               variant="ghost"
               @click="importModalOpen = false"
             >
-              Annuler
+              {{ t("utils.cancel") }}
             </UButton>
             <UButton
               color="blue"
               size="sm"
               class="h-fit"
               @click="importDeckWithCode"
-              >Importer
+              >{{ t("utils.import") }}
             </UButton>
           </div>
         </div>

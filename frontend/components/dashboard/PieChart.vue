@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import type { DashboardStats } from "~/models";
-
+const { t } = useI18n();
 const props = defineProps<{
   data: DashboardStats;
 }>();
@@ -33,7 +33,7 @@ const colorMode = useColorMode();
 const options = ref({
   title: {
     offsetY: 10,
-    text: "Révisions par matière",
+    text: t("dashboards.revisionsBySubject.title"),
     align: "center",
   },
   chart: {
