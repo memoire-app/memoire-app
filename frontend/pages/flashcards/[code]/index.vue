@@ -57,6 +57,7 @@ const question = ref("");
 const answer = ref("");
 const title = ref(data.value?.deckTitle);
 const bufferedTags = ref();
+const isCreating = ref(false);
 
 const clearInputs = () => {
   question.value = "";
@@ -64,6 +65,7 @@ const clearInputs = () => {
 };
 
 const createOrUpdateFlashcard = async () => {
+  isCreating.value = true;
   if (currentFlashCardId.value === -1) {
     // Create new flashcard
     await $fetch<DeckAPI>(`/decks/${code}`, {
@@ -104,6 +106,7 @@ const createOrUpdateFlashcard = async () => {
   clearInputs();
   createOrEditIsOpen.value = false;
   currentFlashCardId.value = -1; // Reset current flashcard ID after edit
+  isCreating.value = false;
 };
 
 const deleteCard = async () => {
@@ -235,6 +238,16 @@ defineShortcuts({
     handler: () => {
       if (createOrEditIsOpen.value) {
         createOrUpdateFlashcard();
+      }
+    },
+  },
+  c: {
+    usingInput: true,
+    handler: () => {
+      if (!createOrEditIsOpen.value) {
+        createOrEditIsOpen.value = true;
+        isCreate.value = true;
+        clearInputs();
       }
     },
   },
@@ -460,7 +473,7 @@ const { metaSymbol } = useShortcuts();
               class="text-left"
               icon="i-heroicons-check-20-solid"
               :ui="{ base: 'disabled:opacity-30' }"
-              :disabled="!question || !answer"
+              :disabled="!question || !answer || isCreating"
               @click="createOrUpdateFlashcard()"
             >
               {{ isCreate ? t("utils.create") : t("utils.edit") }}
