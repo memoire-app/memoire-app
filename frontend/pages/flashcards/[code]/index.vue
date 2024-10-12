@@ -241,16 +241,6 @@ defineShortcuts({
       }
     },
   },
-  c: {
-    usingInput: true,
-    handler: () => {
-      if (!createOrEditIsOpen.value) {
-        createOrEditIsOpen.value = true;
-        isCreate.value = true;
-        clearInputs();
-      }
-    },
-  },
 });
 
 const { metaSymbol } = useShortcuts();
