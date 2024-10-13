@@ -1,86 +1,86 @@
 ![image](https://github.com/user-attachments/assets/05b8ff42-662e-44b7-a568-9480138a9c0a)
 
-# 🚀 Fonctionnalités
+# 🚀 Features
 
-memoire est une application web pour réviser à l'aide de flashcards.
+memoire is a web application for studying using flashcards.
 
 ## 🃏 Decks
 
-Pour réviser, l'utilisateur va pouvoir créer (ou importer) des decks. Ces decks regoupent de `0 à n` flashcards.
-Chaque deck contient :
-| Nom | Nombre | Example | Modifiable |
+To study, the user can create (or import) decks. These decks group from `0 to n` flashcards.
+Each deck contains:
+| Name | Number | Example | Modifiable |
 | :- | :-: | :-: | :-: |
-| Flashcards | `0 à n` | _Qst / Réponse_ | ✅ |
-| Titre | 1 | _Python_ | ✅ |
-| Tags | `0 à n` | `['code', 'algo']` | ✅ |
-| Code de partage | `1` | _abc123_ | ❌ |
+| Flashcards | `0 to n` | _Qst / Answer_ | ✅ |
+| Title | 1 | _Python_ | ✅ |
+| Tags | `0 to n` | `['code', 'algo']` | ✅ |
+| Share Code | `1` | _abc123_ | ❌ |
 
 ## ✍️ Flashcards
 
-Chaque flashcard contient une question et une réponse au format texte uniquement (pour le moment).
+Each flashcard contains a question and an answer in text format only (for now).
 
-| Champ    |            Description             |
-| :------- | :--------------------------------: |
-| Question |     Le contenu de la question      |
-| Réponse  | La solution associée à la question |
+| Field    |                Description                |
+| :------- | :---------------------------------------: |
+| Question |        The content of the question        |
+| Answer   | The solution associated with the question |
 
-### Création et gestion des flashcards
+### Creating and managing flashcards
 
-- **Création** : L'utilisateur peut ajouter une flashcard à un deck existant.
-- **Modification** : Les questions et les réponses peuvent être éditées à tout moment.
-- **Supression** : Si une carte n'est plus pertinente, elle peut être retirée du deck.
+- **Creation**: The user can add a flashcard to an existing deck.
+- **Modification**: Questions and answers can be edited at any time.
+- **Deletion**: If a card is no longer relevant, it can be removed from the deck.
 
-## 🧠 Révisions
+## 🧠 Revisions
 
-L'application propose un système de révision intelligent permettant à l'utilisateur d'évaluer sa maîtrise des flashcards en 4 niveaux :
-`à revoir`, `difficile`, `bien`, et `facile`.\
-**L'objectif est de se baser sur les recommendations de la recherche pour proposer un outil adapté à l'apprentissage.**
+The application offers an intelligent revision system allowing the user to evaluate their mastery of flashcards in 4 levels:
+`to review`, `difficult`, `good`, and `easy`.\
+**The goal is to base the tool on research recommendations to provide a suitable learning tool.**
 
-### Fonctionnement de l'algorithme de révision
+### How the revision algorithm works
 
-1. **Évaluation initiale** : Chaque flashcard est présentée à l'utilisateur, qui doit s'auto-évaluer sur un des 4 niveaux.
-2. **Gestion des niveaux** :
-   - Tant que la révision comporte des flashcards avec le statut `à revoir`, la session n'est pas considérée comme terminée.
-   - (⚠️ TODO) _Les cartes évaluées comme `facile` ou `bien` apparaîtront de moins en moins souvent au fil des sessions_
-   - (⚠️ TODO) _Les cartes `difficile` reviendront plus souvent jusqu'à ce qu'elles soient maîtrisées_
-3. **Amélioration continue** : Cet algorithme sera affiné à l'avenir en intégrant les recommandations de la recherche sur la mémorisation et l'efficacité des révisions.
+1. **Initial evaluation**: Each flashcard is presented to the user, who must self-evaluate on one of the 4 levels.
+2. **Level management**:
+   - As long as the revision includes flashcards with the status `to review`, the session is not considered complete.
+   - (⚠️ TODO) _Cards evaluated as `easy` or `good` will appear less and less often over sessions_
+   - (⚠️ TODO) _`Difficult` cards will come back more often until they are mastered_
+3. **Continuous improvement**: This algorithm will be refined in the future by integrating research recommendations on memorization and revision efficiency.
 
-Références :
+References:
 
 - [Seibert Hanson, A. E., & Brown, C. M. (2019). Enhancing L2 learning through a mobile assisted spaced-repetition tool: an effective but bitter pill?](https://www.tandfonline.com/doi/full/10.1080/09588221.2018.1552975?scroll=top&needAccess=true)
 - [Anki Flashcards](https://faqs.ankiweb.net/what-spaced-repetition-algorithm.html)
 - [SuperMemo](https://www.supermemo.com/en/archives1990-2015/english/ol/sm2)
 
-### Mode de révision
+### Revision mode
 
-- **Mode classique** : L'utilisateur révise un deck en répondant à chaque flashcard, puis évalue sa réponse selon les 4 niveaux.
-- (⚠️ TODO) **\*Mode examen** : Les flashcards sont présentées sans correction immédiate, imitant une situation d'examen.\*
+- **Classic mode**: The user reviews a deck by answering each flashcard, then evaluates their answer according to the 4 levels.
+- (⚠️ TODO) **\*Exam mode**: Flashcards are presented without immediate correction, imitating an exam situation.\*
 
-# 🤝 Contribuer
+# 🤝 Contribute
 
-Les contributions à travers du développement, des [issues](https://github.com/memoire-app/memoire-app/issues) ou des demandes de fonctionnalités sont les bienvenus. \
-Un [Discord](https://discord.gg/CcqzXXJfvm) est disponible pour échanger facilement.
+Contributions through development, [issues](https://github.com/memoire-app/memoire-app/issues), or feature requests are welcome. \
+A [Discord](https://discord.gg/CcqzXXJfvm) is available for easy communication.
 
 ## 💻 Configuration
 
-Après avoir récupéré le projet localement, vous pouvez installer les dépendances nécessaires avec :
+After retrieving the project locally, you can install the necessary dependencies with:
 
 ```
 npm i
 ```
 
-Pour créer les `containers Docker` :
+To create the `Docker containers`:
 
 ```
 docker compose up -d
 ```
 
-Des `.env` sont nécessaires au fonctionnement de l'application (pour le `front` ET le `back`). Des `.env.example` sont disponibles avec les valeurs attendues.
+`.env` files are required for the application to function (for both `front` AND `back`). `.env.example` files are available with the expected values.
 
 > [!NOTE]  
-> Des README.md sont égalements présents dans les dossiers `/frontend` et `/backend`, n'hésitez pas à vous y réferrer.
+> README.md files are also present in the `/frontend` and `/backend` folders, feel free to refer to them.
 
-Lorsque ces différentes étapes sont finies, vous pouvez lancer le projet en exécutant (dans `/frontend` et `/backend`) la commande :
+When these steps are completed, you can start the project by running (in `/frontend` and `/backend`) the command:
 
 ```
 npm run dev
@@ -90,14 +90,9 @@ npm run dev
 
 ![memoire_archi](https://github.com/user-attachments/assets/1a72fa69-2003-4710-9fe9-dda5ff47e942)
 
-- [Nuxt](https://nuxt.com/) avec Typescript pour le frontend
-- [AdonisJS](https://adonisjs.com/) pour le backend
-- [PostgreSQL](https://www.postgresql.org/) pour la BDD
+- [Nuxt](https://nuxt.com/) with Typescript for the frontend
+- [AdonisJS](https://adonisjs.com/) for the backend
+- [PostgreSQL](https://www.postgresql.org/) for the database
 
 > [!IMPORTANT]  
-> Cette architecture ne représente que la vue "macro", une vue + détaillée sera réalisée prochainement.
-
-# 🙏 Crédits
-
-- [Rémi Saurel](https://github.com/RemiSaurel) - 🧑‍💻 Créateur et développeur
-- [Amine Naim](https://github.com/aminenaim) - 🚰 Développeur (DevOps)
+> This architecture represents only the "macro" view, a more detailed view will be created soon.
