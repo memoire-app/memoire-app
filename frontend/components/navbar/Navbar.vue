@@ -54,6 +54,8 @@ const logo = computed(() => {
       <NuxtImg :src="logo" alt="Logo" class="flex w-20 justify-center" />
     </ClientOnly>
     <div class="flex items-center gap-2">
+      <USelectMenu v-model="languageSelected" :options="languages" />
+
       <ColorMode />
       <UButton icon="i-mdi-menu" variant="soft" @click="toggleMenu" />
     </div>

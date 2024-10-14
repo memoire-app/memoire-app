@@ -10,7 +10,7 @@ const headers = useRequestHeaders();
 const runtimeConfig = useRuntimeConfig();
 const LIMIT = 25;
 
-const { data, refresh } = await useFetch<DeckListAPI>(`/decks`, {
+const { data, refresh } = useFetch<DeckListAPI>(`/decks`, {
   query: { limit: LIMIT, page: 1 },
   baseURL: runtimeConfig.public.BACK_URL as string,
   headers,
@@ -18,7 +18,7 @@ const { data, refresh } = await useFetch<DeckListAPI>(`/decks`, {
   lazy: true,
 });
 
-const { data: stats } = await useFetch<DashboardStats>(`/stats`, {
+const { data: stats } = useFetch<DashboardStats>(`/stats`, {
   baseURL: runtimeConfig.public.BACK_URL as string,
   headers,
   credentials: "include",
