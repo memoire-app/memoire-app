@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
 import dayjs from "dayjs";
 import type { DashboardStats } from "~/models";
-const { t } = useI18n();
+import {
+  VisXYContainer,
+  VisAxis,
+  VisTooltip,
+  VisStackedBar,
+} from "@unovis/vue";
+import { StackedBar } from "@unovis/ts";
+
 const props = defineProps<{
   data: DashboardStats;
 }>();
@@ -19,7 +25,6 @@ const generateMonthsOfYear = (year: number) => {
 // Group revisions by month
 const groupRevisionsByMonth = (revisions: DashboardStats["revisions"]) => {
   const revisionsByMonth: { [key: string]: number } = {};
-
   revisions.forEach((revision) => {
     const month = dayjs(revision.updatedAt).format("MM/YYYY");
     if (!revisionsByMonth[month]) {
@@ -27,7 +32,6 @@ const groupRevisionsByMonth = (revisions: DashboardStats["revisions"]) => {
     }
     revisionsByMonth[month] += 1;
   });
-
   return revisionsByMonth;
 };
 
@@ -36,61 +40,36 @@ const currentYear = dayjs().year();
 const allMonths = generateMonthsOfYear(currentYear);
 const groupedData = groupRevisionsByMonth(props.data.revisions);
 
-// Ensure every month has a corresponding value, even if it's zero
-const seriesData = allMonths.map((month) => groupedData[month] || 0);
+// Create an array of objects with month and value properties
+const seriesData = allMonths.map((month) => ({
+  month,
+  value: groupedData[month] || 0,
+}));
 
-const colorMode = useColorMode();
+interface SeriesData {
+  month: string;
+  value: number;
+}
+// X and Y accessor functions
+const x = (d: SeriesData, i: number) => i;
+const y = (d: SeriesData) => d.value;
 
-const options = ref({
-  title: {
-    text: t("dashboards.monthlyRevisions.title"),
-    align: "center",
-    offsetY: 10,
-  },
-  chart: {
-    id: "monthly-revisions-bar",
-  },
-  xaxis: {
-    categories: allMonths,
-  },
-  theme: {
-    mode: colorMode.value,
-    monochrome: {
-      enabled: true,
-      color: "#255aee",
-    },
-  },
-});
+const tickFormat = (tick: number) => seriesData[tick].month;
 
-watch(colorMode, () => {
-  options.value = {
-    ...options.value,
-    theme: {
-      mode: colorMode.value,
-      monochrome: {
-        enabled: true,
-        color: "#255aee",
-      },
-    },
-  };
-});
-
-const series = [
-  {
-    name: "Revisions",
-    data: seriesData,
+const tooltipConfig = {
+  [StackedBar.selectors.bar]: (d: SeriesData) => {
+    return `<span>${d.month}: ${d.value}</span>`;
   },
-];
+};
 </script>
 
 <template>
-  <ClientOnly>
-    <apexchart
-      class="flex-1"
-      height="300"
-      type="bar"
-      :options="options"
-      :series="series"
-    />
-  </ClientOnly>
+  <div class="w-full">
+    <VisXYContainer :data="seriesData">
+      <VisAxis type="x" :tick-format="tickFormat" />
+      <VisAxis type="y" />
+      <VisStackedBar :x="x" :y="y" />
+      <VisTooltip :triggers="tooltipConfig" />
+    </VisXYContainer>
+  </div>
 </template>
