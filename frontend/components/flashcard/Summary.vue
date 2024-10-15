@@ -33,7 +33,7 @@ const deleteCard = () => {
 <template>
   <div class="relative min-h-52 overflow-auto rounded transition-all">
     <div
-      class="transform-style-3d absolute h-full w-full cursor-default bg-white transition-transform duration-700 dark:bg-neutral-700"
+      class="transform-style-3d absolute h-full w-full cursor-default bg-neutral-100 transition-transform duration-700 dark:bg-neutral-700"
       :class="[state === 'back' ? 'rotate-y-180' : '']"
       @click="toggleState"
     >
@@ -58,7 +58,7 @@ const deleteCard = () => {
       </div>
       <!-- Back Side -->
       <div
-        class="backface-hidden rotate-y-180 absolute h-full w-full bg-blue-950 text-white dark:bg-neutral-200 dark:text-black"
+        class="backface-hidden rotate-y-180 absolute h-full w-full bg-neutral-700 text-white dark:bg-neutral-200 dark:text-black"
         :class="[state === 'back' ? 'z-20' : 'z-10']"
       >
         <div class="absolute right-6 top-3 flex items-center gap-2 text-xs">

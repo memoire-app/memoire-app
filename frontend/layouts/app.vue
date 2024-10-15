@@ -77,7 +77,7 @@ const open = ref(true);
   <div>
     <div class="flex h-screen">
       <nav
-        class="hidden min-w-56 max-w-56 flex-col pt-3 md:flex dark:bg-neutral-900"
+        class="hidden min-w-56 max-w-56 flex-col bg-neutral-100 pt-3 md:flex dark:bg-neutral-900"
       >
         <ClientOnly>
           <NuxtImg
@@ -92,8 +92,8 @@ const open = ref(true);
             <UButton
               :class="[
                 isRouteActive('/flashcards')
-                  ? 'bg-neutral-100 dark:bg-neutral-800 dark:text-white'
-                  : 'hover:bg-neutral-100 dark:hover:bg-neutral-800/50',
+                  ? 'bg-white dark:bg-neutral-800 dark:text-white'
+                  : 'hover:bg-white dark:hover:bg-neutral-800/50',
               ]"
               icon="i-cbi-garbage-cardboard"
               to="/flashcards"
@@ -104,10 +104,9 @@ const open = ref(true);
             <UButton
               :class="[
                 isRouteActive('/explore')
-                  ? 'bg-neutral-100 dark:bg-neutral-800 dark:text-white'
-                  : 'hover:bg-neutral-100 dark:hover:bg-neutral-800/50',
+                  ? 'bg-white dark:bg-neutral-800 dark:text-white'
+                  : 'hover:bg-white dark:hover:bg-neutral-800/50',
               ]"
-              class=""
               icon="i-heroicons-magnifying-glass"
               to="/explore"
               variant="ghost"
@@ -156,7 +155,7 @@ const open = ref(true);
       </nav>
 
       <div
-        class="flex h-full w-full flex-col bg-neutral-100 pt-6 md:pt-2 dark:bg-neutral-800"
+        class="flex h-full w-full flex-col bg-white pt-6 md:pt-2 dark:bg-neutral-800"
       >
         <div class="overflow-auto px-6 py-8 md:px-14">
           <slot />

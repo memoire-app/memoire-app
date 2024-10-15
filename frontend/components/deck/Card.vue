@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import type { DeckAPI } from "~/models";
+import { ref, computed } from "vue";
 import type { PropType } from "vue";
+import type { DeckAPI } from "~/models";
 import { copyCode } from "../../utils";
+
 const { t } = useI18n();
 const router = useRouter();
 const toast = useToast();
@@ -18,9 +20,7 @@ const props = defineProps({
 const deleteIsOpen = ref(false);
 const emit = defineEmits(["refresh"]);
 
-const deckIsPublic = computed(() => {
-  return props.deck.isPublic;
-});
+const deckIsPublic = computed(() => props.deck.isPublic);
 
 const copy = () => {
   copyCode(props.deck.code);
@@ -40,7 +40,6 @@ const deleteDeck = async () => {
 
   toast.add({ title: t("notifications.decks.deletedSuccess") });
   deleteIsOpen.value = false;
-
   emit("refresh");
 };
 
@@ -88,14 +87,42 @@ const duplicateDeck = async () => {
   });
   emit("refresh");
 };
+
+// Define the dropdown items with proper click handlers
+const items = computed(() => [
+  [
+    {
+      label: deckIsPublic.value ? t("decks.privatize") : t("decks.publicize"),
+      icon: deckIsPublic.value
+        ? "i-lucide-lock-keyhole"
+        : "i-lucide-lock-keyhole-open",
+      click: () => (deckIsPublic.value ? privatizeDeck() : publicizeDeck()),
+    },
+    {
+      label: t("decks.duplicate"),
+      icon: "i-lucide-copy-plus",
+      click: duplicateDeck,
+    },
+    {
+      label: t("decks.share"),
+      icon: "i-lucide-share-2",
+      click: copy,
+    },
+    {
+      label: t("decks.delete"),
+      icon: "i-lucide-trash",
+      click: () => (deleteIsOpen.value = true),
+    },
+  ],
+]);
 </script>
 
 <template>
   <div
-    class="flex h-fit justify-between rounded bg-white px-4 py-4 ring-neutral-300 transition-all hover:cursor-pointer hover:ring-1 dark:bg-neutral-700"
+    class="flex justify-between rounded border border-neutral-100 px-4 py-4 shadow transition-all hover:cursor-pointer hover:border-neutral-200 dark:border-neutral-600 dark:bg-neutral-700 dark:hover:border-neutral-500"
     @click="router.push('/flashcards/' + deck.code)"
   >
-    <div class="flex w-4/5 flex-col gap-1 pr-2">
+    <div class="flex h-full w-4/5 flex-col gap-1 pr-2">
       <div class="flex gap-4 text-sm text-neutral-400">
         <UTooltip :text="t('decks.nbCards')" class="flex items-center gap-1">
           <UIcon name="i-lucide-rectangle-vertical" />
@@ -109,75 +136,19 @@ const duplicateDeck = async () => {
           <span>{{ deck.nbRevisions }}</span>
         </UTooltip>
       </div>
-      <span class="text-2xl font-semibold">{{ deck.title }}</span>
-      <div class="mb-4 flex flex-wrap gap-2">
-        <UBadge
-          v-for="(tag, i) in props.deck.tagArray"
-          :key="i"
-          class="w-fit text-xs"
-        >
-          {{ tag }}
-        </UBadge>
-      </div>
-
-      <UtilsLastUpdatedTag
-        v-if="deck.updatedAt"
-        :date="new Date(deck.updatedAt)"
-      />
+      <DeckInfo :deck="deck" />
     </div>
-    <div class="flex flex-col items-end justify-between gap-2">
-      <div class="flex flex-col items-end gap-2">
-        <div>
-          <UTooltip v-if="deckIsPublic" :text="t('decks.privatize')">
-            <UButton
-              icon="i-lucide-lock-keyhole-open"
-              size="xs"
-              variant="soft"
-              color="green"
-              @click.stop="privatizeDeck()"
-            />
-          </UTooltip>
-          <UTooltip v-else :text="t('decks.publicize')">
-            <UButton
-              icon="i-lucide-lock-keyhole"
-              size="xs"
-              variant="soft"
-              color="orange"
-              @click.stop="publicizeDeck()"
-            />
-          </UTooltip>
-        </div>
-
-        <div class="flex gap-1">
-          <UTooltip :text="t('decks.duplicate')">
-            <UButton
-              icon="i-lucide-copy-plus"
-              size="xs"
-              variant="soft"
-              color="indigo"
-              @click.stop="duplicateDeck()"
-            />
-          </UTooltip>
-
-          <UTooltip :text="t('decks.share')">
-            <UButton
-              icon="i-lucide-share-2"
-              size="xs"
-              variant="soft"
-              @click.stop="copy()"
-            />
-          </UTooltip>
-
-          <UTooltip :text="t('decks.delete')">
-            <UButton
-              icon="i-lucide-trash"
-              size="xs"
-              color="red"
-              variant="soft"
-              @click.stop="deleteIsOpen = true"
-            />
-          </UTooltip>
-        </div>
+    <div class="flex items-start gap-2">
+      <div class="flex items-center gap-2">
+        <UTooltip v-if="deck.isPublic" :text="t('decks.isPublic')">
+          <UIcon name="i-lucide-lock-keyhole-open" class="opacity-50" />
+        </UTooltip>
+        <UTooltip v-else :text="t('decks.isPrivate')">
+          <UIcon name="i-lucide-lock-keyhole" class="opacity-50" />
+        </UTooltip>
+        <UDropdown :items="items" @click.stop>
+          <UButton icon="i-lucide-more-vertical" size="xs" variant="soft" />
+        </UDropdown>
       </div>
     </div>
   </div>
@@ -207,5 +178,3 @@ const duplicateDeck = async () => {
     </div>
   </UModal>
 </template>
-
-<style scoped></style>

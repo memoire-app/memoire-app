@@ -8,7 +8,7 @@ definePageMeta({
 
 const headers = useRequestHeaders();
 const runtimeConfig = useRuntimeConfig();
-const LIMIT = 25;
+const LIMIT = 24;
 
 const { data, refresh } = useFetch<DeckListAPI>(`/decks`, {
   query: { limit: LIMIT, page: 1 },
@@ -189,7 +189,7 @@ watch(page, (newPage) => {
             <UInput
               v-model="searchQuery"
               size="lg"
-              :placeholder="t('decks.search')"
+              :placeholder="t('decks.search') + '...'"
               icon="i-lucide-search"
               class="w-full"
               @keyup.enter="search"
@@ -220,7 +220,7 @@ watch(page, (newPage) => {
       </div>
 
       <div v-if="data" class="mt-4">
-        <div class="flex justify-between gap-1 pb-2">
+        <div class="flex items-center justify-end gap-6 pb-2">
           <UPagination
             v-model="page"
             :total="data.nbDecks"
@@ -228,7 +228,7 @@ watch(page, (newPage) => {
           />
         </div>
 
-        <div class="grid grid-cols-1 gap-3">
+        <div class="grid gap-3 lg:grid-cols-2 xl:grid-cols-3">
           <DeckCard
             v-for="deck in data.decks"
             :key="deck.id"

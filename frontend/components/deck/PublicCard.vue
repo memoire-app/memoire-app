@@ -25,26 +25,14 @@ const copy = () => {
 
 <template>
   <div
-    class="flex h-fit justify-between rounded bg-white px-4 py-4 ring-neutral-300 transition-all hover:cursor-pointer hover:ring-1 dark:bg-neutral-700"
+    class="flex justify-between rounded border-2 border-neutral-100 bg-white px-4 py-4 shadow transition-all hover:cursor-pointer hover:border-neutral-200 dark:border-neutral-600 dark:bg-neutral-700"
     @click="emit('openPreview', props.deck.code)"
   >
-    <div class="flex w-4/5 flex-col gap-1 pr-2">
-      <span class="text-2xl font-semibold">{{ deck.title }}</span>
-      <div class="mb-4 flex flex-wrap gap-2">
-        <UBadge
-          v-for="(tag, i) in props.deck.tagArray"
-          :key="i"
-          class="w-fit text-xs"
-        >
-          {{ tag }}
-        </UBadge>
+    <div class="flex h-full w-4/5 pr-2">
+      <div class="flex flex-col justify-between">
+        <DeckInfo :deck="props.deck" />
+        <UtilsAuthor :deck="props.deck" :original="props.deck.original" />
       </div>
-
-      <UtilsAuthor :deck="props.deck" :original="props.deck.original" />
-      <UtilsLastUpdatedTag
-        v-if="props.deck.updatedAt"
-        :date="new Date(props.deck.updatedAt)"
-      />
     </div>
     <div class="flex flex-col items-end justify-between gap-2">
       <div class="flex gap-2">

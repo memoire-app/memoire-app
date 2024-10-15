@@ -185,13 +185,7 @@ defineShortcuts({
     <div class="flex w-full flex-col gap-1 pb-4 pt-8">
       <div class="h-fit w-fit text-xl">{{ data?.deckTitle }}</div>
       <div class="flex flex-wrap gap-2">
-        <UBadge
-          v-for="(tag, i) in data?.deckTags"
-          :key="i"
-          class="w-fit text-xs"
-        >
-          {{ tag }}
-        </UBadge>
+        <DeckTag v-for="(tag, i) in data?.deckTags" :key="i" :tag="tag" />
       </div>
 
       <div class="mt-4 flex flex-col items-end gap-2">
