@@ -25,7 +25,7 @@ const copy = () => {
 
 <template>
   <div
-    class="flex justify-between rounded border-2 border-neutral-100 bg-white px-4 py-4 shadow transition-all hover:cursor-pointer hover:border-neutral-200 dark:border-neutral-600 dark:bg-neutral-700"
+    class="flex justify-between rounded border border-neutral-100 bg-white px-4 py-4 shadow transition-all hover:cursor-pointer hover:border-neutral-200 dark:border-neutral-600 dark:bg-neutral-700"
     @click="emit('openPreview', props.deck.code)"
   >
     <div class="flex h-full w-4/5 pr-2">
