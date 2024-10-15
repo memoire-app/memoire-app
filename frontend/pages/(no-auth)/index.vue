@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 
+definePageMeta({
+  layout: "no-auth",
+});
+
 const { t, tm, locale } = useI18n();
 
 const colorMode = useColorMode();
@@ -62,7 +66,12 @@ watch(
         <h3 class="max-w-[500px] pt-2 text-gray-500">
           {{ t("landing.subtitle") }}
         </h3>
-        <UButton class="mt-8" to="/login" size="xl" icon="i-lucide-badge-plus">
+        <UButton
+          class="-z-50 mt-8"
+          to="/login"
+          size="xl"
+          icon="i-lucide-badge-plus"
+        >
           {{ t("landing.create") }}
         </UButton>
       </UContainer>
