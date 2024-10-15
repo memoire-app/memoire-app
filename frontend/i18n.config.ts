@@ -89,6 +89,9 @@ export default defineI18nConfig(() => ({
           myDecks: "My decks",
           dashboards: "Dashboards",
         },
+        dashboards: {
+          title: "Dashboards",
+        },
         explore: {
           title: "Explore",
         },
@@ -287,6 +290,9 @@ export default defineI18nConfig(() => ({
           title: "Flashcards",
           myDecks: "Mes decks",
           dashboards: "Dashboards",
+        },
+        dashboards: {
+          title: "Dashboards",
         },
         explore: {
           title: "Explorer",
