@@ -103,8 +103,8 @@ watch(
               @mouseleave="clearActive"
             />
           </div>
-          <div class="lg:w-2/5">
-            <img src="/demo.gif" alt="hero" class="h-full w-full" />
+          <div>
+            <NuxtImg fit="cover" src="/demo.gif" alt="hero" />
           </div>
         </div>
       </UContainer>
