@@ -28,8 +28,9 @@ const props = defineProps({
           props.original ? 'text-black dark:text-neutral-300' : 'text-red-500',
         ]"
         size="16"
+        class="opacity-50"
       />
-      <span class="text-sm">{{ props.deck.authorName }}</span>
+      <span class="text-sm text-neutral-400">{{ props.deck.authorName }}</span>
     </div>
   </UTooltip>
 </template>

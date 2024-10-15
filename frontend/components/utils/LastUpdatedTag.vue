@@ -10,10 +10,12 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex text-sm">
+  <div class="flex pt-4 text-sm">
     <UTooltip :text="t('utils.lastUpdate')" class="flex items-center gap-1">
-      <UIcon name="i-lucide-calendar" size="sm" />
-      <span>{{ new Date(date).toLocaleDateString("fr") }}</span>
+      <UIcon name="i-lucide-calendar" size="sm" class="opacity-50" />
+      <span class="text-neutral-400">{{
+        new Date(date).toLocaleDateString("fr")
+      }}</span>
     </UTooltip>
   </div>
 </template>
