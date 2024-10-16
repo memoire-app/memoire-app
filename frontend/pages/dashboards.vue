@@ -38,10 +38,14 @@ const links = [
       <div class="mt-4 flex flex-1 flex-col gap-6">
         <DashboardGlobalStats :data="stats" />
         <div class="flex flex-col gap-4 md:flex-row xl:w-4/5">
-          <DashboardChartContainer title="Revisions">
+          <DashboardChartContainer
+            :title="t('dashboards.monthlyRevisions.title')"
+          >
             <DashboardBarChart :data="stats" />
           </DashboardChartContainer>
-          <DashboardChartContainer title="Subjects">
+          <DashboardChartContainer
+            :title="t('dashboards.revisionsByDeck.title')"
+          >
             <DashboardPieChart :data="stats" />
           </DashboardChartContainer>
         </div>

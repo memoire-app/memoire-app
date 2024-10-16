@@ -16,9 +16,9 @@ const logo = computed(() => {
 
 <template>
   <div>
-    <nav class="mb-4 hidden w-full md:fixed md:block">
+    <nav class="z-10 mb-4 hidden w-full md:fixed md:block">
       <UContainer
-        class="z-10 mt-4 flex w-full items-center justify-between rounded-lg border border-neutral-200 bg-white/50 py-3 backdrop-blur-xl dark:border-neutral-700 dark:bg-neutral-600/30"
+        class="mt-4 flex w-full items-center justify-between rounded-lg border border-neutral-200 bg-white/50 py-3 backdrop-blur-xl dark:border-neutral-700 dark:bg-neutral-600/30"
       >
         <div class="w-1/5">
           <ClientOnly>
