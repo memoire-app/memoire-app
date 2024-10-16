@@ -185,13 +185,7 @@ defineShortcuts({
     <div class="flex w-full flex-col gap-1 pb-4 pt-8">
       <div class="h-fit w-fit text-xl">{{ data?.deckTitle }}</div>
       <div class="flex flex-wrap gap-2">
-        <UBadge
-          v-for="(tag, i) in data?.deckTags"
-          :key="i"
-          class="w-fit text-xs"
-        >
-          {{ tag }}
-        </UBadge>
+        <DeckTag v-for="(tag, i) in data?.deckTags" :key="i" :tag="tag" />
       </div>
 
       <div class="mt-4 flex flex-col items-end gap-2">
@@ -215,7 +209,7 @@ defineShortcuts({
         ><template #front>
           <svg
             aria-hidden="true"
-            class="h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+            class="h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-slate-600"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -266,7 +260,7 @@ defineShortcuts({
 
     <div v-if="!finished" class="flex flex-col gap-2">
       <div class="flex items-center gap-0.5">
-        <span class="text-sm text-neutral-500">{{
+        <span class="text-sm text-slate-500">{{
           t("revision.evaluation")
         }}</span>
         <UButton
@@ -287,7 +281,7 @@ defineShortcuts({
     <UModal v-model="isFinishedStateOpen" prevent-close>
       <div class="flex flex-col gap-6 p-4">
         <div class="text-xl font-bold">🥳 {{ t("revision.congrats") }} !</div>
-        <div class="text-sm text-neutral-600">
+        <div class="text-sm text-slate-600">
           {{ t("revision.finished") }}
         </div>
         <div class="flex justify-end gap-2">

@@ -17,11 +17,11 @@ defineProps({
 
 <template>
   <div
-    class="flex flex-1 flex-col justify-between gap-2 border border-neutral-200 px-8 py-6 transition-all hover:border-blue-500 dark:border-neutral-700 dark:hover:border-blue-500"
+    class="flex flex-1 flex-col justify-between gap-2 border border-slate-200 px-8 py-6 transition-all hover:border-slate-500 dark:border-slate-700 dark:hover:border-slate-500"
   >
     <div class="flex items-center gap-2">
       <span
-        class="flex h-5 w-5 items-center justify-center bg-neutral-700 text-sm text-white dark:bg-neutral-100 dark:text-neutral-700"
+        class="flex h-5 w-5 items-center justify-center bg-slate-700 text-sm text-white dark:bg-slate-100 dark:text-slate-700"
         >{{ index }}</span
       >
       <span class="text-xl font-semibold">{{ title }}</span>

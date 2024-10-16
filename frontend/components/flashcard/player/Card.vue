@@ -5,7 +5,9 @@ const props = defineProps<{
 }>();
 
 const prettyPrintSide = computed(() => {
-  return props.side === "front" ? "Question" : t("flashcards.answer");
+  return props.side === "front"
+    ? t("flashcards.question")
+    : t("flashcards.answer");
 });
 </script>
 
@@ -14,8 +16,8 @@ const prettyPrintSide = computed(() => {
     class="relative flex h-[400px] w-full flex-col overflow-auto rounded"
     :class="
       props.side === 'front'
-        ? 'bg-white text-neutral-600 dark:bg-neutral-700 dark:text-neutral-200'
-        : 'bg-blue-950 text-neutral-200 dark:bg-neutral-200 dark:text-neutral-700'
+        ? 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-200'
+        : 'bg-slate-700 text-slate-200 dark:bg-slate-200 dark:text-slate-700'
     "
   >
     <div

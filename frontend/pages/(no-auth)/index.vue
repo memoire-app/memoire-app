@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 
+definePageMeta({
+  layout: "no-auth",
+});
+
 const { t, tm, locale } = useI18n();
 
 const colorMode = useColorMode();
@@ -39,19 +43,17 @@ watch(
 
 <template>
   <div>
-    <ClientOnly>
-      <div
-        :style="{ backgroundImage: `url(${bg})` }"
-        class="fixed -z-50 h-full w-full bg-cover bg-center opacity-50"
-      />
-    </ClientOnly>
+    <div
+      :style="{ backgroundImage: `url(${bg})` }"
+      class="fixed -z-50 h-full w-full bg-cover bg-center opacity-50"
+    />
     <Navbar />
     <UContainer>
       <UContainer
         class="flex w-full flex-col items-center justify-center gap-4 pt-24 text-center md:pt-48"
       >
         <div
-          class="rounded-3xl border border-neutral-200 px-3 py-1 text-sm text-neutral-700 transition-all dark:text-neutral-300"
+          class="rounded-3xl border border-slate-200 px-3 py-1 text-sm text-slate-700 transition-all dark:text-slate-300"
           to="/login"
         >
           ✨ {{ t("landing.welcome") }}
@@ -59,7 +61,7 @@ watch(
         <h1 class="text-4xl font-bold lg:text-6xl">
           {{ t("landing.study") }}
         </h1>
-        <h3 class="max-w-[500px] pt-2 text-gray-500">
+        <h3 class="max-w-[500px] pt-2 text-slate-500">
           {{ t("landing.subtitle") }}
         </h3>
         <UButton class="mt-8" to="/login" size="xl" icon="i-lucide-badge-plus">
@@ -67,7 +69,7 @@ watch(
         </UButton>
       </UContainer>
 
-      <div class="mt-48 hidden justify-center md:flex">
+      <div class="mt-48 hidden skew-x-12 justify-center md:flex">
         <NuxtImg src="/FLASHCARDS.png" alt="hero" class="w-4/5" />
       </div>
 
@@ -75,9 +77,8 @@ watch(
         id="features"
         class="flex w-full flex-col items-center justify-center gap-12 py-16 lg:gap-20 lg:py-24"
       >
-        <span class="bg-primary h-24 w-1 lg:h-72" />
         <span
-          class="inline-flex items-center gap-3 text-center text-3xl font-bold lg:text-5xl"
+          class="inline-flex flex-wrap items-baseline justify-center gap-3 text-center text-3xl font-bold lg:text-5xl"
           :style="{ lineHeight: '1.5' }"
         >
           {{ t("landing.why") }}
@@ -86,26 +87,21 @@ watch(
               colorMode.value === 'dark' ? '/lightmemoire.svg' : '/memoire.svg'
             "
             alt="logo"
-            class="inline-block h-40 w-40"
+            class="inline-flex w-32 items-center lg:w-44"
           />
           ?
         </span>
 
-        <div class="flex flex-col gap-8 lg:flex-row lg:gap-12">
-          <div class="flex w-full flex-1 flex-col gap-8 lg:w-3/5">
-            <LandingAutoplayBox
-              v-for="(feature, i) in FEATURES"
-              :key="feature.title"
-              :title="feature.title"
-              :content="feature.content"
-              :index="i + 1"
-              @mouseenter="setActive(i)"
-              @mouseleave="clearActive"
-            />
-          </div>
-          <div class="lg:w-2/5">
-            <img src="/demo.gif" alt="hero" class="h-full w-full" />
-          </div>
+        <div class="flex w-full flex-col gap-8 lg:w-1/2">
+          <LandingAutoplayBox
+            v-for="(feature, i) in FEATURES"
+            :key="feature.title"
+            :title="feature.title"
+            :content="feature.content"
+            :index="i + 1"
+            @mouseenter="setActive(i)"
+            @mouseleave="clearActive"
+          />
         </div>
       </UContainer>
 
@@ -117,7 +113,6 @@ watch(
         </span>
         <UAccordion
           size="xl"
-          multiple
           :items="QUESTIONS"
           :ui="{ default: { truncate: false, class: 'text-left mb-1.5' } }"
         />

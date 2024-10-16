@@ -41,12 +41,12 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-1">
-    <div class="flex flex-wrap rounded-md border border-gray-300 p-1">
+    <div class="flex flex-wrap rounded-md border border-slate-300 p-1">
       <div class="flex flex-wrap gap-2">
         <span
           v-for="(tag, index) in tags"
           :key="index"
-          class="flex items-center rounded bg-gray-200 px-2 py-0.5 text-sm dark:text-black"
+          class="flex items-center rounded bg-slate-200 px-2 py-0.5 text-sm dark:text-black"
         >
           {{ tag }}
           <button
@@ -60,7 +60,7 @@ onMounted(() => {
       <UInput
         v-model="inputValue"
         variant="none"
-        placeholder="SVT, Maths, ..."
+        :placeholder="t('decks.tagsPlaceholder')"
         class="flex-1 border-none text-sm outline-none"
         @keydown="handleKeyPress"
       />

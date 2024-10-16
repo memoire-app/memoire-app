@@ -12,11 +12,11 @@ defineProps({
 </script>
 
 <template>
-  <ULink :to="to" inactive-class="text-gray-5 transition-all">
+  <ULink :to="to" inactive-class="text-slate-5 transition-all z-20">
     <UButton
       :size="size"
       :icon="icon"
-      class="hover:bg-gray-100 dark:hover:bg-slate-700"
+      class="z-50 hover:bg-slate-100 dark:hover:bg-slate-700"
       color="black"
       variant="ghost"
     >

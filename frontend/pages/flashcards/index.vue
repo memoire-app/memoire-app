@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DashboardStats, DeckAPI, DeckListAPI } from "~/models";
+import type { DeckAPI, DeckListAPI } from "~/models";
 const { t } = useI18n();
 definePageMeta({
   layout: "app",
@@ -8,17 +8,10 @@ definePageMeta({
 
 const headers = useRequestHeaders();
 const runtimeConfig = useRuntimeConfig();
-const LIMIT = 25;
+const LIMIT = 24;
 
-const { data, refresh } = await useFetch<DeckListAPI>(`/decks`, {
+const { data, refresh } = useFetch<DeckListAPI>(`/decks`, {
   query: { limit: LIMIT, page: 1 },
-  baseURL: runtimeConfig.public.BACK_URL as string,
-  headers,
-  credentials: "include",
-  lazy: true,
-});
-
-const { data: stats } = await useFetch<DashboardStats>(`/stats`, {
   baseURL: runtimeConfig.public.BACK_URL as string,
   headers,
   credentials: "include",
@@ -37,13 +30,13 @@ const page = ref(1);
 const searchQuery = ref("");
 const activeTab = ref(0);
 
-const links = [
+const links = computed(() => [
   {
-    label: "Flashcards",
+    label: t("pages.flashcards.title"),
     icon: "i-cbi-garbage-cardboard",
     to: "/flashcards",
   },
-];
+]);
 
 const openSlideover = () => {
   createDeckOpen.value = true;
@@ -157,85 +150,76 @@ watch(page, (newPage) => {
   <div>
     <UBreadcrumb :links="links" />
 
-    <TabsGroup v-model:active-tab="activeTab" class="mt-4 md:mt-8" />
-
-    <!-- MES DECKS tab -->
-    <div v-if="activeTab === 0">
-      <div
-        v-if="data"
-        class="mt-4 flex flex-col-reverse gap-2 lg:flex-row-reverse lg:justify-between"
-      >
-        <div class="flex w-full flex-col gap-2 lg:w-fit lg:flex-row">
+    <div
+      v-if="data"
+      class="mt-4 flex flex-col-reverse gap-2 lg:flex-row-reverse lg:justify-between"
+    >
+      <div class="flex w-full flex-col gap-2 lg:w-fit lg:flex-row">
+        <UButton
+          size="lg"
+          icon="i-lucide-import"
+          class="flex w-full justify-center lg:w-fit"
+          variant="outline"
+          @click="importModalOpen = true"
+        >
+          {{ t("decks.importVariant") }}
+        </UButton>
+        <UButton
+          size="lg"
+          icon="i-heroicons-plus-20-solid"
+          class="flex w-full justify-center lg:w-fit"
+          @click="openSlideover()"
+        >
+          {{ t("decks.createVariant") }}
+        </UButton>
+      </div>
+      <div class="flex flex-col gap-1">
+        <div class="flex gap-2">
+          <UInput
+            v-model="searchQuery"
+            size="lg"
+            :placeholder="t('decks.search') + '...'"
+            icon="i-lucide-search"
+            class="w-full"
+            @keyup.enter="search"
+          />
+          <!-- Icon Only on Small Screens -->
           <UButton
             size="lg"
-            icon="i-lucide-import"
-            class="flex w-full justify-center lg:w-fit"
-            variant="outline"
-            @click="importModalOpen = true"
-          >
-            {{ t("decks.importVariant") }}
-          </UButton>
+            icon="i-lucide-search"
+            class="sm:hidden"
+            @click="search"
+          />
+
+          <!-- Classic Button on Medium Screens and Larger -->
           <UButton
             size="lg"
-            icon="i-heroicons-plus-20-solid"
-            class="flex w-full justify-center lg:w-fit"
-            @click="openSlideover()"
+            icon="i-lucide-search"
+            class="hidden sm:flex"
+            @click="search"
           >
-            {{ t("decks.createVariant") }}
+            {{ t("utils.search") }}
           </UButton>
         </div>
-        <div class="flex flex-col gap-1">
-          <div class="flex gap-2">
-            <UInput
-              v-model="searchQuery"
-              size="lg"
-              :placeholder="t('decks.search')"
-              icon="i-lucide-search"
-              class="w-full"
-              @keyup.enter="search"
-            />
-            <!-- Icon Only on Small Screens -->
-            <UButton
-              size="lg"
-              icon="i-lucide-search"
-              class="sm:hidden"
-              @click="search"
-            />
 
-            <!-- Classic Button on Medium Screens and Larger -->
-            <UButton
-              size="lg"
-              icon="i-lucide-search"
-              class="hidden sm:flex"
-              @click="search"
-            >
-              {{ t("utils.search") }}
-            </UButton>
-          </div>
+        <span class="text-sm italic text-slate-500"
+          >{{ data.nbDecks }} {{ t("decks.nbDecks") }}
+        </span>
+      </div>
+    </div>
 
-          <span class="text-sm italic opacity-50"
-            >{{ data.nbDecks }} deck(s)</span
-          >
-        </div>
+    <div v-if="data" class="mt-4">
+      <div class="flex items-center justify-end gap-6 pb-2">
+        <UPagination v-model="page" :total="data.nbDecks" :page-count="LIMIT" />
       </div>
 
-      <div v-if="data" class="mt-4">
-        <div class="flex justify-between gap-1 pb-2">
-          <UPagination
-            v-model="page"
-            :total="data.nbDecks"
-            :page-count="LIMIT"
-          />
-        </div>
-
-        <div class="grid grid-cols-1 gap-3">
-          <DeckCard
-            v-for="deck in data.decks"
-            :key="deck.id"
-            :deck="deck"
-            @refresh="refresh"
-          />
-        </div>
+      <div class="grid gap-3 lg:grid-cols-2 xl:grid-cols-3">
+        <DeckCard
+          v-for="deck in data.decks"
+          :key="deck.id"
+          :deck="deck"
+          @refresh="refresh"
+        />
       </div>
 
       <USlideover v-model="createDeckOpen">
@@ -286,7 +270,6 @@ watch(page, (newPage) => {
           <UInput v-model="importCode" :placeholder="t('decks.code')" />
           <div class="flex items-center justify-end gap-2">
             <UButton
-              color="blue"
               size="sm"
               class="h-fit"
               variant="ghost"
@@ -294,27 +277,12 @@ watch(page, (newPage) => {
             >
               {{ t("utils.cancel") }}
             </UButton>
-            <UButton
-              color="blue"
-              size="sm"
-              class="h-fit"
-              @click="importDeckWithCode"
+            <UButton size="sm" class="h-fit" @click="importDeckWithCode"
               >{{ t("utils.import") }}
             </UButton>
           </div>
         </div>
       </UModal>
-    </div>
-
-    <!-- DASHBOARDS tab -->
-    <div v-if="activeTab === 1 && stats">
-      <div class="mt-4 flex flex-col gap-6">
-        <DashboardGlobalStats :data="stats" />
-        <div class="flex flex-col gap-4 md:flex-row">
-          <DashboardBarChart :data="stats" />
-          <DashboardPieChart :data="stats" />
-        </div>
-      </div>
     </div>
   </div>
 </template>
