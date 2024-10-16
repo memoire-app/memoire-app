@@ -58,6 +58,10 @@ export default defineI18nConfig(() => ({
         },
         credits: {
           developed_by: "Developed with 💙 by",
+          title: "Copyright",
+        },
+        links: {
+          title: "Links",
         },
       },
       login: {
@@ -128,7 +132,9 @@ export default defineI18nConfig(() => ({
         code: "Deck code",
         tagsCreation1: "Press",
         tagsCreation2: "to create a tag",
+        tagsPlaceholder: "Biology, History, Maths",
         empty: "No cards in this deck",
+        nbDecks: "deck(s)",
       },
       flashcards: {
         createCard: "Create a card",
@@ -260,6 +266,10 @@ export default defineI18nConfig(() => ({
         },
         credits: {
           developed_by: "Développé avec 💙 par",
+          title: "Copyright",
+        },
+        links: {
+          title: "Liens utiles",
         },
       },
       login: {
@@ -330,7 +340,9 @@ export default defineI18nConfig(() => ({
         code: "Code du deck",
         tagsCreation1: "Appyuyez sur",
         tagsCreation2: "pour créer un tag",
+        tagsPlaceholder: "SVT, Histoire, Maths",
         empty: "Aucune carte dans ce deck",
+        nbDecks: "deck(s)",
       },
       flashcards: {
         createCard: "Créer une carte",
@@ -402,6 +414,417 @@ export default defineI18nConfig(() => ({
         },
         revisionsByDeck: {
           title: "Révisions par deck",
+        },
+      },
+    },
+    kr: {
+      landing: {
+        welcome: "지금 모험에 참여하세요",
+        study: "플래시 카드로 효율적으로 공부하세요",
+        subtitle: "덱을 만들고 연습하고 커뮤니티에서 만든 덱을 발견하세요",
+        create: "덱 만들기",
+        why: "왜 사용하나요",
+        features: [
+          {
+            title: "덱 만들기",
+            content: "🔖 한쪽에 질문, 다른 한쪽에 답변",
+          },
+          {
+            title: "효율적으로 공부하기",
+            content: "📚 효율적이고 재미있게 공부하세요",
+          },
+          {
+            title: "덱 공유하기",
+            content: "😎 친구들과 커뮤니티와 덱을 공유하세요",
+          },
+          {
+            title: "통계 확인하기",
+            content: "📊 통계를 확인하여 진행 상황을 추적하세요",
+          },
+          {
+            title: "발견할 새로운 기능",
+            content: "✨ 멋진 기능들이 준비되어 있습니다. 기대해주세요",
+          },
+        ],
+        questions_frequent: "자주 묻는 질문",
+        questions: [
+          {
+            label: "덱을 어떻게 만들나요?",
+            content: "'덱 만들기' 버튼을 클릭하면 됩니다.",
+          },
+          {
+            label: "내 덱은 모두에게 공개되나요?",
+            content:
+              "아니요. 기본적으로 덱은 비공개입니다. 원한다면 친구나 커뮤니티와 공유할 수 있습니다.",
+          },
+          {
+            label: "공유된 덱을 어떻게 사용하나요?",
+            content:
+              "공유된 덱을 찾으면 컬렉션에 추가하고 원하는대로 사용할 수 있습니다.",
+          },
+        ],
+        contact: {
+          title: "연락처",
+          github: "memoire는 오픈소스 프로젝트로, 여기에서 사용할 수 있습니다",
+          discord: "또한",
+          discord_community:
+            "Studoby에 가입하여 컴퓨터, 교육 및 기타 주제에 대해 이야기 나눌 수 있습니다.",
+        },
+        credits: {
+          developed_by: "💙로 개발되었습니다",
+          title: "저작권",
+        },
+        links: {
+          title: "링크",
+        },
+      },
+      login: {
+        connect: "계정에 액세스하려면 로그인하세요",
+      },
+      utils: {
+        login: "로그인",
+        loginWith: "{provider}로 로그인",
+        logout: "로그아웃",
+        profile: "프로필",
+        logout_confirm: "로그아웃 하시겠습니까?",
+        logout_name: "로그아웃",
+        cancel: "취소",
+        search: "검색",
+        lastUpdate: "마지막 업데이트",
+        edit: "편집",
+        finished: "완료",
+        close: "닫기",
+        help: "도움말",
+        resume: "재개",
+        create: "생성",
+        or: "또는",
+        delete: "삭제",
+        import: "가져오기",
+      },
+      pages: {
+        flashcards: {
+          title: "플래시 카드",
+          myDecks: "내 덱",
+          dashboards: "대시보드",
+        },
+        dashboards: {
+          title: "대시보드",
+        },
+        explore: {
+          title: "탐색",
+        },
+        profile: {
+          title: "프로필",
+        },
+      },
+      decks: {
+        public: "공개 덱",
+        weekly: "주간 덱",
+        weeklyDesc: "이번 주에 만들어진 덱",
+        number: "총 공개 덱 수",
+        search: "덱 검색",
+        share: "이 덱 공유하기",
+        import: "이 덱 가져오기",
+        importVariant: "덱 가져오기",
+        createVariant: "덱 만들기",
+        originalCreator: "원래 만든 사람",
+        nbCards: "카드 수",
+        nbRevisions: "수정 수",
+        privatize: "비공개로 전환",
+        privatize_confirm: "이 덱을 비공개로 전환하시겠습니까?",
+        publicize: "공개로 전환",
+        publicize_confirm: "이 덱을 공개로 전환하시겠습니까?",
+        isPublic: "이 덱은 공개 상태입니다",
+        isPrivate: "이 덱은 비공개 상태입니다",
+        duplicate: "복제",
+        delete: "삭제",
+        delete_confirm: "이 덱을 삭제하시겠습니까?",
+        edit: "편집",
+        newRevision: "새 수정",
+        title: "제목",
+        titlePlaceholder: "내 슈퍼 덱",
+        code: "덱 코드",
+        tagsCreation1: "누르세요",
+        tagsCreation2: "태그를 만들기 위해",
+        tagsPlaceholder: "생물학, 역사, 수학",
+        empty: "이 덱에 카드가 없습니다",
+        nbDecks: "덱",
+      },
+      flashcards: {
+        createCard: "카드 만들기",
+        question: "질문",
+        answer: "답변",
+        placeholder: "앙리 4세의 흰 말의 색깔은 무엇인가요?",
+        deleteConfirm: "이 카드를 삭제하시겠습니까?",
+        delete: "카드 삭제",
+      },
+      revision: {
+        seeResponse: "답변 보기",
+        seeQuestion: "질문 보기",
+        evaluation: "평가",
+        criterias: {
+          again: "다시",
+          hard: "어려움",
+          good: "좋음",
+          easy: "쉬움",
+        },
+        how: {
+          title: "어떻게 작동하나요?",
+          desc: "다음과 같이 대답하면",
+          descNext: "같은 세션에서 카드가 다시 나오지 않습니다.",
+          descAgain: "같은 세션에서 나중에 다시 나옵니다.",
+          moreInformation: "자세한 정보는",
+        },
+        congrats: "축하합니다!",
+        finished: "리비전을 완료했습니다",
+        again: "다시 공부하기",
+        backToDeck: "덱으로 돌아가기",
+      },
+      notifications: {
+        decks: {
+          importedSuccess: "덱이 성공적으로 가져와졌습니다",
+          importedError: "덱을 가져오는 중 오류가 발생했습니다",
+          deletedSuccess: "덱이 성공적으로 삭제되었습니다",
+          privatizedSuccess: "덱이 성공적으로 비공개로 전환되었습니다",
+          publicizedSuccess: "덱이 성공적으로 공개로 전환되었습니다",
+          duplicatedSuccess: "덱이 성공적으로 복제되었습니다",
+        },
+        flashcards: {
+          createdSuccess: "카드가 성공적으로 만들어졌습니다",
+          updatedSuccess: "카드가 성공적으로 업데이트되었습니다",
+          deletedSuccess: "카드가 성공적으로 삭제되었습니다",
+        },
+        misc: {
+          searchError: "검색하는 중 오류가 발생했습니다",
+          navigateError: "탐색하는 중 오류가 발생했습니다",
+          copyCode: "코드가 복사되었습니다 : ",
+        },
+      },
+      dashboards: {
+        totalDecks: {
+          title: "총 덱 수",
+          desc: "공개 덱 {count}개",
+        },
+        totalCards: {
+          title: "총 카드 수",
+          desc: "평균 {count}개의 카드 / 덱",
+        },
+        totalRevisions: {
+          title: "총 수정 수",
+          desc: "평균 {count}개의 수정 / 덱",
+        },
+        monthlyRevisions: {
+          title: "월간 수정",
+        },
+        revisionsByDeck: {
+          title: "덱별 수정",
+        },
+      },
+    },
+    es: {
+      landing: {
+        welcome: "Únete a la aventura ahora",
+        study: "Estudia eficientemente con flashcards",
+        subtitle:
+          "Crea mazos, practica y descubre mazos creados por la comunidad",
+        create: "Crear un mazo",
+        why: "Por qué usar",
+        features: [
+          {
+            title: "Crea tu mazo",
+            content: "🔖 En un lado la pregunta, en el otro la respuesta",
+          },
+          {
+            title: "Estudia eficazmente",
+            content: "📚 Estudia tus cursos de manera eficiente y lúdica",
+          },
+          {
+            title: "Comparte tus mazos",
+            content: "😎 Comparte tus mazos con tus amigos y la comunidad",
+          },
+          {
+            title: "Consulta tus estadísticas",
+            content: "📊 Consulta tus estadísticas para seguir tu progreso",
+          },
+          {
+            title: "Nuevas funciones por descubrir",
+            content: "✨ Grandes cosas están por venir, mantente atento",
+          },
+        ],
+        questions_frequent: "Preguntas frecuentes",
+        questions: [
+          {
+            label: "¿Cómo crear un mazo?",
+            content:
+              "Solo tienes que iniciar sesión y hacer clic en el botón 'Crear un mazo'.",
+          },
+          {
+            label: "¿Están accesibles mis mazos para todos?",
+            content:
+              "No. Por defecto, tus mazos son privados. Puedes compartirlos con amigos o la comunidad si lo deseas.",
+          },
+          {
+            label: "¿Cómo usar mazos compartidos?",
+            content:
+              "Una vez que hayas encontrado un mazo compartido, puedes agregarlo a tu colección y usarlo como desees.",
+          },
+        ],
+        contact: {
+          title: "Contacto",
+          github: "memoire es un proyecto de código abierto, disponible en",
+          discord: "También puedes unirte al",
+          discord_community:
+            "Studoby, un servidor comunitario dedicado a la informática, la educación y más.",
+        },
+        credits: {
+          developed_by: "Desarrollado con 💙 por",
+          title: "Derechos de autor",
+        },
+        links: {
+          title: "Enlaces",
+        },
+      },
+      login: {
+        connect: "Inicia sesión para acceder a tu cuenta",
+      },
+      utils: {
+        login: "Iniciar sesión",
+        loginWith: "Iniciar sesión con {provider}",
+        logout: "Cerrar sesión",
+        profile: "Perfil",
+        logout_confirm: "¿Estás seguro de que quieres cerrar la sesión?",
+        logout_name: "Cerrar sesión",
+        cancel: "Cancelar",
+        search: "Buscar",
+        lastUpdate: "Última actualización",
+        edit: "Editar",
+        finished: "terminado(s)",
+        close: "Cerrar",
+        help: "Ayuda",
+        resume: "Reanudar",
+        create: "Crear",
+        or: "o",
+        delete: "Eliminar",
+        import: "Importar",
+      },
+      pages: {
+        flashcards: {
+          title: "Flashcards",
+          myDecks: "Mis mazos",
+          dashboards: "Tableros",
+        },
+        dashboards: {
+          title: "Tableros",
+        },
+        explore: {
+          title: "Explorar",
+        },
+        profile: {
+          title: "Perfil",
+        },
+      },
+      decks: {
+        public: "Mazos públicos",
+        weekly: "Mazos semanales",
+        weeklyDesc: "Mazos creados esta semana",
+        number: "Número total de mazos públicos",
+        search: "Buscar un mazo",
+        share: "Compartir este mazo",
+        import: "Importar este mazo",
+        importVariant: "Importar un mazo",
+        createVariant: "Crear un mazo",
+        originalCreator: "Creador original",
+        nbCards: "Número de flashcards",
+        nbRevisions: "Número de revisiones",
+        privatize: "Privatizar",
+        privatize_confirm: "¿Estás seguro de que quieres privatizar este mazo?",
+        publicize: "Publicar",
+        publicize_confirm: "¿Estás seguro de que quieres publicar este mazo?",
+        isPublic: "Este mazo es público",
+        isPrivate: "Este mazo es privado",
+        duplicate: "Duplicar",
+        delete: "Eliminar",
+        delete_confirm: "¿Estás seguro de que quieres eliminar este mazo?",
+        edit: "Editar",
+        newRevision: "Nueva revisión",
+        title: "Título",
+        titlePlaceholder: "Mi super mazo",
+        code: "Código del mazo",
+        tagsCreation1: "Presiona",
+        tagsCreation2: "para crear una etiqueta",
+        tagsPlaceholder: "Biología, Historia, Matemáticas",
+        empty: "No hay flashcards en este mazo",
+        nbDecks: "mazo(s)",
+      },
+      flashcards: {
+        createCard: "Crear una tarjeta",
+        question: "Pregunta",
+        answer: "Respuesta",
+        placeholder: "¿Cuál es el color del caballo blanco de Enrique IV?",
+        deleteConfirm: "¿Estás seguro de que quieres eliminar esta tarjeta?",
+        delete: "Eliminar la tarjeta",
+      },
+      revision: {
+        seeResponse: "Ver la respuesta",
+        seeQuestion: "Ver la pregunta",
+        evaluation: "Evaluación",
+        criterias: {
+          again: "Otra vez",
+          hard: "Difícil",
+          good: "Bien",
+          easy: "Fácil",
+        },
+        how: {
+          title: "¿Cómo funciona?",
+          desc: "Si respondes con",
+          descNext: "la tarjeta no se volverá a jugar en la misma sesión.",
+          descAgain:
+            "la tarjeta se volverá a jugar más tarde en la misma sesión.",
+          moreInformation: "Más información en",
+        },
+        congrats: "¡Enhorabuena!",
+        finished: "Has terminado la revisión",
+        again: "Estudiar de nuevo",
+        backToDeck: "Volver al mazo",
+      },
+      notifications: {
+        decks: {
+          importedSuccess: "Mazo importado con éxito",
+          importedError: "Se produjo un error al importar el mazo",
+          deletedSuccess: "Mazo eliminado con éxito",
+          privatizedSuccess: "Mazo privatizado con éxito",
+          publicizedSuccess: "Mazo publicado con éxito",
+          duplicatedSuccess: "Mazo duplicado con éxito",
+        },
+        flashcards: {
+          createdSuccess: "Tarjeta creada con éxito",
+          updatedSuccess: "Tarjeta actualizada con éxito",
+          deletedSuccess: "Tarjeta eliminada con éxito",
+        },
+        misc: {
+          searchError: "Se produjo un error al buscar",
+          navigateError: "Se produjo un error al navegar",
+          copyCode: "Código copiado : ",
+        },
+      },
+      dashboards: {
+        totalDecks: {
+          title: "Número total de mazos",
+          desc: "con {count} mazos públicos",
+        },
+        totalCards: {
+          title: "Número total de flashcards",
+          desc: "o un promedio de {count} flashcards / mazo",
+        },
+        totalRevisions: {
+          title: "Número total de revisiones",
+          desc: "o un promedio de {count} revisiones / mazo",
+        },
+        monthlyRevisions: {
+          title: "Revisiones mensuales",
+        },
+        revisionsByDeck: {
+          title: "Revisiones por mazo",
         },
       },
     },

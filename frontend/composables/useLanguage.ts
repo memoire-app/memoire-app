@@ -8,6 +8,8 @@ export function useLanguage() {
   const languages = [
     { label: "FR", value: "fr" },
     { label: "EN", value: "en" },
+    { label: "KR", value: "kr" },
+    { label: "ES", value: "es" },
   ] as LanguageType[];
 
   const languageSelected = ref() as Ref<LanguageType>;
