@@ -197,8 +197,8 @@ export default defineI18nConfig(() => ({
         monthlyRevisions: {
           title: "Monthly revisions",
         },
-        revisionsBySubject: {
-          title: "Revisions by subject",
+        revisionsByDeck: {
+          title: "Revisions by deck",
         },
       },
     },
@@ -400,8 +400,8 @@ export default defineI18nConfig(() => ({
         monthlyRevisions: {
           title: "Révisions mensuelles",
         },
-        revisionsBySubject: {
-          title: "Révisions par matière",
+        revisionsByDeck: {
+          title: "Révisions par deck",
         },
       },
     },

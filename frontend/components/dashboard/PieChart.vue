@@ -43,7 +43,7 @@ const triggers = {
 </script>
 
 <template>
-  <div class="w-24">
+  <div class="w-48">
     <VisSingleContainer :data="series">
       <VisDonut :arc-width="50" :value="value" />
       <VisTooltip :triggers="triggers" />

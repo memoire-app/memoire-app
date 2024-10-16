@@ -5,9 +5,11 @@ defineProps<{
 </script>
 <template>
   <UCard>
-    <div class="text-sm font-semibold">
+    <div class="pb-4 text-sm font-semibold">
       {{ title }}
     </div>
-    <slot />
+    <div class="flex justify-center">
+      <slot />
+    </div>
   </UCard>
 </template>
