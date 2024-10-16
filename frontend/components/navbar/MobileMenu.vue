@@ -53,8 +53,8 @@ const menuItemsLanding = computed(() => [
       @click="closeMenu"
     />
     <div
-      class="flex flex-col items-center gap-4 px-8 text-center"
       v-if="isLanding"
+      class="flex flex-col items-center gap-4 px-8 text-center"
     >
       <UButton
         v-for="item in menuItemsLanding"
@@ -67,7 +67,7 @@ const menuItemsLanding = computed(() => [
         <span>{{ item.label }}</span>
       </UButton>
     </div>
-    <div class="flex flex-col items-center gap-4 px-8 text-center" v-else>
+    <div v-else class="flex flex-col items-center gap-4 px-8 text-center">
       <UButton
         v-for="item in menuItems"
         :key="item.path"
