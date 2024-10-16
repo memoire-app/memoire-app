@@ -12,7 +12,7 @@ const { toggleMenu } = useNavbar();
     <div class="flex items-center gap-2">
       <NavbarLanguageSelector />
       <NavbarColorMode />
-      <UButton icon="i-mdi-menu" variant="soft" @click="toggleMenu" />
+      <UButton icon="i-mdi-menu" variant="ghost" @click="toggleMenu" />
     </div>
   </nav>
 </template>

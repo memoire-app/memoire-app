@@ -49,7 +49,7 @@ const menuItemsLanding = computed(() => [
     <UButton
       icon="i-mdi-close"
       class="absolute right-4 top-2"
-      variant="soft"
+      variant="ghost"
       @click="closeMenu"
     />
     <div
@@ -60,7 +60,6 @@ const menuItemsLanding = computed(() => [
         v-for="item in menuItemsLanding"
         :key="item.path"
         size="lg"
-        variant="soft"
         block
         :icon="item.icon"
         @click="goTo(item.path)"
@@ -73,7 +72,6 @@ const menuItemsLanding = computed(() => [
         v-for="item in menuItems"
         :key="item.path"
         size="lg"
-        variant="soft"
         block
         :icon="item.icon"
         @click="goTo(item.path)"

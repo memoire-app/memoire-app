@@ -58,7 +58,7 @@ const logo = computed(() => {
         />
 
         <ColorMode />
-        <UButton icon="i-mdi-menu" variant="soft" @click="toggleMenu" />
+        <UButton icon="i-mdi-menu" variant="ghost" @click="toggleMenu" />
       </div>
     </nav>
 
