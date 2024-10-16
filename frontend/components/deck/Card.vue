@@ -119,7 +119,7 @@ const items = computed(() => [
 
 <template>
   <div
-    class="flex justify-between rounded border-t border-slate-100 px-4 py-4 shadow transition-all hover:cursor-pointer hover:border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:hover:border-slate-500 dark:hover:bg-slate-700"
+    class="flex justify-between rounded border-t border-slate-100 bg-slate-50 px-4 py-4 shadow transition-all hover:cursor-pointer hover:border-slate-200 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-800 dark:hover:border-slate-500 dark:hover:bg-slate-700"
     @click="router.push('/flashcards/' + deck.code)"
   >
     <div class="flex h-full w-4/5 flex-col gap-1 pr-2">

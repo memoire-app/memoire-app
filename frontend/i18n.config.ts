@@ -4,6 +4,10 @@ export default defineI18nConfig(() => ({
   messages: {
     en: {
       landing: {
+        nav: {
+          features: "Features",
+          contact: "Contact",
+        },
         welcome: "Join the adventure now",
         study: "Study efficiently with flashcards",
         subtitle:
@@ -210,6 +214,10 @@ export default defineI18nConfig(() => ({
     },
     fr: {
       landing: {
+        nav: {
+          features: "Features",
+          contact: "Contact",
+        },
         welcome: "Rejoins l'aventure dès maintenant",
         study: "Révise efficacement grâce aux flashcards",
         subtitle:
@@ -419,6 +427,10 @@ export default defineI18nConfig(() => ({
     },
     kr: {
       landing: {
+        nav: {
+          features: "기능",
+          contact: "연락처",
+        },
         welcome: "지금 모험에 참여하세요",
         study: "플래시 카드로 효율적으로 공부하세요",
         subtitle: "덱을 만들고 연습하고 커뮤니티에서 만든 덱을 발견하세요",
@@ -623,6 +635,10 @@ export default defineI18nConfig(() => ({
     },
     es: {
       landing: {
+        nav: {
+          features: "Características",
+          contact: "Contacto",
+        },
         welcome: "Únete a la aventura ahora",
         study: "Estudia eficientemente con flashcards",
         subtitle:

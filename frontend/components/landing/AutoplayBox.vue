@@ -17,7 +17,7 @@ defineProps({
 
 <template>
   <div
-    class="flex flex-1 flex-col justify-between gap-2 border border-slate-200 px-8 py-6 transition-all hover:border-blue-500 dark:border-slate-700 dark:hover:border-blue-500"
+    class="flex flex-1 flex-col justify-between gap-2 border border-slate-200 px-8 py-6 transition-all hover:border-slate-500 dark:border-slate-700 dark:hover:border-slate-500"
   >
     <div class="flex items-center gap-2">
       <span

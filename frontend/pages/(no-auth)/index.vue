@@ -69,7 +69,7 @@ watch(
         </UButton>
       </UContainer>
 
-      <div class="mt-48 hidden justify-center md:flex">
+      <div class="mt-48 hidden skew-x-12 justify-center md:flex">
         <NuxtImg src="/FLASHCARDS.png" alt="hero" class="w-4/5" />
       </div>
 
@@ -77,9 +77,8 @@ watch(
         id="features"
         class="flex w-full flex-col items-center justify-center gap-12 py-16 lg:gap-20 lg:py-24"
       >
-        <span class="bg-primary h-24 w-1 lg:h-72" />
         <span
-          class="inline-flex items-center gap-3 text-center text-3xl font-bold lg:text-5xl"
+          class="inline-flex flex-wrap items-baseline justify-center gap-3 text-center text-3xl font-bold lg:text-5xl"
           :style="{ lineHeight: '1.5' }"
         >
           {{ t("landing.why") }}
@@ -88,26 +87,21 @@ watch(
               colorMode.value === 'dark' ? '/lightmemoire.svg' : '/memoire.svg'
             "
             alt="logo"
-            class="inline-block h-40 w-40"
+            class="inline-flex w-32 items-center lg:w-44"
           />
           ?
         </span>
 
-        <div class="flex flex-col gap-8 lg:flex-row lg:gap-12">
-          <div class="flex w-full flex-1 flex-col gap-8 lg:w-3/5">
-            <LandingAutoplayBox
-              v-for="(feature, i) in FEATURES"
-              :key="feature.title"
-              :title="feature.title"
-              :content="feature.content"
-              :index="i + 1"
-              @mouseenter="setActive(i)"
-              @mouseleave="clearActive"
-            />
-          </div>
-          <div>
-            <NuxtImg fit="cover" src="/demo.gif" alt="hero" />
-          </div>
+        <div class="flex w-full flex-col gap-8 lg:w-1/2">
+          <LandingAutoplayBox
+            v-for="(feature, i) in FEATURES"
+            :key="feature.title"
+            :title="feature.title"
+            :content="feature.content"
+            :index="i + 1"
+            @mouseenter="setActive(i)"
+            @mouseleave="clearActive"
+          />
         </div>
       </UContainer>
 
@@ -119,7 +113,6 @@ watch(
         </span>
         <UAccordion
           size="xl"
-          multiple
           :items="QUESTIONS"
           :ui="{ default: { truncate: false, class: 'text-left mb-1.5' } }"
         />

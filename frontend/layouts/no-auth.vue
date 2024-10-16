@@ -26,8 +26,8 @@ const logo = computed(() => {
           </ClientOnly>
         </div>
         <div class="flex gap-4">
-          <NavLink to="/#features" text="Features" />
-          <NavLink to="/#contact" text="Contact" />
+          <NavLink to="/#features" :text="t('landing.nav.features')" />
+          <NavLink to="/#contact" :text="t('landing.nav.contact')" />
         </div>
         <div class="flex w-1/5 items-center justify-end gap-2">
           <USelectMenu

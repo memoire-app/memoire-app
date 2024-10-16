@@ -3,7 +3,7 @@ const colorMode = useColorMode();
 </script>
 
 <template>
-  <div class="flex items-center justify-center">
+  <div class="flex justify-start px-6">
     <NuxtImg
       :src="colorMode.value === 'dark' ? '/lightmemoire.svg' : '/memoire.svg'"
       alt="logo"
