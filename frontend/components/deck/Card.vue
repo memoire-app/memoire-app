@@ -119,11 +119,11 @@ const items = computed(() => [
 
 <template>
   <div
-    class="flex justify-between rounded border border-neutral-100 px-4 py-4 shadow transition-all hover:cursor-pointer hover:border-neutral-200 dark:border-neutral-600 dark:bg-neutral-700 dark:hover:border-neutral-500"
+    class="flex justify-between rounded border-t border-slate-100 px-4 py-4 shadow transition-all hover:cursor-pointer hover:border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:hover:border-slate-500 dark:hover:bg-slate-700"
     @click="router.push('/flashcards/' + deck.code)"
   >
     <div class="flex h-full w-4/5 flex-col gap-1 pr-2">
-      <div class="flex gap-4 text-sm text-neutral-400">
+      <div class="flex gap-4 text-sm text-slate-400">
         <UTooltip :text="t('decks.nbCards')" class="flex items-center gap-1">
           <UIcon name="i-lucide-rectangle-vertical" />
           <span>{{ deck.nbFlashcards }}</span>
@@ -147,7 +147,7 @@ const items = computed(() => [
           <UIcon name="i-lucide-lock-keyhole" class="opacity-50" />
         </UTooltip>
         <UDropdown :items="items" @click.stop>
-          <UButton icon="i-lucide-more-vertical" size="xs" variant="soft" />
+          <UButton icon="i-lucide-more-vertical" size="xs" variant="ghost" />
         </UDropdown>
       </div>
     </div>

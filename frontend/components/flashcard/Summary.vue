@@ -33,13 +33,13 @@ const deleteCard = () => {
 <template>
   <div class="relative min-h-52 overflow-auto rounded transition-all">
     <div
-      class="transform-style-3d absolute h-full w-full cursor-default bg-neutral-100 transition-transform duration-700 dark:bg-neutral-700"
+      class="transform-style-3d absolute h-full w-full cursor-default bg-slate-100 transition-transform duration-700 dark:bg-slate-700"
       :class="[state === 'back' ? 'rotate-y-180' : '']"
       @click="toggleState"
     >
       <!-- Front Side -->
       <div
-        class="backface-hidden absolute h-full w-full overflow-auto"
+        class="backface-hidden absolute h-full w-full overflow-auto text-slate-800 dark:text-white"
         :class="[state === 'front' ? 'z-20' : 'z-10']"
       >
         <UtilsEditDelete
@@ -50,7 +50,7 @@ const deleteCard = () => {
         />
         <div class="absolute left-4 top-3 flex items-center gap-2 text-xs">
           <UIcon name="i-lucide-circle-help" size="16" />
-          Question
+          {{ t("flashcards.question") }}
         </div>
         <div class="h-full overflow-auto px-4 pt-12">
           {{ flashcard.front }}
@@ -58,7 +58,7 @@ const deleteCard = () => {
       </div>
       <!-- Back Side -->
       <div
-        class="backface-hidden rotate-y-180 absolute h-full w-full bg-neutral-700 text-white dark:bg-neutral-200 dark:text-black"
+        class="backface-hidden rotate-y-180 absolute h-full w-full bg-slate-700 text-white dark:bg-slate-200 dark:text-slate-800"
         :class="[state === 'back' ? 'z-20' : 'z-10']"
       >
         <div class="absolute right-6 top-3 flex items-center gap-2 text-xs">

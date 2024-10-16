@@ -3,11 +3,13 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div class="h-48 w-full border-t bg-white dark:bg-neutral-900">
+  <div class="h-48 w-full border-t bg-white dark:bg-slate-900">
     <UContainer class="pt-6">
       <div class="flex justify-around">
         <div class="flex flex-col gap-4">
-          <span class="text-lg font-semibold">Liens utiles</span>
+          <span class="text-lg font-semibold">
+            {{ t("landing.links.title") }}
+          </span>
           <div class="flex flex-col gap-2 text-sm">
             <NuxtLink to="https://github.com/memoire-app" target="_blank"
               >GitHub</NuxtLink

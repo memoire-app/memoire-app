@@ -35,7 +35,7 @@ const links = [
       v-if="stats"
       class="mt-8 flex w-full flex-wrap gap-2 overflow-auto px-0.5 py-2"
     >
-      <div class="mt-4 flex flex-1 flex-col gap-6">
+      <div class="flex flex-1 flex-col gap-4">
         <DashboardGlobalStats :data="stats" />
         <div class="flex flex-col gap-4 md:flex-row xl:w-4/5">
           <DashboardChartContainer

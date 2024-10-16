@@ -12,7 +12,7 @@ const props = defineProps({
 
 <template>
   <div
-    class="flex h-full flex-col gap-6 overflow-auto bg-white p-4 dark:bg-neutral-900"
+    class="flex h-full flex-col gap-6 overflow-auto bg-white p-4 dark:bg-slate-900"
   >
     <div class="flex w-full flex-col gap-2">
       <span class="pr-12 text-xl font-bold">{{ props.deck.title }}</span>
@@ -33,7 +33,7 @@ const props = defineProps({
       />
     </div>
     <div v-else class="flex items-center justify-center">
-      <span class="text-lg text-neutral-500 dark:text-neutral-400">
+      <span class="text-lg text-slate-500 dark:text-slate-400">
         {{ t("decks.empty") }}
       </span>
     </div>

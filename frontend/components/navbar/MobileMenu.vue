@@ -44,7 +44,7 @@ const menuItemsLanding = computed(() => [
 
 <template>
   <div
-    class="fixed inset-0 z-50 flex flex-col bg-white pt-20 dark:bg-neutral-900"
+    class="fixed inset-0 z-50 flex flex-col bg-white pt-20 dark:bg-slate-900"
   >
     <UButton
       icon="i-mdi-close"

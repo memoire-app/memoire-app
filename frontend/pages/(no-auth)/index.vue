@@ -43,19 +43,17 @@ watch(
 
 <template>
   <div>
-    <ClientOnly>
-      <div
-        :style="{ backgroundImage: `url(${bg})` }"
-        class="fixed -z-50 h-full w-full bg-cover bg-center opacity-50"
-      />
-    </ClientOnly>
+    <div
+      :style="{ backgroundImage: `url(${bg})` }"
+      class="fixed -z-50 h-full w-full bg-cover bg-center opacity-50"
+    />
     <Navbar />
     <UContainer>
       <UContainer
         class="flex w-full flex-col items-center justify-center gap-4 pt-24 text-center md:pt-48"
       >
         <div
-          class="rounded-3xl border border-neutral-200 px-3 py-1 text-sm text-neutral-700 transition-all dark:text-neutral-300"
+          class="rounded-3xl border border-slate-200 px-3 py-1 text-sm text-slate-700 transition-all dark:text-slate-300"
           to="/login"
         >
           ✨ {{ t("landing.welcome") }}
@@ -63,7 +61,7 @@ watch(
         <h1 class="text-4xl font-bold lg:text-6xl">
           {{ t("landing.study") }}
         </h1>
-        <h3 class="max-w-[500px] pt-2 text-gray-500">
+        <h3 class="max-w-[500px] pt-2 text-slate-500">
           {{ t("landing.subtitle") }}
         </h3>
         <UButton class="mt-8" to="/login" size="xl" icon="i-lucide-badge-plus">

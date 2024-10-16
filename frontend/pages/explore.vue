@@ -176,9 +176,9 @@ watch(page, (newPage) => {
           {{ t("utils.search") }}
         </UButton>
       </div>
-      <span class="text-sm italic opacity-50"
-        >{{ data.nbMatchedDecks }} deck(s)</span
-      >
+      <span class="text-sm italic text-slate-500"
+        >{{ data.nbMatchedDecks }} {{ t("decks.nbDecks") }}
+      </span>
       <div class="flex justify-end">
         <UPagination
           v-model="page"

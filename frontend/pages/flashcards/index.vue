@@ -30,13 +30,13 @@ const page = ref(1);
 const searchQuery = ref("");
 const activeTab = ref(0);
 
-const links = [
+const links = computed(() => [
   {
-    label: "Flashcards",
+    label: t("pages.flashcards.title"),
     icon: "i-cbi-garbage-cardboard",
     to: "/flashcards",
   },
-];
+]);
 
 const openSlideover = () => {
   createDeckOpen.value = true;
@@ -202,9 +202,9 @@ watch(page, (newPage) => {
           </UButton>
         </div>
 
-        <span class="text-sm italic opacity-50"
-          >{{ data.nbDecks }} deck(s)</span
-        >
+        <span class="text-sm italic text-slate-500"
+          >{{ data.nbDecks }} {{ t("decks.nbDecks") }}
+        </span>
       </div>
     </div>
 
@@ -270,7 +270,6 @@ watch(page, (newPage) => {
           <UInput v-model="importCode" :placeholder="t('decks.code')" />
           <div class="flex items-center justify-end gap-2">
             <UButton
-              color="blue"
               size="sm"
               class="h-fit"
               variant="ghost"
@@ -278,11 +277,7 @@ watch(page, (newPage) => {
             >
               {{ t("utils.cancel") }}
             </UButton>
-            <UButton
-              color="blue"
-              size="sm"
-              class="h-fit"
-              @click="importDeckWithCode"
+            <UButton size="sm" class="h-fit" @click="importDeckWithCode"
               >{{ t("utils.import") }}
             </UButton>
           </div>

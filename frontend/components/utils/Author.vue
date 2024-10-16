@@ -24,13 +24,10 @@ const props = defineProps({
     <div class="flex items-center gap-1">
       <UIcon
         name="i-lucide-circle-user-round"
-        :class="[
-          props.original ? 'text-black dark:text-neutral-300' : 'text-red-500',
-        ]"
         size="16"
-        class="opacity-50"
+        :style="{ color: props.original ? '#94a3b8' : '#f87171' }"
       />
-      <span class="text-sm text-neutral-400">{{ props.deck.authorName }}</span>
+      <span class="text-sm text-slate-400">{{ props.deck.authorName }}</span>
     </div>
   </UTooltip>
 </template>

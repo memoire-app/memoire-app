@@ -25,7 +25,7 @@ const copy = () => {
 
 <template>
   <div
-    class="flex justify-between rounded border border-neutral-100 bg-white px-4 py-4 shadow transition-all hover:cursor-pointer hover:border-neutral-200 dark:border-neutral-600 dark:bg-neutral-700"
+    class="flex justify-between rounded border-t border-slate-100 bg-white px-4 py-4 shadow transition-all hover:cursor-pointer hover:border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:hover:border-slate-500 dark:hover:bg-slate-700"
     @click="emit('openPreview', props.deck.code)"
   >
     <div class="flex h-full w-4/5 pr-2">
@@ -49,7 +49,6 @@ const copy = () => {
             icon="i-lucide-import"
             size="xs"
             variant="soft"
-            color="green"
             @click.stop="emit('import', props.deck.code)"
           />
         </UTooltip>

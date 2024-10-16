@@ -419,7 +419,7 @@ const { metaSymbol } = useShortcuts();
           <div class="flex w-full flex-col gap-1">
             <label class="flex items-center gap-2 text-sm">
               <UIcon name="i-lucide-circle-help" />
-              Question
+              {{ t("flashcards.question") }}
             </label>
             <UTextarea
               v-model="question"

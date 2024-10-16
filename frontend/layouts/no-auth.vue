@@ -16,9 +16,9 @@ const logo = computed(() => {
 
 <template>
   <div>
-    <nav class="z-10 mb-4 hidden w-full md:fixed md:block">
+    <nav class="z-10 mb-4 hidden w-full px-4 md:fixed md:block">
       <UContainer
-        class="mt-4 flex w-full items-center justify-between rounded-lg border border-neutral-200 bg-white/50 py-3 backdrop-blur-xl dark:border-neutral-700 dark:bg-neutral-600/30"
+        class="mt-4 flex w-full items-center justify-between rounded-lg border border-slate-200 bg-white/50 py-3 backdrop-blur-xl dark:border-slate-700 dark:bg-slate-800/30"
       >
         <div class="w-1/5">
           <ClientOnly>
@@ -30,7 +30,11 @@ const logo = computed(() => {
           <NavLink to="/#contact" text="Contact" />
         </div>
         <div class="flex w-1/5 items-center justify-end gap-2">
-          <USelectMenu v-model="languageSelected" :options="languages" />
+          <USelectMenu
+            v-model="languageSelected"
+            :options="languages"
+            color="gray"
+          />
           <ColorMode />
           <UButton size="sm" to="/login" variant="soft" icon="i-mdi-login">
             <span>{{ t("utils.login") }}</span>
@@ -41,12 +45,18 @@ const logo = computed(() => {
 
     <!-- Mobile Nav -->
     <nav
-      class="fixed mb-4 flex w-full items-center justify-between p-2 px-4 backdrop-blur-xl md:hidden dark:bg-neutral-800/30"
+      class="fixed mb-4 flex w-full items-center justify-between p-2 px-4 backdrop-blur-xl md:hidden dark:bg-slate-800/30"
     >
       <ClientOnly>
         <NuxtImg :src="logo" alt="Logo" class="flex w-20 justify-center" />
       </ClientOnly>
       <div class="flex items-center gap-2">
+        <USelectMenu
+          v-model="languageSelected"
+          :options="languages"
+          color="gray"
+        />
+
         <ColorMode />
         <UButton icon="i-mdi-menu" variant="soft" @click="toggleMenu" />
       </div>
