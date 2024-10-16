@@ -7,7 +7,9 @@ const { t } = useI18n();
     <UContainer class="pt-6">
       <div class="flex justify-around">
         <div class="flex flex-col gap-4">
-          <span class="text-lg font-semibold">Liens utiles</span>
+          <span class="text-lg font-semibold">
+            {{ t("landing.links.title") }}
+          </span>
           <div class="flex flex-col gap-2 text-sm">
             <NuxtLink to="https://github.com/memoire-app" target="_blank"
               >GitHub</NuxtLink

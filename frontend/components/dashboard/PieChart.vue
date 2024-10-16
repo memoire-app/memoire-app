@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { Donut } from "@unovis/ts";
+import { VisSingleContainer, VisTooltip, VisDonut } from "@unovis/vue";
 import type { DashboardStats } from "~/models";
-const { t } = useI18n();
+
 const props = defineProps<{
   data: DashboardStats;
 }>();
@@ -26,46 +27,26 @@ const groupRevisionsBySubject = (revisions: DashboardStats["revisions"]) => {
 // Generate the data for the chart
 const groupedData = groupRevisionsBySubject(props.data.revisions);
 const subjects = Object.keys(groupedData);
-const series = Object.values(groupedData);
+const series = Object.values(groupedData).map((value, index) => ({
+  name: subjects[index],
+  value,
+}));
 
-const colorMode = useColorMode();
+const value = (d: { name: string; value: number }) => d.value;
+const name = (d: { data: { name: string } }) => d.data.name;
 
-const options = ref({
-  title: {
-    offsetY: 10,
-    text: t("dashboards.revisionsBySubject.title"),
-    align: "center",
+const triggers = {
+  [Donut.selectors.segment]: (d: { data: { name: string; value: number } }) => {
+    return `<span>${name(d)}: ${d.data.value}</span>`;
   },
-  chart: {
-    id: "subject-revisions-pie",
-  },
-  labels: subjects,
-  theme: {
-    mode: colorMode.value,
-  },
-  legend: {
-    position: "bottom",
-  },
-});
-
-watch(colorMode, () => {
-  options.value = {
-    ...options.value,
-    theme: {
-      mode: colorMode.value,
-    },
-  };
-});
+};
 </script>
 
 <template>
-  <ClientOnly>
-    <apexchart
-      class="flex-1"
-      height="332"
-      type="pie"
-      :options="options"
-      :series="series"
-    />
-  </ClientOnly>
+  <div class="w-48">
+    <VisSingleContainer :data="series">
+      <VisDonut :arc-width="50" :value="value" />
+      <VisTooltip :triggers="triggers" />
+    </VisSingleContainer>
+  </div>
 </template>

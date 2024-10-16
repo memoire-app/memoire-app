@@ -16,7 +16,7 @@ export default class RevisionsService {
       return null // Deck not found
     }
 
-    // If there is a current revision for this deck and user, mark it as completed
+    // If there is a current revision for this deck and user, mark it as completed and create a new one
     const revision = await Revision.query()
       .where('user_id', userId)
       .andWhere('deck_id', deck.id)

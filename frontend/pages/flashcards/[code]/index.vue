@@ -257,13 +257,7 @@ const { metaSymbol } = useShortcuts();
       <div class="flex w-full flex-col gap-1 text-xl lg:pr-14">
         <div class="h-fit w-fit">{{ data?.deckTitle }}</div>
         <div class="flex flex-wrap gap-2">
-          <UBadge
-            v-for="(tag, i) in data?.deckTags"
-            :key="i"
-            class="w-fit text-xs"
-          >
-            {{ tag }}
-          </UBadge>
+          <DeckTag v-for="(tag, i) in data?.deckTags" :key="i" :tag="tag" />
         </div>
       </div>
 
@@ -425,7 +419,7 @@ const { metaSymbol } = useShortcuts();
           <div class="flex w-full flex-col gap-1">
             <label class="flex items-center gap-2 text-sm">
               <UIcon name="i-lucide-circle-help" />
-              Question
+              {{ t("flashcards.question") }}
             </label>
             <UTextarea
               v-model="question"

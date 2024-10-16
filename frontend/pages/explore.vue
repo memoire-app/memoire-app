@@ -8,7 +8,7 @@ definePageMeta({
 const headers = useRequestHeaders();
 const runtimeConfig = useRuntimeConfig();
 
-const LIMIT = 25;
+const LIMIT = 24;
 
 const isPreviewOpen = ref(false);
 const deckPreview = ref<PublicDeckAPI | null>(null);
@@ -176,18 +176,19 @@ watch(page, (newPage) => {
           {{ t("utils.search") }}
         </UButton>
       </div>
-      <span class="text-sm italic opacity-50"
-        >{{ data.nbMatchedDecks }} deck(s)</span
-      >
-
-      <UPagination
-        v-model="page"
-        :total="data.nbMatchedDecks"
-        :page-count="LIMIT"
-      />
+      <span class="text-sm italic text-slate-500"
+        >{{ data.nbMatchedDecks }} {{ t("decks.nbDecks") }}
+      </span>
+      <div class="flex justify-end">
+        <UPagination
+          v-model="page"
+          :total="data.nbMatchedDecks"
+          :page-count="LIMIT"
+        />
+      </div>
     </div>
     <div v-if="data">
-      <div class="grid grid-cols-1 gap-3">
+      <div class="grid gap-3 lg:grid-cols-2 xl:grid-cols-3">
         <DeckPublicCard
           v-for="deck in data.decks"
           :key="deck.code"

@@ -5,11 +5,8 @@ on:
   push:
     branches:
       - dev
-    paths:
-      - 'backend/**'
-  pull_request:
-    branches:
-      - dev
+    tags:
+      - '*'
     paths:
       - 'backend/**'
 
@@ -36,9 +33,15 @@ jobs:
     # Step 3: Build the Backend Docker image
     - name: Build backend image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/backend-app-dev:latest ./backend
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/backend-app-dev:${GITHUB_REF#refs/*/} ./backend
 
     # Step 4: Push the Backend Docker image to Docker Hub
     - name: Push backend image
       run: |
+        docker push ${{ secrets.DOCKER_USERNAME }}/backend-app-dev:${GITHUB_REF#refs/*/}
+
+    # Step 5; Also push a 'latest' tag
+    - name: Push Docker image with 'latest' tag
+      run: |
+        docker tag ${{ secrets.DOCKER_USERNAME }}/backend-app-dev:${GITHUB_REF#refs/*/} ${{ secrets.DOCKER_USERNAME }}/backend-app-dev:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/backend-app-dev:latest

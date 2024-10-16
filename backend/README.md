@@ -2,27 +2,27 @@
 
 ## 🤘 Stack
 
-- 🟦 Framework backend : [AdonisJS](https://adonisjs.com/)
-- ↔️ ORM (from AdonisJS) : [Lucid](https://lucid.adonisjs.com/docs/introduction)
-- 🐘 BDD : [PostgreSQL](https://www.postgresql.org/)
+- 🟦 Backend Framework: [AdonisJS](https://adonisjs.com/)
+- ↔️ ORM (from AdonisJS): [Lucid](https://lucid.adonisjs.com/docs/introduction)
+- 🐘 Database: [PostgreSQL](https://www.postgresql.org/)
 
 ## 💻 Configuration
 
-- Installer les dépendances
+- Install dependencies
 
 ```
 npm i
 ```
 
-- Configurer le fichier `.env` (voir le `.env.example`)
+- Configure the `.env` file (see `.env.example`)
 
-- Démarrer l'application
+- Start the application
 
 ```
 npm run dev
 ```
 
-- Exécuter les tests
+- Run tests
 
 ```
 npm run test

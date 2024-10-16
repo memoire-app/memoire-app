@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: "no-auth",
+});
 const { t } = useI18n();
 const router = useRouter();
 
