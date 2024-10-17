@@ -29,6 +29,7 @@
   "dependencies": {
     "@unovis/ts": "^1.4.3-beta.0",
     "@unovis/vue": "^1.4.3-beta.0",
+    "@vueuse/motion": "^2.2.6",
     "apexcharts": "^3.53.0",
     "ky": "^1.7.1",
     "vue-draggable-plus": "^0.5.3",

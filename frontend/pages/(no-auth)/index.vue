@@ -67,10 +67,34 @@ watch(
         <UButton class="mt-8" to="/login" size="xl" icon="i-lucide-badge-plus">
           {{ t("landing.create") }}
         </UButton>
+
+        <div class="mt-24 hidden md:block">
+          <div
+            class="flex h-12 w-7 justify-center rounded-xl border-2 border-slate-400 pt-2"
+          >
+            <div
+              v-motion
+              :initial="{ opacity: 0, y: 0, transition: { repeat: Infinity } }"
+              :enter="{ opacity: 1, y: 24, transition: { repeat: Infinity } }"
+              :duration="1400"
+              :delay="200"
+              class="h-full"
+            >
+              <div class="size-1 rounded-full bg-slate-400" />
+            </div>
+          </div>
+        </div>
       </UContainer>
 
-      <div class="mt-48 hidden skew-x-12 justify-center md:flex">
-        <NuxtImg src="/FLASHCARDS.png" alt="hero" class="w-4/5" />
+      <div
+        v-motion
+        :initial="{ opacity: 0, y: 200 }"
+        :visibleOnce="{ opacity: 1, y: 0, scale: 1 }"
+        :duration="1500"
+      >
+        <div class="mt-48 hidden skew-x-12 justify-center md:flex">
+          <NuxtImg src="/FLASHCARDS.png" alt="hero" class="w-4/5" />
+        </div>
       </div>
 
       <UContainer
