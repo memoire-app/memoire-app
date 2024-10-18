@@ -19,18 +19,6 @@ const QUESTIONS = ref(
   tm("landing.questions") as { title: string; content: string }[],
 );
 
-const activeIndex = ref(0);
-
-// Function to set the active index when hovering
-const setActive = (index: number) => {
-  activeIndex.value = index;
-};
-
-// Function to clear the active index (optional, if you want to revert back)
-const clearActive = () => {
-  activeIndex.value = -1;
-};
-
 // Check if locale change and update the FEATURES abd QUESTIONS
 watch(
   () => locale.value,
@@ -117,20 +105,19 @@ watch(
           :enter="{
             opacity: 1,
             y: 0,
-            transition: { duration: 1500, delay: 1500 },
+            transition: { duration: 1500, delay: 2000 },
           }"
           class="mt-24 hidden md:block"
         >
           <div
-            class="flex h-12 w-7 justify-center rounded-xl border-2 border-slate-400 pt-2"
+            class="flex h-10 w-6 justify-center rounded-xl border-2 border-slate-400 pt-1"
           >
             <div
               v-motion
               :initial="{ opacity: 0, y: 0, transition: { repeat: Infinity } }"
-              :enter="{ opacity: 1, y: 24, transition: { repeat: Infinity } }"
+              :enter="{ opacity: 1, y: 20, transition: { repeat: Infinity } }"
               :duration="1400"
               :delay="200"
-              class="h-full"
             >
               <div class="size-1 rounded-full bg-slate-400" />
             </div>
@@ -173,10 +160,10 @@ watch(
             v-motion
             v-for="(feature, i) in FEATURES"
             :key="feature.title"
-            :initial="{ opacity: 0, x: i % 2 === 0 ? 400 : -400 }"
+            :initial="{ opacity: 0, y: 100 }"
             :visibleOnce="{
               opacity: 1,
-              x: 0,
+              y: 0,
               transition: { duration: 1500, easing: 'ease-out' },
             }"
           >
