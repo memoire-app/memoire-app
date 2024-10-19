@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { Donut } from "@unovis/ts";
-import { VisSingleContainer, VisTooltip, VisDonut } from "@unovis/vue";
+import {
+  VisSingleContainer,
+  VisTooltip,
+  VisDonut,
+  VisBulletLegend,
+} from "@unovis/vue";
 import type { DashboardStats } from "~/models";
 
 const props = defineProps<{
@@ -12,7 +17,7 @@ const groupRevisionsBySubject = (revisions: DashboardStats["revisions"]) => {
   const revisionsBySubject: { [key: string]: number } = {};
 
   revisions.forEach((revision) => {
-    const subjectKey = `${revision.deckId}-${revision.deckTitle}`;
+    const subjectKey = `${revision.deckTitle}`;
 
     if (!revisionsBySubject[subjectKey]) {
       revisionsBySubject[subjectKey] = 0;
@@ -40,10 +45,15 @@ const triggers = {
     return `<span>${name(d)}: ${d.data.value}</span>`;
   },
 };
+
+const labels = subjects.map((subject) => ({
+  name: subject,
+}));
 </script>
 
 <template>
-  <div class="w-48">
+  <div>
+    <VisBulletLegend :items="labels" class="mb-4" />
     <VisSingleContainer :data="series">
       <VisDonut :arc-width="50" :value="value" />
       <VisTooltip :triggers="triggers" />

@@ -37,7 +37,7 @@ const links = [
     >
       <div class="flex flex-1 flex-col gap-4">
         <DashboardGlobalStats :data="stats" />
-        <div class="flex flex-col gap-4 md:flex-row xl:w-4/5">
+        <div class="flex w-full flex-1 flex-col gap-4 lg:flex-row">
           <DashboardChartContainer
             :title="t('dashboards.monthlyRevisions.title')"
           >
