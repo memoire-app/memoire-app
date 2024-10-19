@@ -27,11 +27,22 @@ const last30Days = Array.from({ length: 30 }, (_, i) =>
 
 const groupedData = groupRevisionsByDays(props.data.revisions);
 
-// Create an array of objects with day and value properties
-const seriesData = last30Days.map((day) => ({
-  day,
-  value: groupedData[day] || 0,
-}));
+const seriesData = last30Days
+  .sort((a, b) => {
+    const [dayA, monthA, yearA] = a.split("/").map(Number);
+    const [dayB, monthB, yearB] = b.split("/").map(Number);
+    if (yearA !== yearB) {
+      return yearA - yearB;
+    }
+    if (monthA !== monthB) {
+      return monthA - monthB;
+    }
+    return dayA - dayB;
+  })
+  .map((day) => ({
+    day,
+    value: groupedData[day] || 0,
+  }));
 
 interface SeriesData {
   day: string;
