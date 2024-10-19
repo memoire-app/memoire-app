@@ -17,7 +17,7 @@ const emit = defineEmits(["delete", "openPreview", "import"]);
 const copy = () => {
   copyCode(props.deck.code);
   toast.add({
-    title: "Code copié : " + props.deck.code,
+    title: t("notifications.misc.copyCode") + props.deck.code,
     icon: "i-lucide-circle-check-big",
   });
 };

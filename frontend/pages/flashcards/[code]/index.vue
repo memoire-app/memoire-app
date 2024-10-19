@@ -410,7 +410,7 @@ const revisions = computed(() => {
           >
             <UButton
               class="text-left"
-              icon="i-heroicons-check-20-solid"
+              icon="i-lucide-circle-plus"
               :ui="{ base: 'disabled:opacity-30' }"
               :disabled="!question || !answer || isCreating"
               @click="createOrUpdateFlashcard()"

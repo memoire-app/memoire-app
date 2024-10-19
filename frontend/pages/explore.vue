@@ -41,14 +41,12 @@ const importDeck = async (code: string) => {
     });
     toast.add({
       title: t("notifications.decks.importedSuccess"),
-      ui: "success",
       color: "green",
       icon: "i-heroicons-check",
     });
   } catch {
     toast.add({
       title: t("notifications.decks.importedError"),
-      ui: "error",
       color: "red",
       icon: "i-lucide-bug",
     });
@@ -105,6 +103,14 @@ const openPreview = (code: string) => {
 watch(page, (newPage) => {
   navigate(newPage);
 });
+
+const copy = (code: string) => {
+  copyCode(code);
+  toast.add({
+    title: t("notifications.misc.copyCode") + code,
+    icon: "i-lucide-circle-check-big",
+  });
+};
 </script>
 
 <template>
@@ -211,13 +217,33 @@ watch(page, (newPage) => {
           color="gray"
           variant="ghost"
           size="sm"
+          icon="i-lucide-share-2"
+          class="absolute start-4 top-4 z-10"
+          square
+          padded
+          @click="copy(deckPreview?.code as string)"
+        />
+        <UButton
+          color="gray"
+          variant="ghost"
+          size="sm"
+          icon="i-lucide-import"
+          class="absolute start-14 top-4 z-10"
+          square
+          padded
+          @click="importDeck(deckPreview?.code as string)"
+        />
+        <UButton
+          color="gray"
+          variant="ghost"
+          size="sm"
           icon="i-heroicons-x-mark-20-solid"
-          class="absolute end-5 top-4 z-10 flex sm:hidden"
+          class="absolute end-4 top-4 z-10 flex"
           square
           padded
           @click="isPreviewOpen = false"
         />
-        <DeckPreview v-if="deckPreview" :deck="deckPreview" />
+        <DeckPreview class="mt-12" v-if="deckPreview" :deck="deckPreview" />
       </USlideover>
     </div>
   </div>

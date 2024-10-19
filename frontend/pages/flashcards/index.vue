@@ -256,8 +256,10 @@ watch(page, (newPage) => {
             </UFormGroup>
             <div class="flex justify-end">
               <UButton
-                class="w-fit"
+                size="lg"
                 icon="i-heroicons-plus-20-solid"
+                color="blue"
+                block
                 @click="createDeck()"
                 >{{ t("utils.create") }}</UButton
               >
