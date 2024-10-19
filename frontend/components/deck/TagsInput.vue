@@ -41,7 +41,9 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col gap-1">
-    <div class="flex flex-wrap rounded-md border border-slate-300 p-1">
+    <div
+      class="flex flex-wrap rounded-md border border-slate-300 p-1 dark:border-slate-700"
+    >
       <div class="flex flex-wrap gap-2">
         <span
           v-for="(tag, index) in tags"

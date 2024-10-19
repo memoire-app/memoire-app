@@ -3,6 +3,7 @@ import type {
   DeckAPI,
   FlashcardAPI,
   FlashCardListApi,
+  FlashcardRevisionStats,
   PublicDeckAPI,
   RevisionAPI,
   UserAPI,
@@ -49,38 +50,46 @@ export default class ApiBuilderService {
     }
   }
 
+  /**
+   * Build the FlashCardListApi response.
+   * @param deck
+   * @param revisionData
+   * @returns
+   */
   buildFlashCardListApi(
     deck: Deck,
-    currentRevision: boolean,
-    nbRevision?: number,
-    flashcardsNotDone?: Flashcard[]
+    revisionData: {
+      hasCurrentRevision: boolean
+      flashcardsNotDone?: Flashcard[]
+      revisionStats: FlashcardRevisionStats
+    }
   ): FlashCardListApi {
-    if (!currentRevision) {
-      return {
-        flashcards: deck.flashcards.map((flashcard) => {
-          return this.buildFlashCardApi(deck.title, flashcard)
-        }),
-        deckTitle: deck.title,
-        deckTags: deck.tagArray,
-        nbRevisions: nbRevision!,
-        deckIsPublic: deck.isPublic,
-      }
-    } else {
-      return {
-        deckTitle: deck.title,
-        flashcards: deck.flashcards.map((flashcard) => {
-          return this.buildFlashCardApi(deck.title, flashcard)
-        }),
-        deckTags: deck.tagArray,
-        nbRevisions: nbRevision!,
-        currentRevision: {
-          flashcards: flashcardsNotDone!.map((flashcard) => {
-            return this.buildFlashCardApi(deck.title, flashcard)
-          }),
-        },
-        deckIsPublic: deck.isPublic,
+    const { hasCurrentRevision, flashcardsNotDone, revisionStats } = revisionData
+
+    // Map all flashcards in the deck to FlashcardAPI format.
+    const flashcards: FlashcardAPI[] = deck.flashcards.map((flashcard) =>
+      this.buildFlashCardApi(deck.title, flashcard)
+    )
+
+    // Prepare the base API response.
+    const response: FlashCardListApi = {
+      deckTitle: deck.title,
+      flashcards,
+      deckTags: deck.tagArray,
+      revisionStats,
+      deckIsPublic: deck.isPublic,
+    }
+
+    // Include currentRevision if applicable.
+    if (hasCurrentRevision && flashcardsNotDone) {
+      response.currentRevision = {
+        flashcards: flashcardsNotDone.map((flashcard) =>
+          this.buildFlashCardApi(deck.title, flashcard)
+        ),
       }
     }
+
+    return response
   }
 
   buildRevisionApi(revision: Revision): RevisionAPI {

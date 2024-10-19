@@ -1,4 +1,9 @@
-export type RetentionType = "again" | "hard" | "good" | "easy";
+export enum RetentionType {
+  AGAIN = "again",
+  HARD = "hard",
+  GOOD = "good",
+  EASY = "easy",
+}
 
 export type DeckAPI = {
   id: number;
@@ -55,10 +60,23 @@ export type FlashCardListApi = {
   deckTags: string[];
   deckIsPublic: boolean;
   flashcards: FlashcardAPI[];
-  nbRevisions: number;
+  revisionStats: FlashcardRevisionStats;
   currentRevision?: {
     flashcards: FlashcardAPI[];
   };
+};
+
+export type FlashcardRevisionStats = {
+  nbTotal: number;
+  revisions: DeckRevision[];
+};
+
+export type DeckRevision = {
+  date: Date;
+  flashcards: {
+    id: number;
+    result: RetentionType[]; // Array because RetentionType.AGAIN can be repeated
+  }[];
 };
 
 export type FlashcardAPI = {

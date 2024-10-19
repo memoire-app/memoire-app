@@ -10,7 +10,7 @@ const avatar = useState("avatar") as Ref<string>;
 
 <template>
   <div
-    class="flex gap-2"
+    class="flex items-center gap-2"
     :class="
       isMenuOpen ? 'flex-row justify-between' : 'flex-col items-center gap-4'
     "
@@ -19,8 +19,8 @@ const avatar = useState("avatar") as Ref<string>;
       <UAvatar :src="avatar" alt="Avatar" />
     </NuxtLink>
     <div
-      class="flex"
-      :class="isMenuOpen ? 'flex-row' : 'flex-col items-center gap-2 px-2'"
+      class="flex gap-2"
+      :class="isMenuOpen ? 'flex-row' : 'flex-col items-center px-2'"
     >
       <NavbarLanguageSelector />
       <NavbarColorMode />
