@@ -19,7 +19,7 @@ export default class Revision extends BaseModel {
   declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime | null
+  declare updatedAt: DateTime
 
   @column.dateTime()
   declare completedAt: DateTime | null

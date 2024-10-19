@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon'
+
 export type RetentionType = 'again' | 'hard' | 'good' | 'easy'
 
 export type DeckAPI = {
@@ -55,10 +57,21 @@ export type FlashCardListApi = {
   deckTags: string[]
   deckIsPublic: boolean
   flashcards: FlashcardAPI[]
-  nbRevisions: number
+  revisionStats: FlashcardRevisionStats
   currentRevision?: {
     flashcards: FlashcardAPI[]
   }
+}
+
+export type FlashcardRevisionStats = {
+  nbTotal: number
+  revisions: {
+    date: DateTime<boolean>
+    flashcards: {
+      id: number
+      result: RetentionType[] // Array because RetentionType.AGAIN can be repeated
+    }[]
+  }[]
 }
 
 export type FlashcardAPI = {
