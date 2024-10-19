@@ -3,9 +3,19 @@ import type { DashboardStats } from "~/models";
 import BasicStatsCard from "./BasicStatsCard.vue";
 const { t } = useI18n();
 // Define props
-defineProps<{
+const props = defineProps<{
   data: DashboardStats;
 }>();
+
+const nbAvgCardsPerDeck = computed(() => {
+  if (props.data.nbDecks === 0) return 0;
+  return (props.data.nbFlashcards / props.data.nbDecks).toFixed(2);
+});
+
+const nbAvgRevisionsPerDeck = computed(() => {
+  if (props.data.nbDecks === 0) return 0;
+  return (props.data.revisions.length / props.data.nbDecks).toFixed(2);
+});
 </script>
 
 <template>
@@ -33,7 +43,7 @@ defineProps<{
       <template #description>
         {{
           t("dashboards.totalCards.desc", {
-            count: (data.nbFlashcards / data.nbDecks).toFixed(2),
+            count: nbAvgCardsPerDeck,
           })
         }}
       </template>
@@ -50,7 +60,7 @@ defineProps<{
       <template #description>
         {{
           t("dashboards.totalCards.desc", {
-            count: (data.revisions.length / data.nbDecks).toFixed(2),
+            count: nbAvgRevisionsPerDeck,
           })
         }}
       </template>

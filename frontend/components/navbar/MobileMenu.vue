@@ -36,7 +36,7 @@ const menuItems = computed(() => [
 const menuItemsLanding = computed(() => [
   {
     path: "login",
-    label: t("utils.login"),
+    label: t("login.title"),
     icon: "i-mdi-login",
   },
 ]);

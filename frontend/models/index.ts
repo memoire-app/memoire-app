@@ -91,6 +91,7 @@ export type RevisionsFlashcardAPI = {
 export type UserAPI = {
   id: number;
   username: string | null;
+  memoireUsername: string | null;
   email: string;
   avatar: string | null;
   createdAt: Date;
