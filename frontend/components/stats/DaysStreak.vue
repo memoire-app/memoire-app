@@ -43,7 +43,7 @@ const formattedRevisionDays = computed(() => {
       <UIcon name="i-lucide-calendar" size="24" />
       {{ t("decks.stats.daysStreak") }}
     </div>
-    <div class="m-auto flex h-fit flex-1 justify-between gap-3 md:gap-6">
+    <div class=":gap-6 m-auto flex h-fit flex-1 justify-between gap-3">
       <div
         v-for="day in lastSevenDays"
         :key="day"

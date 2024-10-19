@@ -124,7 +124,7 @@ export default defineI18nConfig(() => ({
         stats: {
           overview: "Evaluation distribution",
           noData: "No data",
-          daysStreak: "Streak",
+          daysStreak: "Study streak",
         },
         public: "Public decks",
         weekly: "Weekly decks",
@@ -355,7 +355,7 @@ export default defineI18nConfig(() => ({
         stats: {
           overview: "Répartition des évaluations",
           noData: "Pas de données",
-          daysStreak: "Série",
+          daysStreak: "Série de révisions",
         },
         public: "Decks publics",
         weekly: "Decks hebdomadaires",
@@ -583,7 +583,7 @@ export default defineI18nConfig(() => ({
         stats: {
           overview: "평가 분포",
           noData: "데이터 없음",
-          daysStreak: "연속",
+          daysStreak: "공부 스트릭",
         },
         public: "공개 덱",
         weekly: "주간 덱",
@@ -811,7 +811,7 @@ export default defineI18nConfig(() => ({
         stats: {
           overview: "Distribución de evaluaciones",
           noData: "Sin datos",
-          daysStreak: "Racha",
+          daysStreak: "Racha de estudio",
         },
         public: "Mazos públicos",
         weekly: "Mazos semanales",

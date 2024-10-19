@@ -141,10 +141,16 @@ const items = computed(() => [
     <div class="flex items-start gap-2">
       <div class="flex items-center gap-2">
         <UTooltip v-if="deck.isPublic" :text="t('decks.isPublic')">
-          <UIcon name="i-lucide-lock-keyhole-open" class="opacity-50" />
+          <UIcon
+            name="i-lucide-lock-keyhole-open"
+            class="text-green-500 opacity-50"
+          />
         </UTooltip>
         <UTooltip v-else :text="t('decks.isPrivate')">
-          <UIcon name="i-lucide-lock-keyhole" class="opacity-50" />
+          <UIcon
+            name="i-lucide-lock-keyhole"
+            class="text-orange-500 opacity-50"
+          />
         </UTooltip>
         <UDropdown :items="items" @click.stop>
           <UButton icon="i-lucide-more-vertical" size="xs" variant="ghost" />

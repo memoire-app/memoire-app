@@ -7,7 +7,7 @@ const emits = defineEmits(["delete", "edit"]);
     <UButton
       icon="i-lucide-edit-2"
       size="xs"
-      variant="soft"
+      variant="ghost"
       class="h-fit"
       @click.stop="emits('edit')"
     />
@@ -15,7 +15,7 @@ const emits = defineEmits(["delete", "edit"]);
       icon="i-lucide-trash"
       size="xs"
       color="red"
-      variant="soft"
+      variant="ghost"
       class="h-fit"
       @click.stop="emits('delete')"
     />

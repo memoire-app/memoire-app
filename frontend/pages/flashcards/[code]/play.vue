@@ -280,7 +280,7 @@ defineShortcuts({
     <!-- Modal for Finished State -->
     <UModal v-model="isFinishedStateOpen" prevent-close>
       <div class="flex flex-col gap-6 p-4">
-        <div class="text-xl font-bold">🥳 {{ t("revision.congrats") }} !</div>
+        <div class="text-xl font-bold">🥳 {{ t("revision.congrats") }}</div>
         <div class="text-sm text-slate-600">
           {{ t("revision.finished") }}
         </div>

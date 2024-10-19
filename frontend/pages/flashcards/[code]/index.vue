@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { DeckAPI, FlashCardListApi } from "~/models";
 import { copyCode } from "~/utils";
 const { t } = useI18n();
 definePageMeta({
@@ -11,24 +10,32 @@ const headers = useRequestHeaders();
 const route = useRoute();
 const router = useRouter();
 const runtimeConfig = useRuntimeConfig();
-const code = route.params.code;
+const code = route.params.code as string;
 const toast = useToast();
 
-const { data, refresh } = await useFetch<FlashCardListApi>(`/decks/${code}`, {
-  baseURL: runtimeConfig.public.BACK_URL as string,
-  headers,
-  credentials: "include",
-});
+const { data, refresh } = useDeckData(code, runtimeConfig, headers);
+const {
+  createOrEditIsOpen,
+  isCreate,
+  currentFlashCardId,
+  question,
+  answer,
+  isCreating,
+  clearInputs,
+  createOrUpdateFlashcard,
+  deleteCard,
+} = useFlashcardOperations(code, runtimeConfig, headers, refresh, t);
 
 const shortTitle = computed(() => {
   if (!data.value) return "";
-  if (data.value?.deckTitle?.length > 20) {
+
+  if (data.value.deckTitle.length > 20) {
     return data.value?.deckTitle.slice(0, 20) + "...";
   }
   return data.value?.deckTitle;
 });
 
-const links = [
+const links = computed(() => [
   {
     label: "Flashcards",
     icon: "i-cbi-garbage-cardboard",
@@ -39,90 +46,19 @@ const links = [
     icon: "i-lucide-rectangle-vertical",
     to: `/flashcards/${code}`,
   },
-];
+]);
 
 const flashcardsSortedByCreatedAt = computed(() => {
   if (!data.value) return [];
-  return [...data.value.flashcards].sort(
+  return data.value.flashcards.sort(
     (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
   );
 });
 
-const createOrEditIsOpen = ref(false);
-const isCreate = ref(false);
 const editDeckIsOpen = ref(false);
 const deleteIsOpen = ref(false);
-const currentFlashCardId = ref(-1);
-const question = ref("");
-const answer = ref("");
 const title = ref(data.value?.deckTitle);
 const bufferedTags = ref();
-const isCreating = ref(false);
-
-const clearInputs = () => {
-  question.value = "";
-  answer.value = "";
-};
-
-const createOrUpdateFlashcard = async () => {
-  isCreating.value = true;
-  if (currentFlashCardId.value === -1) {
-    // Create new flashcard
-    await $fetch<DeckAPI>(`/decks/${code}`, {
-      baseURL: runtimeConfig.public.BACK_URL as string,
-      method: "POST",
-      headers,
-      credentials: "include",
-      body: JSON.stringify({
-        front: question.value,
-        back: answer.value,
-      }),
-    });
-
-    toast.add({
-      title: t("notifications.flashcards.createdSuccess"),
-      icon: "i-lucide-circle-check-big",
-    });
-  } else {
-    // Update existing flashcard
-    await $fetch<DeckAPI>(`/flashcards/${currentFlashCardId.value}`, {
-      baseURL: runtimeConfig.public.BACK_URL as string,
-      method: "PATCH",
-      headers,
-      credentials: "include",
-      body: JSON.stringify({
-        front: question.value,
-        back: answer.value,
-      }),
-    });
-
-    toast.add({
-      title: t("notifications.flashcards.updatedSuccess"),
-      icon: "i-lucide-circle-check-big",
-    });
-  }
-
-  await refresh();
-  clearInputs();
-  createOrEditIsOpen.value = false;
-  currentFlashCardId.value = -1; // Reset current flashcard ID after edit
-  isCreating.value = false;
-};
-
-const deleteCard = async () => {
-  if (currentFlashCardId.value !== -1) {
-    await $fetch(`/flashcards/${currentFlashCardId.value}`, {
-      baseURL: runtimeConfig.public.BACK_URL as string,
-      method: "DELETE",
-      headers,
-      credentials: "include",
-    });
-
-    await refresh();
-    deleteIsOpen.value = false;
-    currentFlashCardId.value = -1;
-  }
-};
 
 const isCurrentRevisionAvailable = computed(
   () =>
@@ -244,6 +180,11 @@ defineShortcuts({
 });
 
 const { metaSymbol } = useShortcuts();
+
+const revisions = computed(() => {
+  if (!data.value) return [];
+  return data.value.revisionStats.revisions;
+});
 </script>
 
 <template>
@@ -302,6 +243,7 @@ const { metaSymbol } = useShortcuts();
               icon="i-lucide-lock-keyhole"
               variant="soft"
               square
+              color="blue"
               @click.stop="publicizeDeck()"
             />
           </UTooltip>
@@ -357,7 +299,7 @@ const { metaSymbol } = useShortcuts();
           )
         "
       />
-      <StatsDeckRevisions :revisions="data.revisionStats.revisions" />
+      <StatsDeckRevisions :revisions="revisions" />
     </div>
 
     <!-- Flashcard board -->

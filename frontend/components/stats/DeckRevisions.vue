@@ -9,22 +9,17 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["filteredRetentionTypes"]);
+
 // Define colors for each RetentionType
 const retentionColors = {
-  again: "bg-red-400", // Red for "again"
-  hard: "bg-yellow-500", // Yellow for "hard"
-  good: "bg-blue-500", // Blue for "good"
-  easy: "bg-green-500", // Green for "easy"
+  again: "bg-red-400",
+  hard: "bg-yellow-500",
+  good: "bg-blue-500",
+  easy: "bg-green-500",
 };
 
-// Define labels for each RetentionType using computed for i18n
 const { t } = useI18n();
-const label = computed(() => ({
-  again: t("revision.criterias.again"),
-  hard: t("revision.criterias.hard"),
-  good: t("revision.criterias.good"),
-  easy: t("revision.criterias.easy"),
-}));
 
 // Calculate the mean proportions of each retention type for all revisions
 const meanRetentionTypes = computed(() => {
@@ -46,8 +41,18 @@ const meanRetentionTypes = computed(() => {
     hard: (totalCounts.hard / totalRetentions) * 100,
     good: (totalCounts.good / totalRetentions) * 100,
     easy: (totalCounts.easy / totalRetentions) * 100,
-  };
+  } as Record<RetentionType, number>;
 });
+
+const hovered = ref<RetentionType | null>(null);
+
+const isHovering = (type: RetentionType) => {
+  hovered.value = type;
+};
+
+const filteredRetentionTypes = (type: RetentionType) => {
+  emit("filteredRetentionTypes", type);
+};
 </script>
 
 <template>
@@ -62,27 +67,34 @@ const meanRetentionTypes = computed(() => {
     </div>
     <div
       v-if="props.revisions.length === 0"
-      class="flex h-8 w-full items-center justify-center rounded-lg border border-slate-200 text-sm text-slate-300 dark:border-slate-700 dark:text-slate-600"
+      class="flex h-full w-full items-center justify-center rounded-lg border border-slate-200 text-sm text-slate-300 dark:border-slate-700 dark:text-slate-600"
     >
       {{ t("decks.stats.noData") }}
     </div>
-    <div v-else class="flex h-fit flex-1 items-center">
+    <div
+      v-else
+      class="flex h-full flex-1 items-center overflow-hidden rounded-xl"
+    >
       <div
-        v-for="(percentage, type, index) in meanRetentionTypes"
+        v-for="(percentage, type) in meanRetentionTypes"
         :key="type"
-        class="flex"
+        class="flex h-full flex-1"
         :style="{ flex: percentage }"
+        @mouseover="isHovering(type)"
+        @mouseleave="hovered = null"
+        @click="filteredRetentionTypes(type)"
       >
         <div
-          class="flex h-8 w-full items-center justify-center text-sm"
+          class="flex h-full min-h-8 w-full cursor-pointer items-center justify-center text-white transition-all"
           :class="[
             retentionColors[type],
-            index === 0 ? 'rounded-l-lg' : '',
-            index === Object.keys(meanRetentionTypes).length - 1
-              ? 'rounded-r-lg'
-              : '',
+            { 'opacity-50': hovered && hovered !== type },
+            { 'dark:opacity-90': hovered && hovered === type },
+            { 'dark:opacity-75': !hovered },
           ]"
-        ></div>
+        >
+          <span class="text-sm"> {{ percentage.toFixed(2) }}%</span>
+        </div>
       </div>
     </div>
   </div>
