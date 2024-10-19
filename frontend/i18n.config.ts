@@ -228,6 +228,9 @@ export default defineI18nConfig(() => ({
         revisionsByDeck: {
           title: "Revisions by deck",
         },
+        last30Days: {
+          title: "Revisions last 30 days",
+        },
       },
     },
     fr: {
@@ -460,6 +463,9 @@ export default defineI18nConfig(() => ({
         revisionsByDeck: {
           title: "Révisions par deck",
         },
+        last30Days: {
+          title: "Révisions les 30 derniers jours",
+        },
       },
     },
     kr: {
@@ -685,6 +691,9 @@ export default defineI18nConfig(() => ({
         },
         revisionsByDeck: {
           title: "덱별 수정",
+        },
+        last30Days: {
+          title: "지난 30일 수정",
         },
       },
     },
@@ -914,6 +923,9 @@ export default defineI18nConfig(() => ({
         },
         revisionsByDeck: {
           title: "Revisiones por mazo",
+        },
+        last30Days: {
+          title: "Revisiones últimos 30 días",
         },
       },
     },
