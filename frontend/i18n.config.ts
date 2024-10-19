@@ -69,10 +69,15 @@ export default defineI18nConfig(() => ({
         },
       },
       login: {
-        connect: "Log in to access your account",
+        title: "Login",
+        description: "Log in to access your account",
+      },
+      register: {
+        title: "Register",
+        description: "Register to access your account",
+        confirmPassword: "Confirm password",
       },
       utils: {
-        login: "Login",
         loginWith: "Login with {provider}",
         logout: "Logout",
         profile: "Profile",
@@ -90,6 +95,8 @@ export default defineI18nConfig(() => ({
         or: "or",
         delete: "Delete",
         import: "Import",
+        email: "Email",
+        password: "Password",
       },
       pages: {
         flashcards: {
@@ -281,7 +288,13 @@ export default defineI18nConfig(() => ({
         },
       },
       login: {
-        connect: "Connectez-vous pour accéder à votre compte",
+        title: "Se connecter",
+        description: "Connectez-vous pour accéder à votre compte",
+      },
+      register: {
+        title: "S'inscrire",
+        description: "Inscrivez-vous pour accéder à votre compte",
+        confirmPassword: "Confirmer le mot de passe",
       },
       utils: {
         login: "Se connecter",
@@ -302,6 +315,8 @@ export default defineI18nConfig(() => ({
         or: "ou",
         delete: "Supprimer",
         import: "Importer",
+        email: "Email",
+        password: "Mot de passe",
       },
       pages: {
         flashcards: {
@@ -491,10 +506,15 @@ export default defineI18nConfig(() => ({
         },
       },
       login: {
-        connect: "계정에 액세스하려면 로그인하세요",
+        title: "로그인",
+        description: "계정에 액세스하려면 로그인하세요",
+      },
+      register: {
+        title: "등록",
+        description: "계정에 액세스하려면 등록하세요",
+        confirmPassword: "비밀번호 확인",
       },
       utils: {
-        login: "로그인",
         loginWith: "{provider}로 로그인",
         logout: "로그아웃",
         profile: "프로필",
@@ -512,6 +532,8 @@ export default defineI18nConfig(() => ({
         or: "또는",
         delete: "삭제",
         import: "가져오기",
+        email: "이메일",
+        password: "비밀번호",
       },
       pages: {
         flashcards: {
@@ -701,10 +723,15 @@ export default defineI18nConfig(() => ({
         },
       },
       login: {
-        connect: "Inicia sesión para acceder a tu cuenta",
+        description: "Inicia sesión para acceder a tu cuenta",
+        title: "Iniciar sesión",
+      },
+      register: {
+        description: "Regístrate para acceder a tu cuenta",
+        title: "Registrarse",
+        confirmPassword: "Confirmar contraseña",
       },
       utils: {
-        login: "Iniciar sesión",
         loginWith: "Iniciar sesión con {provider}",
         logout: "Cerrar sesión",
         profile: "Perfil",
@@ -722,6 +749,8 @@ export default defineI18nConfig(() => ({
         or: "o",
         delete: "Eliminar",
         import: "Importar",
+        email: "Email",
+        password: "Contraseña",
       },
       pages: {
         flashcards: {
