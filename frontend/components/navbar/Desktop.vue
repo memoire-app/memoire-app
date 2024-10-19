@@ -38,7 +38,7 @@ const menuItems = computed(() => [
       <NavbarLogo v-if="isMenuOpen" />
 
       <div
-        class="flex h-full flex-col justify-between py-4"
+        class="flex h-full flex-col justify-between pb-2 pt-4"
         :class="[isMenuOpen ? 'px-4' : 'mt-10 px-0']"
       >
         <div
