@@ -29,7 +29,8 @@ export default class UsersController {
 
       const isLoggedIn = await auth.check()
       if (isLoggedIn) {
-        return response.redirect(`${env.get('FRONT_URL')}/flashcards`)
+        // Log out the current user
+        await auth.use('web').logout()
       }
 
       // Login and authenticate the user with the data provided by the provider
@@ -62,5 +63,52 @@ export default class UsersController {
     this.loggerService.default(request, 'me_user', { userId: auth.user?.id })
 
     return this.apiBuilderService.buildUserApi(auth.use('web').user!)
+  }
+
+  async register({ auth, request }: HttpContext) {
+    this.loggerService.default(request, 'register_user')
+
+    const { email, password } = request.only(['email', 'password'])
+
+    const user = await User.updateOrCreate(
+      { email },
+      {
+        password,
+        memoireUsername: email.split('@')[0],
+      }
+    )
+
+    await auth.use('web').login(user)
+
+    return this.apiBuilderService.buildUserApi(user)
+  }
+
+  async login({ auth, request }: HttpContext) {
+    this.loggerService.default(request, 'login_user')
+
+    const { email, password } = request.only(['email', 'password'])
+
+    const user = await User.verifyCredentials(email, password)
+
+    await auth.use('web').login(user)
+
+    return this.apiBuilderService.buildUserApi(user)
+  }
+
+  async update({ auth, request, response }: HttpContext) {
+    this.loggerService.default(request, 'update_user', { userId: auth.user?.id })
+
+    const { memoireUsername } = request.all()
+
+    const existingUser = await User.findBy('memoireUsername', memoireUsername)
+    if (existingUser && existingUser.id !== auth.user?.id) {
+      return response.badRequest('Username already taken')
+    }
+
+    const user = await User.findOrFail(auth.user?.id)
+    user.memoireUsername = memoireUsername
+    await user.save()
+
+    return this.apiBuilderService.buildUserApi(user)
   }
 }

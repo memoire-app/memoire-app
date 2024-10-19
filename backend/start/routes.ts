@@ -23,7 +23,11 @@ router
       router.get('/:provider/callback', [UsersController, 'handleCallback'])
       router.get('/me', [UsersController, 'me']).use(middleware.auth())
       router.get('/logout', [UsersController, 'logout'])
+      router.post('/register', [UsersController, 'register'])
+      router.post('/login', [UsersController, 'login'])
     })
+
+    router.patch('/profile', [UsersController, 'update']).use(middleware.auth())
 
     router.get('/decks', [DecksController, 'getAll']).use(middleware.auth())
     router.post('/decks', [DecksController, 'create']).use(middleware.auth())
