@@ -71,13 +71,19 @@ export default defineI18nConfig(() => ({
       login: {
         title: "Login",
         description: "Log in to access your account",
+        invalid: "Incorrect email or password",
       },
       register: {
         title: "Register",
         description: "Register to access your account",
         confirmPassword: "Confirm password",
+        passwordMismatch: "Passwords do not match",
       },
       utils: {
+        usernameUpdated: "Username updated",
+        usernameUnique: "This username is already taken",
+        save: "Save",
+        username: "Username",
         loginWith: "Login with {provider}",
         logout: "Logout",
         profile: "Profile",
@@ -201,15 +207,15 @@ export default defineI18nConfig(() => ({
       dashboards: {
         totalDecks: {
           title: "Total number of decks",
-          desc: "with {count} public decks",
+          desc: "with {count} public deck(s)",
         },
         totalCards: {
           title: "Total number of cards",
-          desc: "or an average of {count} cards / deck",
+          desc: "or an average of {count} card(s) / deck",
         },
         totalRevisions: {
           title: "Total number of revisions",
-          desc: "or an average of {count} revisions / deck",
+          desc: "or an average of {count} revision(s) / deck",
         },
         monthlyRevisions: {
           title: "Monthly revisions",
@@ -290,13 +296,19 @@ export default defineI18nConfig(() => ({
       login: {
         title: "Se connecter",
         description: "Connectez-vous pour accéder à votre compte",
+        invalid: "Email ou mot de passe incorrect",
       },
       register: {
         title: "S'inscrire",
         description: "Inscrivez-vous pour accéder à votre compte",
         confirmPassword: "Confirmer le mot de passe",
+        passwordMismatch: "Les mots de passe ne correspondent pas",
       },
       utils: {
+        usernameUpdated: "Nom d'utilisateur mis à jour",
+        usernameUnique: "Ce nom d'utilisateur est déjà pris",
+        save: "Enregistrer",
+        username: "Nom d'utilisateur",
         login: "Se connecter",
         loginWith: "Se connecter avec {provider}",
         logout: "Se déconnecter",
@@ -422,15 +434,15 @@ export default defineI18nConfig(() => ({
       dashboards: {
         totalDecks: {
           title: "Nombre total de decks",
-          desc: "avec {count} decks publics",
+          desc: "avec {count} deck(s) public(s)",
         },
         totalCards: {
           title: "Nombre total de cartes",
-          desc: "soit en moyenne {count} cartes / deck",
+          desc: "soit en moyenne {count} carte(s) / deck",
         },
         totalRevisions: {
           title: "Nombre total de révisions",
-          desc: "soit en moyenne {count} révisions / deck",
+          desc: "soit en moyenne {count} révision(s) / deck",
         },
         monthlyRevisions: {
           title: "Révisions mensuelles",
@@ -508,13 +520,19 @@ export default defineI18nConfig(() => ({
       login: {
         title: "로그인",
         description: "계정에 액세스하려면 로그인하세요",
+        invalid: "이메일 또는 비밀번호가 잘못되었습니다",
       },
       register: {
         title: "등록",
         description: "계정에 액세스하려면 등록하세요",
         confirmPassword: "비밀번호 확인",
+        passwordMismatch: "비밀번호가 일치하지 않습니다",
       },
       utils: {
+        usernameUpdated: "사용자 이름이 업데이트되었습니다",
+        usernameUnique: "이 사용자 이름은 이미 사용 중입니다",
+        save: "저장",
+        username: "사용자 이름",
         loginWith: "{provider}로 로그인",
         logout: "로그아웃",
         profile: "프로필",
@@ -725,13 +743,19 @@ export default defineI18nConfig(() => ({
       login: {
         description: "Inicia sesión para acceder a tu cuenta",
         title: "Iniciar sesión",
+        invalid: "Email o contraseña incorrectos",
       },
       register: {
         description: "Regístrate para acceder a tu cuenta",
         title: "Registrarse",
         confirmPassword: "Confirmar contraseña",
+        passwordMismatch: "Las contraseñas no coinciden",
       },
       utils: {
+        usernameUpdated: "Nombre de usuario actualizado",
+        usernameUnique: "Este nombre de usuario ya está en uso",
+        save: "Guardar",
+        username: "Nombre de usuario",
         loginWith: "Iniciar sesión con {provider}",
         logout: "Cerrar sesión",
         profile: "Perfil",
@@ -855,15 +879,15 @@ export default defineI18nConfig(() => ({
       dashboards: {
         totalDecks: {
           title: "Número total de mazos",
-          desc: "con {count} mazos públicos",
+          desc: "con {count} mazos público(s)",
         },
         totalCards: {
           title: "Número total de flashcards",
-          desc: "o un promedio de {count} flashcards / mazo",
+          desc: "o un promedio de {count} flashcard(s) / mazo",
         },
         totalRevisions: {
           title: "Número total de revisiones",
-          desc: "o un promedio de {count} revisiones / mazo",
+          desc: "o un promedio de {count} revisione(s) / mazo",
         },
         monthlyRevisions: {
           title: "Revisiones mensuales",
