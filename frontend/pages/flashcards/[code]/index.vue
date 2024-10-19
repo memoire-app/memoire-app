@@ -270,9 +270,9 @@ const { metaSymbol } = useShortcuts();
             <UButton
               :ui="{ base: 'disabled:opacity-30' }"
               icon="i-lucide-pen"
-              variant="outline"
-              color="black"
+              variant="soft"
               square
+              color="blue"
               @click.stop="openEditDeck()"
             />
           </UTooltip>
@@ -280,8 +280,9 @@ const { metaSymbol } = useShortcuts();
             <UButton
               :ui="{ base: 'disabled:opacity-30' }"
               icon="i-lucide-share-2"
-              variant="outline"
+              variant="soft"
               square
+              color="blue"
               @click.stop="copy()"
             />
           </UTooltip>
@@ -289,9 +290,9 @@ const { metaSymbol } = useShortcuts();
             <UButton
               :ui="{ base: 'disabled:opacity-30' }"
               icon="i-lucide-lock-keyhole-open"
-              variant="outline"
-              color="green"
+              variant="soft"
               square
+              color="blue"
               @click.stop="privatizeDeck()"
             />
           </UTooltip>
@@ -299,8 +300,7 @@ const { metaSymbol } = useShortcuts();
             <UButton
               :ui="{ base: 'disabled:opacity-30' }"
               icon="i-lucide-lock-keyhole"
-              variant="outline"
-              color="orange"
+              variant="soft"
               square
               @click.stop="publicizeDeck()"
             />
@@ -312,7 +312,8 @@ const { metaSymbol } = useShortcuts();
           icon="i-heroicons-play-20-solid"
           size="lg"
           class="flex flex-1 justify-center lg:flex-none"
-          variant="outline"
+          variant="soft"
+          color="blue"
           @click="
             router.push({
               path: '/flashcards/' + route.params.code + '/play',
@@ -327,6 +328,7 @@ const { metaSymbol } = useShortcuts();
           icon="i-heroicons-plus-20-solid"
           size="lg"
           class="flex flex-1 justify-center lg:flex-none"
+          color="blue"
           @click="createNewRevision"
         >
           {{ t("decks.newRevision") }}
@@ -346,6 +348,17 @@ const { metaSymbol } = useShortcuts();
         </DashboardBasicStatsCard>
       </div>
     </div> -->
+
+    <div class="mb-4 flex flex-col gap-4 lg:flex-row" v-if="data">
+      <StatsDaysStreak
+        :revision-days="
+          data.revisionStats.revisions.map(
+            (revision) => new Date(revision.date),
+          )
+        "
+      />
+      <StatsDeckRevisions :revisions="data.revisionStats.revisions" />
+    </div>
 
     <!-- Flashcard board -->
     <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
