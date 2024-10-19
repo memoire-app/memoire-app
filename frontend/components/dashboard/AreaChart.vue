@@ -50,7 +50,7 @@ const tickFormat = (tick: number) => seriesData[tick].day;
     <VisXYContainer :data="seriesData">
       <VisAxis type="x" :tick-format="tickFormat" />
       <VisAxis type="y" />
-      <VisArea :x="x" :y="y" :minHeight1Px="true" />
+      <VisArea :x="x" :y="y" :min-height-1-px="true" />
     </VisXYContainer>
   </div>
 </template>

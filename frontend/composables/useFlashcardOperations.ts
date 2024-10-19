@@ -1,11 +1,12 @@
+import type { RuntimeConfig } from "nuxt/schema";
 import type { DeckAPI } from "~/models";
 
 export const useFlashcardOperations = (
   code: string,
-  runtimeConfig: any,
-  headers: any,
+  runtimeConfig: RuntimeConfig,
+  headers: HeadersInit,
   refresh: () => Promise<void>,
-  t: any,
+  t: (key: string) => string,
 ) => {
   const isCreating = ref(false);
   const createOrEditIsOpen = ref(false);
@@ -13,6 +14,7 @@ export const useFlashcardOperations = (
   const currentFlashCardId = ref(-1);
   const question = ref("");
   const answer = ref("");
+  const deleteIsOpen = ref(false);
 
   const clearInputs = () => {
     question.value = "";
@@ -73,6 +75,11 @@ export const useFlashcardOperations = (
 
       await refresh();
       currentFlashCardId.value = -1;
+      deleteIsOpen.value = false;
+      useToast().add({
+        title: t("notifications.flashcards.deletedSuccess"),
+        icon: "i-lucide-circle-check-big",
+      });
     }
   };
 
@@ -83,6 +90,7 @@ export const useFlashcardOperations = (
     question,
     answer,
     isCreating,
+    deleteIsOpen,
     clearInputs,
     createOrUpdateFlashcard,
     deleteCard,

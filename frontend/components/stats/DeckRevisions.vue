@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RetentionType, type DeckRevision } from "~/models";
+import type { RetentionType, DeckRevision } from "~/models";
 import { computed } from "vue";
 
 const props = defineProps({

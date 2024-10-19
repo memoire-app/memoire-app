@@ -21,6 +21,7 @@ const {
   question,
   answer,
   isCreating,
+  deleteIsOpen,
   clearInputs,
   createOrUpdateFlashcard,
   deleteCard,
@@ -50,13 +51,12 @@ const links = computed(() => [
 
 const flashcardsSortedByCreatedAt = computed(() => {
   if (!data.value) return [];
-  return data.value.flashcards.sort(
+  return [...data.value.flashcards].sort(
     (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
   );
 });
 
 const editDeckIsOpen = ref(false);
-const deleteIsOpen = ref(false);
 const title = ref(data.value?.deckTitle);
 const bufferedTags = ref();
 
@@ -291,7 +291,7 @@ const revisions = computed(() => {
       </div>
     </div> -->
 
-    <div class="mb-4 flex flex-col gap-4 lg:flex-row" v-if="data">
+    <div v-if="data" class="mb-4 flex flex-col gap-4 lg:flex-row">
       <StatsDaysStreak
         :revision-days="
           data.revisionStats.revisions.map(
@@ -410,7 +410,11 @@ const revisions = computed(() => {
           >
             <UButton
               class="text-left"
-              icon="i-lucide-circle-plus"
+              :icon="
+                isCreate
+                  ? 'i-heroicons-plus-20-solid'
+                  : 'i-heroicons-check-20-solid'
+              "
               :ui="{ base: 'disabled:opacity-30' }"
               :disabled="!question || !answer || isCreating"
               @click="createOrUpdateFlashcard()"

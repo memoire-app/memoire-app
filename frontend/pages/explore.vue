@@ -243,7 +243,7 @@ const copy = (code: string) => {
           padded
           @click="isPreviewOpen = false"
         />
-        <DeckPreview class="mt-12" v-if="deckPreview" :deck="deckPreview" />
+        <DeckPreview v-if="deckPreview" class="mt-12" :deck="deckPreview" />
       </USlideover>
     </div>
   </div>
