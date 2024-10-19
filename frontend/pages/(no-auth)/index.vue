@@ -157,9 +157,9 @@ watch(
 
         <div class="flex w-full flex-col gap-8 lg:w-1/2">
           <div
-            v-motion
             v-for="(feature, i) in FEATURES"
             :key="feature.title"
+            v-motion
             :initial="{ opacity: 0, y: 100 }"
             :visibleOnce="{
               opacity: 1,

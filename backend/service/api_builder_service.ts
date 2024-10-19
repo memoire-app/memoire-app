@@ -97,6 +97,7 @@ export default class ApiBuilderService {
     return {
       id: user.id,
       username: user.username,
+      memoireUsername: user.memoireUsername,
       email: user.email,
       avatar: user.avatar,
       createdAt: user.createdAt.toJSDate(),
@@ -129,7 +130,7 @@ export default class ApiBuilderService {
       code: deck.code,
       createdAt: deck.createdAt.toJSDate(),
       updatedAt: deck.updatedAt ? deck.updatedAt.toJSDate() : null,
-      authorName: deck.user.username || 'Anonymous',
+      authorName: deck.user.memoireUsername ?? (deck.user.username as string) ?? 'Unknown',
       originalAuthorName: originalAuthorName,
       flashcards: deck.flashcards.map((flashcard) => {
         return this.buildFlashCardApi(deck.title, flashcard)
