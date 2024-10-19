@@ -37,11 +37,14 @@ const links = [
     >
       <div class="flex flex-1 flex-col gap-4">
         <DashboardGlobalStats :data="stats" />
-        <div class="flex w-full flex-1 flex-col gap-4 lg:flex-row">
+        <div class="grid w-full grid-cols-1 gap-4 lg:grid-cols-2">
           <DashboardChartContainer
             :title="t('dashboards.monthlyRevisions.title')"
           >
             <DashboardBarChart :data="stats" />
+          </DashboardChartContainer>
+          <DashboardChartContainer :title="t('dashboards.last30Days.title')">
+            <DashboardAreaChart :data="stats" />
           </DashboardChartContainer>
           <DashboardChartContainer
             :title="t('dashboards.revisionsByDeck.title')"

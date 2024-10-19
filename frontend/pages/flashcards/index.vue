@@ -159,7 +159,8 @@ watch(page, (newPage) => {
           size="lg"
           icon="i-lucide-import"
           class="flex w-full justify-center lg:w-fit"
-          variant="outline"
+          variant="soft"
+          color="blue"
           @click="importModalOpen = true"
         >
           {{ t("decks.importVariant") }}
@@ -168,6 +169,7 @@ watch(page, (newPage) => {
           size="lg"
           icon="i-heroicons-plus-20-solid"
           class="flex w-full justify-center lg:w-fit"
+          color="blue"
           @click="openSlideover()"
         >
           {{ t("decks.createVariant") }}
@@ -254,8 +256,10 @@ watch(page, (newPage) => {
             </UFormGroup>
             <div class="flex justify-end">
               <UButton
-                class="w-fit"
+                size="lg"
                 icon="i-heroicons-plus-20-solid"
+                color="blue"
+                block
                 @click="createDeck()"
                 >{{ t("utils.create") }}</UButton
               >

@@ -121,6 +121,11 @@ export default defineI18nConfig(() => ({
         },
       },
       decks: {
+        stats: {
+          overview: "Evaluation distribution",
+          noData: "No data",
+          daysStreak: "Study streak",
+        },
         public: "Public decks",
         weekly: "Weekly decks",
         weeklyDesc: "Decks created this week",
@@ -222,6 +227,9 @@ export default defineI18nConfig(() => ({
         },
         revisionsByDeck: {
           title: "Revisions by deck",
+        },
+        last30Days: {
+          title: "Revisions last 30 days",
         },
       },
     },
@@ -347,6 +355,11 @@ export default defineI18nConfig(() => ({
         },
       },
       decks: {
+        stats: {
+          overview: "Répartition des évaluations",
+          noData: "Pas de données",
+          daysStreak: "Série de révisions",
+        },
         public: "Decks publics",
         weekly: "Decks hebdomadaires",
         weeklyDesc: "Decks créés cette semaine",
@@ -449,6 +462,9 @@ export default defineI18nConfig(() => ({
         },
         revisionsByDeck: {
           title: "Révisions par deck",
+        },
+        last30Days: {
+          title: "Révisions les 30 derniers jours",
         },
       },
     },
@@ -570,6 +586,11 @@ export default defineI18nConfig(() => ({
         },
       },
       decks: {
+        stats: {
+          overview: "평가 분포",
+          noData: "데이터 없음",
+          daysStreak: "공부 스트릭",
+        },
         public: "공개 덱",
         weekly: "주간 덱",
         weeklyDesc: "이번 주에 만들어진 덱",
@@ -670,6 +691,9 @@ export default defineI18nConfig(() => ({
         },
         revisionsByDeck: {
           title: "덱별 수정",
+        },
+        last30Days: {
+          title: "지난 30일 수정",
         },
       },
     },
@@ -793,6 +817,11 @@ export default defineI18nConfig(() => ({
         },
       },
       decks: {
+        stats: {
+          overview: "Distribución de evaluaciones",
+          noData: "Sin datos",
+          daysStreak: "Racha de estudio",
+        },
         public: "Mazos públicos",
         weekly: "Mazos semanales",
         weeklyDesc: "Mazos creados esta semana",
@@ -894,6 +923,9 @@ export default defineI18nConfig(() => ({
         },
         revisionsByDeck: {
           title: "Revisiones por mazo",
+        },
+        last30Days: {
+          title: "Revisiones últimos 30 días",
         },
       },
     },
