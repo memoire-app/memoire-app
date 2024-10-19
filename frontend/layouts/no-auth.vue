@@ -37,7 +37,7 @@ const logo = computed(() => {
           />
           <ColorMode />
           <UButton size="sm" to="/login" variant="soft" icon="i-mdi-login">
-            <span>{{ t("utils.login") }}</span>
+            <span>{{ t("login.title") }}</span>
           </UButton>
         </div>
       </UContainer>

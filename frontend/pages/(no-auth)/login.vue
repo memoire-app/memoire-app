@@ -8,29 +8,20 @@ const router = useRouter();
 const runtimeConfig = useRuntimeConfig();
 
 const authenticate = async (provider: string) => {
-  try {
-    const { checkAuth } = useAuth();
+  const res = await $fetch(`${provider}/redirect`, {
+    baseURL: runtimeConfig.public.BACK_URL as string,
+  });
 
-    if (await checkAuth()) {
-      await router.push("/flashcards");
-      return;
-    }
-  } catch {
-    const res = await $fetch(`${provider}/redirect`, {
-      baseURL: runtimeConfig.public.BACK_URL as string,
-    });
-
-    switch (provider) {
-      case "discord":
-        window.location.href = `${res.url}&prompt=none`;
-        break;
-      case "google":
-        window.location.href = `${res.url}&prompt=consent`;
-        break;
-      case "github":
-        window.location.href = res.url;
-        break;
-    }
+  switch (provider) {
+    case "discord":
+      window.location.href = `${res.url}&prompt=none`;
+      break;
+    case "google":
+      window.location.href = `${res.url}&prompt=consent`;
+      break;
+    case "github":
+      window.location.href = res.url;
+      break;
   }
 };
 
@@ -43,34 +34,51 @@ const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 const isRegister = ref(false);
+const toast = useToast();
 
 const login = async () => {
   try {
     await $fetch("login", {
+      baseURL: runtimeConfig.public.BACK_URL as string,
+      credentials: "include",
       method: "POST",
       body: JSON.stringify({ email: email.value, password: password.value }),
     });
 
     await router.push("/flashcards");
-  } catch (e) {
-    console.error(e);
+  } catch {
+    toast.add({
+      title: t("login.invalid"),
+      icon: "i-lucide-bug",
+      color: "red",
+    });
   }
 };
 
 const register = async () => {
   try {
+    // Make sure the passwords match
+    if (password.value !== confirmPassword.value) {
+      toast.add({
+        title: t("register.passwordMismatch"),
+        icon: "i-lucide-bug",
+        color: "red",
+      });
+      return;
+    }
     await $fetch("register", {
+      baseURL: runtimeConfig.public.BACK_URL as string,
+      credentials: "include",
       method: "POST",
       body: JSON.stringify({
         email: email.value,
         password: password.value,
-        confirmPassword: confirmPassword.value,
       }),
     });
 
     await router.push("/flashcards");
-  } catch (e) {
-    console.error(e);
+  } catch {
+    return router.push("/login");
   }
 };
 
@@ -99,7 +107,7 @@ const items = computed(() => [
     <UContainer
       class="flex w-fit min-w-96 flex-col justify-center gap-4 pt-24 md:pt-40 lg:min-w-[600px]"
     >
-      <UTabs :items="items" v-model:active="isRegister" class="w-full">
+      <UTabs v-model:active="isRegister" :items="items" class="w-full">
         <template #item="{ item }">
           <UCard @submit.prevent="item.key === 'login' ? login() : register()">
             <template #header>
@@ -174,7 +182,14 @@ const items = computed(() => [
             </div>
 
             <template #footer>
-              <UButton type="submit" block size="xl" icon="i-mdi-login">
+              <UButton
+                type="submit"
+                block
+                size="xl"
+                :icon="
+                  item.key === 'login' ? 'i-mdi-login' : 'i-lucide-badge-plus'
+                "
+              >
                 {{
                   item.key === "login" ? t("login.title") : t("register.title")
                 }}
@@ -197,7 +212,7 @@ const items = computed(() => [
             block
             size="xl"
             class="flex flex-1 justify-center p-4"
-            variant="soft"
+            variant="outline"
             @click="authenticate('discord')"
           />
         </UTooltip>
@@ -212,7 +227,7 @@ const items = computed(() => [
             size="xl"
             square
             class="flex flex-1 justify-center p-4"
-            variant="soft"
+            variant="outline"
             @click="authenticate('github')"
           />
         </UTooltip>
@@ -227,7 +242,7 @@ const items = computed(() => [
             size="xl"
             square
             class="flex flex-1 justify-center p-4"
-            variant="soft"
+            variant="outline"
             @click="authenticate('google')"
           />
         </UTooltip>

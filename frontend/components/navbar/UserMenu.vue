@@ -5,23 +5,7 @@ defineProps({
     required: true,
   },
 });
-const { t } = useI18n();
 const avatar = useState("avatar") as Ref<string>;
-const open = ref(false);
-
-const router = useRouter();
-
-const userItems = computed(() => [
-  [
-    {
-      label: t("pages.profile.title"),
-      avatar: {
-        src: avatar.value as string,
-      },
-      click: () => router.push("/profile"),
-    },
-  ],
-]);
 </script>
 
 <template>
@@ -31,9 +15,9 @@ const userItems = computed(() => [
       isMenuOpen ? 'flex-row justify-between' : 'flex-col items-center gap-4'
     "
   >
-    <UDropdown v-model="open" :items="userItems">
+    <NuxtLink to="/profile">
       <UAvatar :src="avatar" alt="Avatar" />
-    </UDropdown>
+    </NuxtLink>
     <div
       class="flex"
       :class="isMenuOpen ? 'flex-row' : 'flex-col items-center gap-2 px-2'"
