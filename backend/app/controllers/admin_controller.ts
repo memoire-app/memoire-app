@@ -41,6 +41,7 @@ export default class AdminController {
       .where('isPublic', true)
       .where('isDeleted', false)
       .preload('flashcards')
+      .orderBy('updatedAt', 'desc')
       .paginate(page, 50)
   }
 }
