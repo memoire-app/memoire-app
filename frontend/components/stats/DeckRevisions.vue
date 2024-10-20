@@ -20,6 +20,12 @@ const retentionColors = {
 };
 
 const { t } = useI18n();
+const revisionIsEmpty = computed(
+  () =>
+    props.revisions
+      .map((r) => r.flashcards.length)
+      .reduce((a, b) => a + b, 0) === 0,
+);
 
 // Calculate the mean proportions of each retention type for all revisions
 const meanRetentionTypes = computed(() => {
@@ -66,7 +72,7 @@ const filteredRetentionTypes = (type: RetentionType) => {
       {{ t("decks.stats.overview") }}
     </div>
     <div
-      v-if="props.revisions.length === 0"
+      v-if="props.revisions.length === 0 || revisionIsEmpty"
       class="flex h-full w-full items-center justify-center rounded-lg border border-slate-200 text-sm text-slate-300 dark:border-slate-700 dark:text-slate-600"
     >
       {{ t("decks.stats.noData") }}
