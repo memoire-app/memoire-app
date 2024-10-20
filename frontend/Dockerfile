@@ -23,10 +23,7 @@ FROM node:20.12.2-alpine3.18
 WORKDIR /app
 
 # Copy only the necessary files from the build stage
-COPY --from=builder /app ./
-
-# Install only production dependencies
-RUN npm install
+COPY --from=builder /app/.output/ .output/
 
 # Expose the port where Nuxt will be served
 EXPOSE 3000
