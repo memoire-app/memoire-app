@@ -67,7 +67,9 @@ router
 
 router
   .group(() => {
-    router.get('/decks', [AdminController, 'getAllDecks'])
+    router.get('/me', [AdminController, 'me'])
+    router.get('/stats', [AdminController, 'getBasicStats'])
+    router.get('/moderation', [AdminController, 'getModeration'])
   })
   .use(middleware.admin())
   .prefix('/admin')
