@@ -15,6 +15,7 @@ const RevisionsFlashcardsController = () => import('#controllers/revisions_flash
 const DecksController = () => import('#controllers/decks_controller')
 const UsersController = () => import('#controllers/users_controller')
 const FlashcardsController = () => import('#controllers/flashcards_controller')
+const AdminController = () => import('#controllers/admin_controller')
 
 router
   .group(() => {
@@ -63,3 +64,10 @@ router
     router.get('/stats', [DashboardStatsController, 'getAll']).use(middleware.auth())
   })
   .prefix('/api')
+
+router
+  .group(() => {
+    router.get('/decks', [AdminController, 'getAllDecks'])
+  })
+  .use(middleware.admin())
+  .prefix('/admin')
