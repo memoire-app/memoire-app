@@ -211,17 +211,29 @@ watch(page, (newPage) => {
     </div>
 
     <div v-if="data" class="mt-4">
-      <div class="flex items-center justify-end gap-6 pb-2">
-        <UPagination v-model="page" :total="data.nbDecks" :page-count="LIMIT" />
+      <div v-if="data.nbDecks === 0" class="mt-14 flex justify-center">
+        <div class="flex flex-col items-center justify-center opacity-40">
+          <span class="text-4xl">😔</span>
+          <span class="text-xl"> {{ t("decks.noDecks") }}</span>
+        </div>
       </div>
+      <div v-else>
+        <div class="flex items-center justify-end gap-6 pb-2">
+          <UPagination
+            v-model="page"
+            :total="data.nbDecks"
+            :page-count="LIMIT"
+          />
+        </div>
 
-      <div class="grid gap-3 lg:grid-cols-2 xl:grid-cols-3">
-        <DeckCard
-          v-for="deck in data.decks"
-          :key="deck.id"
-          :deck="deck"
-          @refresh="refresh"
-        />
+        <div class="grid gap-3 lg:grid-cols-2 xl:grid-cols-3">
+          <DeckCard
+            v-for="deck in data.decks"
+            :key="deck.id"
+            :deck="deck"
+            @refresh="refresh"
+          />
+        </div>
       </div>
 
       <USlideover v-model="createDeckOpen">
