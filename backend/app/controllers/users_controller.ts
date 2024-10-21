@@ -4,12 +4,14 @@ import env from '#start/env'
 import { inject } from '@adonisjs/core'
 import ApiBuilderService from '../../service/api_builder_service.js'
 import LoggerService from '../../service/logger_service.js'
+import UsersService from '../../service/user_service.js'
 
 @inject()
 export default class UsersController {
   constructor(
     protected apiBuilderService: ApiBuilderService,
-    protected loggerService: LoggerService
+    protected loggerService: LoggerService,
+    protected userService: UsersService
   ) {}
   async redirect({ ally, request, params }: HttpContext) {
     this.loggerService.default(request, 'redirect_users', { provider: params.provider })
@@ -45,6 +47,8 @@ export default class UsersController {
         }
       )
 
+      await this.userService.assignDefaultRole(user)
+
       await auth.use('web').login(user)
       return response.redirect(`${env.get('FRONT_URL')}/flashcards`)
     } catch (error) {
@@ -77,6 +81,8 @@ export default class UsersController {
         memoireUsername: email.split('@')[0],
       }
     )
+
+    await this.userService.assignDefaultRole(user)
 
     await auth.use('web').login(user)
 
