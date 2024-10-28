@@ -3,10 +3,14 @@ import { HttpContext } from '@adonisjs/core/http'
 import LoggerService from '../../service/logger_service.js'
 import db from '@adonisjs/lucid/services/db'
 import Deck from '#models/deck'
+import AdminService from '../../service/admin_service.js'
 
 @inject()
 export default class AdminController {
-  constructor(protected loggerService: LoggerService) {}
+  constructor(
+    protected loggerService: LoggerService,
+    protected adminService: AdminService
+  ) {}
 
   async me({ auth, request }: HttpContext) {
     this.loggerService.default(request, 'me_user', { userId: auth.user?.id })
@@ -43,5 +47,17 @@ export default class AdminController {
       .preload('flashcards')
       .orderBy('updatedAt', 'desc')
       .paginate(page, 50)
+  }
+
+  async deleteDeck({ request, params }: HttpContext) {
+    this.loggerService.default(request, 'delete_deck', { userId: params.userId })
+
+    return this.adminService.deleteDeck(params.deckId)
+  }
+
+  async deleteFlashcard({ request, params }: HttpContext) {
+    this.loggerService.default(request, 'delete_flashcard', { userId: params.userId })
+
+    return this.adminService.deleteFlashcard(params.flashcardId)
   }
 }

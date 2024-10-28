@@ -70,6 +70,8 @@ router
     router.get('/me', [AdminController, 'me'])
     router.get('/stats', [AdminController, 'getBasicStats'])
     router.get('/moderation', [AdminController, 'getModeration'])
+    router.delete('/moderation/decks/:deckId', [AdminController, 'deleteDeck'])
+    router.delete('/moderation/flashcards/:flashcardId', [AdminController, 'deleteFlashcard'])
   })
   .use(middleware.admin())
   .prefix('/admin')
