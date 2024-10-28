@@ -121,6 +121,7 @@ export default defineI18nConfig(() => ({
         },
       },
       decks: {
+        noDecks: "It looks like you don't have any decks yet...",
         stats: {
           overview: "Evaluation distribution",
           noData: "No data",
@@ -355,6 +356,7 @@ export default defineI18nConfig(() => ({
         },
       },
       decks: {
+        noDecks: "Il semble que vous n'ayez pas encore de decks...",
         stats: {
           overview: "Répartition des évaluations",
           noData: "Pas de données",
@@ -586,6 +588,7 @@ export default defineI18nConfig(() => ({
         },
       },
       decks: {
+        noDecks: "아직 덱이 없는 것 같습니다",
         stats: {
           overview: "평가 분포",
           noData: "데이터 없음",
@@ -817,6 +820,7 @@ export default defineI18nConfig(() => ({
         },
       },
       decks: {
+        noDecks: "Parece que aún no tienes mazos...",
         stats: {
           overview: "Distribución de evaluaciones",
           noData: "Sin datos",

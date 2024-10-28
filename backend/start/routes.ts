@@ -15,6 +15,7 @@ const RevisionsFlashcardsController = () => import('#controllers/revisions_flash
 const DecksController = () => import('#controllers/decks_controller')
 const UsersController = () => import('#controllers/users_controller')
 const FlashcardsController = () => import('#controllers/flashcards_controller')
+const AdminController = () => import('#controllers/admin_controller')
 
 router
   .group(() => {
@@ -63,3 +64,14 @@ router
     router.get('/stats', [DashboardStatsController, 'getAll']).use(middleware.auth())
   })
   .prefix('/api')
+
+router
+  .group(() => {
+    router.get('/me', [AdminController, 'me'])
+    router.get('/stats', [AdminController, 'getBasicStats'])
+    router.get('/moderation', [AdminController, 'getModeration'])
+    router.delete('/moderation/decks/:deckId', [AdminController, 'deleteDeck'])
+    router.delete('/moderation/flashcards/:flashcardId', [AdminController, 'deleteFlashcard'])
+  })
+  .use(middleware.admin())
+  .prefix('/admin')
