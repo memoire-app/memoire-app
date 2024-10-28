@@ -65,7 +65,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare roles: ManyToMany<typeof Role>
 
   @beforeFind()
-  public static async preloadRole(query: any) {
+  static async preloadRole(query: any) {
     query.preload('roles', (q: any) => {
       q.pivotColumns(['id', 'role_id', 'user_id'])
     })

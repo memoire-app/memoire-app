@@ -99,7 +99,7 @@ const filteredRetentionTypes = (type: RetentionType) => {
             { 'dark:opacity-75': !hovered },
           ]"
         >
-          <span class="text-xs" v-if="percentage !== 0">
+          <span v-if="percentage !== 0" class="text-xs">
             {{ percentage.toFixed(1) }}%</span
           >
         </div>

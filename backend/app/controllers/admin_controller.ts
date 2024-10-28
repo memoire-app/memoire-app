@@ -15,7 +15,9 @@ export default class AdminController {
   async me({ auth, request }: HttpContext) {
     this.loggerService.default(request, 'me_user', { userId: auth.user?.id })
 
-    return auth.user
+    return {
+      isAdmin: auth.user?.isAdmin,
+    }
   }
 
   async getBasicStats({ request, params }: HttpContext) {
